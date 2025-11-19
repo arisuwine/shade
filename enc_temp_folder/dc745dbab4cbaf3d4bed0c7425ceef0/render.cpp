@@ -18,10 +18,10 @@ draw_object render::draw;
 
 void render::setup_fonts() {
     fonts.set_io();
-    fonts.push("MuseoSans-500", "c:\\USERS\\ADMINISTRATOR\\APPDATA\\LOCAL\\MICROSOFT\\WINDOWS\\FONTS\\MuseoSansCyrl-500.ttf", 15.0f);
-    fonts.push("MuseoSans-500_12", "c:\\USERS\\ADMINISTRATOR\\APPDATA\\LOCAL\\MICROSOFT\\WINDOWS\\FONTS\\MuseoSansCyrl-500.ttf", 12.0f);
-    fonts.push("MuseoSans-900", "c:\\USERS\\ADMINISTRATOR\\APPDATA\\LOCAL\\MICROSOFT\\WINDOWS\\FONTS\\MuseoSansCyrl-900.ttf", 24.0f);
-    fonts.push("MuseoSans-900_10", "c:\\USERS\\ADMINISTRATOR\\APPDATA\\LOCAL\\MICROSOFT\\WINDOWS\\FONTS\\MuseoSansCyrl-900.ttf", 13.0f);
+    fonts.push("MuseoSans-500", "c:\\USERS\\WINe\\APPDATA\\LOCAL\\MICROSOFT\\WINDOWS\\FONTS\\MuseoSansCyrl-500.ttf", 15.0f);
+    fonts.push("MuseoSans-500_12", "c:\\USERS\\WINe\\APPDATA\\LOCAL\\MICROSOFT\\WINDOWS\\FONTS\\MuseoSansCyrl-500.ttf", 12.0f);
+    fonts.push("MuseoSans-900", "c:\\USERS\\WINe\\APPDATA\\LOCAL\\MICROSOFT\\WINDOWS\\FONTS\\MuseoSansCyrl-900.ttf", 24.0f);
+    fonts.push("MuseoSans-900_10", "c:\\USERS\\WINe\\APPDATA\\LOCAL\\MICROSOFT\\WINDOWS\\FONTS\\MuseoSansCyrl-900.ttf", 13.0f);
 }
 
 std::vector<PlayerPawn> pawns;
