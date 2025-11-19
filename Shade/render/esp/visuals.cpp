@@ -6,6 +6,9 @@ void visuals::render_name() const {
 	if (pawn.is_local_player())
 		return;
 
+	if (pawn.data.health <= 0)
+		return;
+
 	vector_3d head_position = { };
 	if ((head_position = CBone::get_bone_position(pawn.get_address(), Head)).is_zero())
 		return;
@@ -24,26 +27,38 @@ void visuals::render_box() const {
 	if (pawn.is_local_player())
 		return;
 
+	if (pawn.data.health <= 0)
+		return;
+
+	vector_3d camera = { };
+	if ((camera = CBone::get_bone_position(p_local_player->get_address(), Head)).is_zero())
+		return;
+
 	vector_3d head_position = { };
 	if ((head_position = CBone::get_bone_position(pawn.get_address(), Head)).is_zero())
 		return;
 
-	vector_3d points[4];
+	float height = std::round(head_position.z - pawn.data.origin.z);
+	float width = height / 4.0f;
+	std::array<vector_3d, 4> vertices_3d = {
+		vector_3d(pawn.data.origin.x, pawn.data.origin.y - width, pawn.data.origin.z + height + 10.0f), // Upper-Left
+		vector_3d(pawn.data.origin.x, pawn.data.origin.y + width, pawn.data.origin.z + height + 10.0f), // Upper-Right
+		vector_3d(pawn.data.origin.x, pawn.data.origin.y + width, pawn.data.origin.z),					// Lower-Left
+		vector_3d(pawn.data.origin.x, pawn.data.origin.y - width, pawn.data.origin.z)					// Lower-Right
+	};
 
-	head_position.y -= 15.0f;
-	head_position.z += 10.0f;
+	std::array<vector_2d, 4> vertices_2d;
+	for (size_t i = 0; i < 4; i++) {
+		if (!math::world_to_screen(vertices_3d[i], vertices_2d[i]))
+			return;
+	}
 
-	vector_2d box_start = { };
-	if (!math::world_to_screen(head_position, box_start))
-		return;
+	for (size_t i = 0; i < 3; i++) {
+		ref_to_draw.draw_line(im_vec_2(vertices_2d[i].x, vertices_2d[i].y), im_vec_2(vertices_2d[i + 1].x, vertices_2d[i + 1].y), ImColor(255, 255, 255, 255), 0.8f);
 
-	vector_2d box_end = { };
-	if (!math::world_to_screen(vector_3d(pawn.data.origin.x, pawn.data.origin.y + 15.0f, pawn.data.origin.z), box_end))
-		return;
-
-	//LOG("Box Start: %f, %f; Box End: %f, %f; Head Position: %f, %f, %f; Origin: %f, %f, %f\n", box_start.x, box_start.y, box_end.x, box_end.y, head_position.x, head_position.y, head_position.z, pawn.data.origin.x, pawn.data.origin.y + 15.0f, pawn.data.origin.z);
-
-	ref_to_draw.draw_rect(im_vec_2(box_start.x, box_start.y), im_vec_2(box_end.x, box_end.y), ImColor(255, 255, 255, 255), 0.0f, false, 0.8f);
+		if (i == 2)
+			ref_to_draw.draw_line(im_vec_2(vertices_2d[i + 1].x, vertices_2d[i + 1].y), im_vec_2(vertices_2d[0].x, vertices_2d[0].y), ImColor(255, 255, 255, 255), 0.8f);
+	}
 }
 
 void visuals::render_health() const {

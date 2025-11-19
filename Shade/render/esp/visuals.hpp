@@ -1,4 +1,7 @@
 #pragma once
+#include <cmath>
+#include <array>
+
 #include "../render.hpp"
 #include "../../sdk/entities/PlayerPawn.hpp"
 #include "../../sdk/interfaces/CBone.hpp"
@@ -25,7 +28,6 @@ private:
 public:
 	visuals(const PlayerPawn& _pawn);
 
-	void render_line() const;
 	void render_name() const;
 	void render_box() const;
 	void render_health() const;

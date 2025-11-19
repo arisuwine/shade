@@ -6,6 +6,5 @@ uintptr_t view_matrix::get_address() {
 }
 
 matrix4x4 view_matrix::get_matrix() {
-	LOG("VMatrix: %p\n", get_address());
 	return *reinterpret_cast<matrix4x4*>(get_address());
 }
