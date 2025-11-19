@@ -1,9 +1,0 @@
-﻿  game_overlay.cpp
-  visuals.cpp
-  menu.cpp
-  render.cpp
-  PlayerPawn.cpp
-C:\Users\Administrator\source\repos\Dll3\Dll3\sdk\entities\PlayerPawn.cpp(50,51): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-  view_matrix.cpp
-C:\Users\Administrator\source\repos\Dll3\Dll3\sdk\interfaces\view_matrix.cpp(9,2): warning C4477: 'printf' : format string '%p' requires an argument of type 'void *', but variadic argument 1 has type 'uintptr_t'
-  Dll3.vcxproj -> C:\Users\Administrator\source\repos\Dll3\x64\Debug\Dll3.dll
