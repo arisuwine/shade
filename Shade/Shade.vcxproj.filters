@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="imgui">
+      <UniqueIdentifier>{27cae28e-9e0d-4283-a3d0-6e64d24c3e71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hooks">
+      <UniqueIdentifier>{ce229b91-c80d-4470-9886-9b5470fc6318}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk">
+      <UniqueIdentifier>{571895f6-43ce-46bd-aef5-5bf43ec81e86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils">
+      <UniqueIdentifier>{f8f347d9-8473-45bf-906d-d0664011bf91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk\entities">
+      <UniqueIdentifier>{8ccd2983-81e0-4058-81bc-19132025e6c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk\entities\PlayerPawn">
+      <UniqueIdentifier>{af2f9945-e3c9-4cf8-aed2-057d9d0eded9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils\pattern_scan">
+      <UniqueIdentifier>{7f25701d-43b1-4d05-ac6c-70ccc34a486f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk\view_matrix">
+      <UniqueIdentifier>{7bceb4a6-1e7e-45a6-b373-a6ea4b88ac90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="render">
+      <UniqueIdentifier>{32608491-b252-4a74-ad6c-2325208a855d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="render\menu">
+      <UniqueIdentifier>{4fcc8511-1755-434b-b321-f4576e3c00dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="math">
+      <UniqueIdentifier>{80db7015-ec4e-4f80-8c64-93444dfe67f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk\math">
+      <UniqueIdentifier>{a13a7de8-7ba2-492e-8f60-3a4062db7022}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk\math\matrix">
+      <UniqueIdentifier>{1940326e-1f74-48f3-bc00-703c98408fc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk\math\vector">
+      <UniqueIdentifier>{f302d89d-762a-445f-82b3-e3d5553c5110}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk\interfaces">
+      <UniqueIdentifier>{c296cf10-7aba-4676-82d2-b466fe96b84e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk\interfaces\CGameEntitySystem">
+      <UniqueIdentifier>{2f87c153-e152-4492-b3d0-928fea3b0746}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="math\world_to_screen">
+      <UniqueIdentifier>{1f83b0c7-09b8-4397-b3af-3118778defa6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="render\utils">
+      <UniqueIdentifier>{46848350-4416-40a9-b867-b5b62b80ca00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="render\utils\colors">
+      <UniqueIdentifier>{ae9d1bff-4764-4f26-853a-9d65e8b5106a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="render\utils\gui">
+      <UniqueIdentifier>{9f261824-f4c6-47b1-a87d-176211b5d7bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hooks\game_overlay">
+      <UniqueIdentifier>{8a872087-07d5-4466-9f45-6edab7c725af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="imgui\impl">
+      <UniqueIdentifier>{247c1a4a-37f7-407b-8403-f0d59938c840}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils\console">
+      <UniqueIdentifier>{96b4694c-fa20-4281-9f0e-21f4b48d4775}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk\interfaces\CBone">
+      <UniqueIdentifier>{5abce9fe-b853-4f38-946f-759b2090f5f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="render\esp">
+      <UniqueIdentifier>{361fd26f-8fde-4746-b73e-81bc340d6f21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="main">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imconfig.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui_internal.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imstb_rectpack.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imstb_textedit.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imstb_truetype.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix4x4.hpp">
+      <Filter>sdk\math\matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="matrix.hpp">
+      <Filter>sdk\math\matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\offsets.hpp">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\modules.hpp">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\signatures.hpp">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\utils.hpp">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\entities\PlayerPawn.hpp">
+      <Filter>sdk\entities\PlayerPawn</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\math\vector.hpp">
+      <Filter>sdk\math</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\math\matrix.hpp">
+      <Filter>sdk\math</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\math\math.hpp">
+      <Filter>sdk\math</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\CGameEntitySystem.hpp">
+      <Filter>sdk\interfaces\CGameEntitySystem</Filter>
+    </ClInclude>
+    <ClInclude Include="math\world_to_screen.hpp">
+      <Filter>math\world_to_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\view_matrix.hpp">
+      <Filter>sdk\view_matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="render\utils\im_vec_2.hpp">
+      <Filter>render\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="render\utils\colors.hpp">
+      <Filter>render\utils\colors</Filter>
+    </ClInclude>
+    <ClInclude Include="render\utils\gui.hpp">
+      <Filter>render\utils\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\pattern_scan\pattern_scan.hpp">
+      <Filter>utils\pattern_scan</Filter>
+    </ClInclude>
+    <ClInclude Include="hooks\game_overlay.hpp">
+      <Filter>hooks\game_overlay</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui_impl_dx11.h">
+      <Filter>imgui\impl</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui_impl_win32.h">
+      <Filter>imgui\impl</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\console.hpp">
+      <Filter>utils\console</Filter>
+    </ClInclude>
+    <ClInclude Include="render\render.hpp">
+      <Filter>render</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\math\vector\vector_2d.hpp">
+      <Filter>sdk\math\vector</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\math\vector\vector_3d.hpp">
+      <Filter>sdk\math\vector</Filter>
+    </ClInclude>
+    <ClInclude Include="render\menu\menu.hpp">
+      <Filter>render\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\CBone.hpp">
+      <Filter>sdk\interfaces\CBone</Filter>
+    </ClInclude>
+    <ClInclude Include="render\esp\visuals.hpp">
+      <Filter>render\esp</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_demo.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_draw.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_tables.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_widgets.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\pattern_scan\pattern_scan.cpp">
+      <Filter>utils\pattern_scan</Filter>
+    </ClCompile>
+    <ClCompile Include="sdk\entities\PlayerPawn.cpp">
+      <Filter>sdk\entities\PlayerPawn</Filter>
+    </ClCompile>
+    <ClCompile Include="sdk\interfaces\CGameEntitySystem.cpp">
+      <Filter>sdk\interfaces\CGameEntitySystem</Filter>
+    </ClCompile>
+    <ClCompile Include="math\world_to_screen.cpp">
+      <Filter>math\world_to_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="sdk\interfaces\view_matrix.cpp">
+      <Filter>sdk\view_matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="render\utils\colors.cpp">
+      <Filter>render\utils\colors</Filter>
+    </ClCompile>
+    <ClCompile Include="render\utils\gui.cpp">
+      <Filter>render\utils\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="hooks\game_overlay.cpp">
+      <Filter>hooks\game_overlay</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_impl_dx11.cpp">
+      <Filter>imgui\impl</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_impl_win32.cpp">
+      <Filter>imgui\impl</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\console.cpp">
+      <Filter>utils\console</Filter>
+    </ClCompile>
+    <ClCompile Include="render\render.cpp">
+      <Filter>render</Filter>
+    </ClCompile>
+    <ClCompile Include="render\menu\menu.cpp">
+      <Filter>render\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="sdk\interfaces\CBone.cpp">
+      <Filter>sdk\interfaces\CBone</Filter>
+    </ClCompile>
+    <ClCompile Include="render\esp\visuals.cpp">
+      <Filter>render\esp</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
