@@ -90,7 +90,6 @@ void gui::draw_object::draw_line(const im_vec_2& pos_start, const im_vec_2& pos_
     draw_list->AddLine(pos_start, pos_end, col, thickness);
 }
 
-
 gui::draw_object* gui::draw_element::draw = nullptr;
 void gui::draw_element::draw_slider(const std::string_view& name, const im_vec_2& pos, const state_colors& colors, ImFont* font) {
     im_vec_2 track_size(173.0f, 3.0f);

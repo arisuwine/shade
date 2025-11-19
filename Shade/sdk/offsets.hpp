@@ -15,6 +15,7 @@ namespace offsets {
 		inline const uintptr_t m_iHealth = 0x34c;
 		inline const uintptr_t m_iTeamNum = 0x3eb;
 		inline const uintptr_t m_pGameSceneNode = 0x330;
+		inline const uintptr_t m_pCollision = 0x340;
 	}
 
 	namespace CGameSceneNode {
