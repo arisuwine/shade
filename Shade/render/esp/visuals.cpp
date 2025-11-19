@@ -28,6 +28,8 @@ void visuals::render_box() const {
 	if ((head_position = CBone::get_bone_position(pawn.get_address(), Head)).is_zero())
 		return;
 
+	vector_3d points[4];
+
 	head_position.y -= 15.0f;
 	head_position.z += 10.0f;
 
