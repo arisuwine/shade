@@ -20,9 +20,6 @@
     <Filter Include="sdk\entities">
       <UniqueIdentifier>{8ccd2983-81e0-4058-81bc-19132025e6c3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sdk\entities\PlayerPawn">
-      <UniqueIdentifier>{af2f9945-e3c9-4cf8-aed2-057d9d0eded9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="utils\pattern_scan">
       <UniqueIdentifier>{7f25701d-43b1-4d05-ac6c-70ccc34a486f}</UniqueIdentifier>
     </Filter>
@@ -84,6 +81,27 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="sdk\interfaces\CCollisionProperty">
+      <UniqueIdentifier>{9a00bf89-a004-4d68-b1e1-2de25c8107cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk\interfaces\CPlayer_MovementServices">
+      <UniqueIdentifier>{89692624-b186-4685-a58a-b436e2068499}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk\interfaces\CGameSceneNode">
+      <UniqueIdentifier>{053e94f8-6fc3-45ec-bb07-bd3b3816ae3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk\interfaces\CModelState">
+      <UniqueIdentifier>{b97643f4-af93-4539-8e2a-d86c2d557f37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk\entities\CCSPlayerPawn">
+      <UniqueIdentifier>{af2f9945-e3c9-4cf8-aed2-057d9d0eded9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk\interfaces\CCSPlayerController">
+      <UniqueIdentifier>{057be7d5-3efb-4fe8-b904-05d33e1c6659}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk\utils">
+      <UniqueIdentifier>{fccc5701-d206-4c49-b407-5a5fcdd383fa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -125,8 +143,8 @@
     <ClInclude Include="utils\utils.hpp">
       <Filter>utils</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\entities\PlayerPawn.hpp">
-      <Filter>sdk\entities\PlayerPawn</Filter>
+    <ClInclude Include="sdk\entities\CCSPlayerPawn.hpp">
+      <Filter>sdk\entities\CCSPlayerPawn</Filter>
     </ClInclude>
     <ClInclude Include="sdk\math\vector.hpp">
       <Filter>sdk\math</Filter>
@@ -188,6 +206,24 @@
     <ClInclude Include="render\esp\visuals.hpp">
       <Filter>render\esp</Filter>
     </ClInclude>
+    <ClInclude Include="sdk\interfaces\CCollisionProperty.hpp">
+      <Filter>sdk\interfaces\CCollisionProperty</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\CPlayer_MovementServices.hpp">
+      <Filter>sdk\interfaces\CPlayer_MovementServices</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\CGameSceneNode.hpp">
+      <Filter>sdk\interfaces\CGameSceneNode</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\CModelState.hpp">
+      <Filter>sdk\interfaces\CModelState</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\CCSPlayerController.hpp">
+      <Filter>sdk\interfaces\CCSPlayerController</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\utils\CUtlString.hpp">
+      <Filter>sdk\utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -211,8 +247,8 @@
     <ClCompile Include="utils\pattern_scan\pattern_scan.cpp">
       <Filter>utils\pattern_scan</Filter>
     </ClCompile>
-    <ClCompile Include="sdk\entities\PlayerPawn.cpp">
-      <Filter>sdk\entities\PlayerPawn</Filter>
+    <ClCompile Include="sdk\entities\CCSPlayerPawn.cpp">
+      <Filter>sdk\entities\CCSPlayerPawn</Filter>
     </ClCompile>
     <ClCompile Include="sdk\interfaces\CGameEntitySystem.cpp">
       <Filter>sdk\interfaces\CGameEntitySystem</Filter>
@@ -252,6 +288,12 @@
     </ClCompile>
     <ClCompile Include="render\esp\visuals.cpp">
       <Filter>render\esp</Filter>
+    </ClCompile>
+    <ClCompile Include="sdk\interfaces\CCollisionProperty.cpp">
+      <Filter>sdk\interfaces\CCollisionProperty</Filter>
+    </ClCompile>
+    <ClCompile Include="sdk\interfaces\CPlayer_MovementServices.cpp">
+      <Filter>sdk\interfaces\CPlayer_MovementServices</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
