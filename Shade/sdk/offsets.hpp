@@ -1,6 +1,8 @@
 #pragma once
 #include <Windows.h>
 
+#define THIS_ADDR reinterpret_cast<uintptr_t>(this)
+
 namespace offsets {
 	namespace CCSPlayerController {
 		inline const uintptr_t m_hPawn = 0x6B4;
@@ -28,6 +30,7 @@ namespace offsets {
 
 	namespace CGameSceneNode {
 		inline const uintptr_t m_modelState = 0x190;
+		inline const uintptr_t m_vecAbsOrigin = 0xD0;
 	}
 
 	namespace CModelState {

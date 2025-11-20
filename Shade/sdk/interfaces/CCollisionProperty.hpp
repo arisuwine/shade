@@ -4,6 +4,11 @@
 
 class CCollisionProperty {
 public:
-	vector_3d m_vecMins() const;
-	vector_3d m_vecMaxs() const;
+	inline vector_3d m_vecMaxs() const {
+		return *reinterpret_cast<vector_3d*>(THIS_ADDR + offsets::CCollisionProperty::m_vecMaxs);
+	}
+
+	inline vector_3d m_vecMins() const {
+		return *reinterpret_cast<vector_3d*>(THIS_ADDR + offsets::CCollisionProperty::m_vecMins);
+	}
 };
