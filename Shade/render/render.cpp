@@ -25,12 +25,12 @@ void render::setup_fonts() {
     fonts.push("MuseoSans-900_10", "c:\\USERS\\ADMINISTRATOR\\APPDATA\\LOCAL\\MICROSOFT\\WINDOWS\\FONTS\\MuseoSansCyrl-900.ttf", 13.0f);
 }
 
-std::vector<CCSPlayerPawn*> pawns;
+std::vector<CCSPlayerPawn*> players;
 LocalPlayer* local_player;
 
 void render::draw_information() {
     uintptr_t controller, pawn;
-    pawns.clear();
+    players.clear();
 
     LocalPlayer::get().update();
 
@@ -47,16 +47,16 @@ void render::draw_information() {
             continue;
         }
 
-        pawns.push_back(reinterpret_cast<CCSPlayerPawn*>(pawn));
+        players.push_back(reinterpret_cast<CCSPlayerPawn*>(pawn));
     }
 
     size_t i = 0;
-    for (const auto& pawn : pawns) {
-        visuals draw_visuals(pawn);
+    for (const auto& player : players) {
+        esp draw_visuals(player);
 
         draw_visuals.render_name();
         draw_visuals.render_box();
-        //draw_visuals.render_health();
+        draw_visuals.render_health();
         draw_visuals.render_skeleton();
 
         ++i;

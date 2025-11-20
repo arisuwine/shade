@@ -3,7 +3,7 @@
 bool math::world_to_screen(const vector_3d& in, vector_2d& out) {
     matrix4x4 matrix_v = view_matrix::get_matrix();
 
-    if (in.x == 0 || in.y == 0 || in.z == 0)
+    if (in.is_zero())
         return 0;
 
     out.x = matrix_v.matrix[0][0] * in.x + matrix_v.matrix[0][1] * in.y + matrix_v.matrix[0][2] * in.z + matrix_v.matrix[0][3];

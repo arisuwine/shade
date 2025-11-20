@@ -1,5 +1,6 @@
 #pragma once
 #include "imgui.h"
+#include "../sdk/math/vector/vector_2d.hpp"
 
 namespace render {
     namespace types {
@@ -7,6 +8,7 @@ namespace render {
             constexpr im_vec_2() noexcept {}
             constexpr im_vec_2(float x, float y) noexcept : ImVec2(x, y) {}
             constexpr im_vec_2(const ImVec2& vector) noexcept : ImVec2(vector) {}
+            constexpr im_vec_2(const vector_2d& vector) noexcept : ImVec2(vector.x, vector.y) {}
 
             constexpr im_vec_2 operator+(const ImVec2& vector) const noexcept {
                 return im_vec_2(this->x + vector.x, this->y + vector.y);

@@ -7,7 +7,7 @@
 #include "utils/gui.hpp"
 #include "utils/im_vec_2.hpp"
 
-#include "esp/visuals.hpp"
+#include "../features/esp.hpp"
 
 #include "../sdk/modules.hpp"
 #include "../sdk/offsets.hpp"
