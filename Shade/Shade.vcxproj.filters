@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="imgui">
       <UniqueIdentifier>{27cae28e-9e0d-4283-a3d0-6e64d24c3e71}</UniqueIdentifier>
     </Filter>
@@ -28,9 +24,6 @@
     </Filter>
     <Filter Include="render">
       <UniqueIdentifier>{32608491-b252-4a74-ad6c-2325208a855d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="render\menu">
-      <UniqueIdentifier>{4fcc8511-1755-434b-b321-f4576e3c00dd}</UniqueIdentifier>
     </Filter>
     <Filter Include="math">
       <UniqueIdentifier>{80db7015-ec4e-4f80-8c64-93444dfe67f1}</UniqueIdentifier>
@@ -108,11 +101,11 @@
     <Filter Include="features\utils">
       <UniqueIdentifier>{10ac6238-d0ae-465f-a10d-1b5717f3af29}</UniqueIdentifier>
     </Filter>
+    <Filter Include="menu">
+      <UniqueIdentifier>{929f6acb-9eff-4d26-8796-3ea2c8891600}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="framework.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="imgui\imconfig.h">
       <Filter>imgui</Filter>
     </ClInclude>
@@ -203,9 +196,6 @@
     <ClInclude Include="sdk\math\vector\vector_3d.hpp">
       <Filter>sdk\math\vector</Filter>
     </ClInclude>
-    <ClInclude Include="render\menu\menu.hpp">
-      <Filter>render\menu</Filter>
-    </ClInclude>
     <ClInclude Include="sdk\interfaces\CBone.hpp">
       <Filter>sdk\interfaces\CBone</Filter>
     </ClInclude>
@@ -288,9 +278,6 @@
     </ClCompile>
     <ClCompile Include="render\render.cpp">
       <Filter>render</Filter>
-    </ClCompile>
-    <ClCompile Include="render\menu\menu.cpp">
-      <Filter>render\menu</Filter>
     </ClCompile>
     <ClCompile Include="sdk\interfaces\CBone.cpp">
       <Filter>sdk\interfaces\CBone</Filter>
