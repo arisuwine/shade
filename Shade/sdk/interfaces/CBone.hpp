@@ -1,5 +1,5 @@
 #pragma once
-#include <Windows.h>
+#include "../entities/CCSPlayerPawn.hpp"
 #include "../math/vector/vector_3d.hpp"
 #include "../offsets.hpp"
 
@@ -29,13 +29,6 @@ enum bone_index : DWORD {
 };
 
 class CBone {
-private:
-    static inline uintptr_t get_scene_node(const uintptr_t& pawn);
-    static inline uintptr_t get_model_state(const uintptr_t& scene_node);
-    static inline uintptr_t get_bone_array(const uintptr_t& model_state);
-
 public:
-    CBone() {}
-    CBone(const uintptr_t& pawn);
-    static vector_3d get_bone_position(const uintptr_t& pawn, bone_index index);
+    static vector_3d get_bone_position(const CCSPlayerPawn* pawn, bone_index index);
 };

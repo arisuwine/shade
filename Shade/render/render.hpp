@@ -11,7 +11,7 @@
 
 #include "../sdk/modules.hpp"
 #include "../sdk/offsets.hpp"
-#include "../sdk/entities/PlayerPawn.hpp"
+#include "../sdk/entities/CCSPlayerPawn.hpp"
 
 #include "../math/world_to_screen.hpp"
 

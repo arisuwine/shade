@@ -12,6 +12,7 @@ ID3D11RenderTargetView* render::g_TargetView    = nullptr;
 
 uintptr_t CGameEntitySystem::handle = modules::client.find(GAME_ENTITY_SYSTEM);
 uintptr_t view_matrix::handle = modules::client.find(VIEW_MATRIX);
+uintptr_t CCSPlayerPawn::local_controller_handle = modules::client.find(LOCAL_PLAYER_CONTROLLER);
 
 font_map render::fonts;
 draw_object render::draw;
@@ -24,24 +25,29 @@ void render::setup_fonts() {
     fonts.push("MuseoSans-900_10", "c:\\USERS\\ADMINISTRATOR\\APPDATA\\LOCAL\\MICROSOFT\\WINDOWS\\FONTS\\MuseoSansCyrl-900.ttf", 13.0f);
 }
 
-std::vector<PlayerPawn> pawns;
-PlayerPawn local_player;
-PlayerPawn* visuals::p_local_player = &local_player;
+std::vector<CCSPlayerPawn*> pawns;
+LocalPlayer* local_player;
+
 void render::draw_information() {
+    uintptr_t controller, pawn;
     pawns.clear();
 
-    for (size_t i = 0; i < 64; i++) {
-        PlayerPawn pawn(i);
+    LocalPlayer::get().update();
 
-        if (pawn.is_empty())
+    for (size_t i = 0; i < 64; i++) {
+        controller = CGameEntitySystem::GetEntityByIndex(i);
+        if (!controller)
             continue;
 
-        if (pawn.is_local_player()) {
-            local_player = pawn;
+        pawn = CGameEntitySystem::GetPawnByController(controller);
+        if (!pawn)
+            continue;
+
+        if (pawn == reinterpret_cast<uintptr_t>(LocalPlayer::get().get_pawn())) {
             continue;
         }
 
-        pawns.push_back(pawn);
+        pawns.push_back(reinterpret_cast<CCSPlayerPawn*>(pawn));
     }
 
     size_t i = 0;

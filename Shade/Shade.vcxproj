@@ -161,8 +161,13 @@
     <ClInclude Include="render\utils\colors.hpp" />
     <ClInclude Include="render\utils\gui.hpp" />
     <ClInclude Include="render\utils\im_vec_2.hpp" />
-    <ClInclude Include="sdk\entities\PlayerPawn.hpp" />
+    <ClInclude Include="sdk\entities\CCSPlayerPawn.hpp" />
     <ClInclude Include="sdk\interfaces\CBone.hpp" />
+    <ClInclude Include="sdk\interfaces\CCollisionProperty.hpp" />
+    <ClInclude Include="sdk\interfaces\CCSPlayerController.hpp" />
+    <ClInclude Include="sdk\interfaces\CGameSceneNode.hpp" />
+    <ClInclude Include="sdk\interfaces\CModelState.hpp" />
+    <ClInclude Include="sdk\interfaces\CPlayer_MovementServices.hpp" />
     <ClInclude Include="sdk\interfaces\CGameEntitySystem.hpp" />
     <ClInclude Include="sdk\interfaces\view_matrix.hpp" />
     <ClInclude Include="sdk\math\math.hpp" />
@@ -173,6 +178,7 @@
     <ClInclude Include="sdk\modules.hpp" />
     <ClInclude Include="sdk\offsets.hpp" />
     <ClInclude Include="sdk\signatures.hpp" />
+    <ClInclude Include="sdk\utils\CUtlString.hpp" />
     <ClInclude Include="utils\console.hpp" />
     <ClInclude Include="utils\pattern_scan\pattern_scan.hpp" />
     <ClInclude Include="utils\utils.hpp" />
@@ -238,13 +244,19 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="sdk\entities\PlayerPawn.cpp">
+    <ClCompile Include="sdk\entities\CCSPlayerPawn.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="sdk\interfaces\CBone.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="sdk\interfaces\CCollisionProperty.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="sdk\interfaces\CPlayer_MovementServices.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="sdk\interfaces\CGameEntitySystem.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
