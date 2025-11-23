@@ -9,6 +9,8 @@
 
 #include "utils/bounding_box.hpp"
 
+#include "../menu/options.hpp"
+
 extern render::gui::draw_object draw;
 extern render::gui::font_map	fonts;
 
@@ -28,11 +30,12 @@ private:
 		{ Pelvis, Leg_Upper_L, Leg_Lower_L, Ankle_L }
 	};
 
-public:
-	esp(const CCSPlayerPawn* _pawn);
-
 	void render_name();
 	void render_box();
 	void render_health();
 	void render_skeleton();
+
+public:
+	esp(const CCSPlayerPawn* _pawn);
+	void initialize();
 };

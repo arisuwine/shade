@@ -32,3 +32,8 @@ BOOL game_overlay::init_hooks() {
 
     return TRUE;
 }
+
+void game_overlay::unhook() {
+    UnHook((__int64)&OriginalPresentFunc, 1);
+    UnHook((__int64)&OriginalWndProc, 1);
+}

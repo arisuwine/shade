@@ -1,17 +1,44 @@
 #include "utils/console.hpp"
 #include "hooks/game_overlay.hpp"
 #include "sdk/interfaces/CGameEntitySystem.hpp"
+#include "sdk/sdk.hpp"
 
-game_overlay overlay_init;
+#ifdef _DEBUG
+#include <conio.h>
+#endif
 
 DWORD WINAPI on_dll_attach(LPVOID lpParam) {
+#ifdef _DEBUG
     utils::attach_console();
-    overlay_init.init_hooks();
+#endif
+
+    try {
+        interfaces::initialize();
+        interfaces::dump();
+
+        game_overlay::init_hooks();
+
+        //FreeLibraryAndExitThread(static_cast<HMODULE>(lpParam), 1);
+    }
+    catch (const std::exception& e) {
+        LOG("An error occured during initialization:\n");
+        LOG("%s\n", e.what());
+        LOG("Press any key to exit.\n");
+#ifdef _DEBUG
+        int ch = _getch();
+#endif
+        FreeLibraryAndExitThread(static_cast<HMODULE>(lpParam), 1);
+    }
+
     return TRUE;
 }
 
 BOOL WINAPI on_dll_detach() {
+#ifdef _DEBUG
     utils::detach_console();
+    game_overlay::unhook();
+#endif
+
     return TRUE;
 }
 

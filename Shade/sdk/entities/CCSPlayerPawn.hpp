@@ -11,8 +11,6 @@
 
 class CCSPlayerPawn {
 private:
-	static uintptr_t local_controller_handle;
-
 	template <typename Type>
 	inline Type get_data(const uintptr_t& offset) const {
 		return *reinterpret_cast<Type*>(reinterpret_cast<uintptr_t>(this) + offset);
@@ -71,5 +69,9 @@ public:
 
 	CCSPlayerPawn* get_pawn() const {
 		return pawn;
+	}
+
+	uintptr_t get_controller() const {
+		return controller;
 	}
 };
