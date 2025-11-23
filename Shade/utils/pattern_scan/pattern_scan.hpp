@@ -4,9 +4,7 @@
 #include <Windows.h>
 #include <psapi.h>
 
-#define PS_LOGGING
-
-#ifdef PS_LOGGING
+#ifdef _DEBUG
 #include <stdio.h>
 #define LOG(...) printf(__VA_ARGS__)
 #else
@@ -17,7 +15,7 @@ class pattern_scan {
 public:
 	pattern_scan() {};
 	pattern_scan(HMODULE hModule);
-	pattern_scan(const std::string_view& pattern);
+	pattern_scan(const std::string_view& module_name);
 
 	uintptr_t find(const std::string_view& pattern);
 

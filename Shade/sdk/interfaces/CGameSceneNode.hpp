@@ -5,6 +5,8 @@ class CModelState;
 
 class CGameSceneNode {
 public:
+	CGameSceneNode() = delete;
+
 	inline CModelState* m_modelState() const {
 		return reinterpret_cast<CModelState*>(THIS_ADDR + offsets::CGameSceneNode::m_modelState);
 	}

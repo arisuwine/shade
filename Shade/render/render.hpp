@@ -12,6 +12,7 @@
 #include "../sdk/modules.hpp"
 #include "../sdk/offsets.hpp"
 #include "../sdk/entities/CCSPlayerPawn.hpp"
+#include "../sdk/interfaces/CEntityIdentity.hpp"
 
 #include "../math/world_to_screen.hpp"
 

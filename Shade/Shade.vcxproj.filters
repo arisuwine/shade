@@ -19,9 +19,6 @@
     <Filter Include="utils\pattern_scan">
       <UniqueIdentifier>{7f25701d-43b1-4d05-ac6c-70ccc34a486f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sdk\view_matrix">
-      <UniqueIdentifier>{7bceb4a6-1e7e-45a6-b373-a6ea4b88ac90}</UniqueIdentifier>
-    </Filter>
     <Filter Include="render">
       <UniqueIdentifier>{32608491-b252-4a74-ad6c-2325208a855d}</UniqueIdentifier>
     </Filter>
@@ -104,6 +101,27 @@
     <Filter Include="menu">
       <UniqueIdentifier>{929f6acb-9eff-4d26-8796-3ea2c8891600}</UniqueIdentifier>
     </Filter>
+    <Filter Include="menu\options">
+      <UniqueIdentifier>{0138e60d-03a7-48ec-b4c7-b7c8e51b382c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk\interfaces\ViewMatrix">
+      <UniqueIdentifier>{7bceb4a6-1e7e-45a6-b373-a6ea4b88ac90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk\interfaces\CEntityIdentity">
+      <UniqueIdentifier>{cba985f2-28fe-46bc-abdf-de3a2b43275b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk\interfaces\CEntityIterator">
+      <UniqueIdentifier>{d0adac5a-b818-40c0-a037-a7edadb6be89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk\interfaces\CEntityClass">
+      <UniqueIdentifier>{a17c60b7-0985-4b55-b38a-9d86043816f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils\valve">
+      <UniqueIdentifier>{967c4e0a-cd8f-41b1-b8ed-e9f25363795b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk\interfaces\CConcreteEntityList">
+      <UniqueIdentifier>{a2ea8f5e-a3d9-40c5-8dba-645ab8ee3d3d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -139,9 +157,6 @@
     <ClInclude Include="sdk\signatures.hpp">
       <Filter>sdk</Filter>
     </ClInclude>
-    <ClInclude Include="utils\utils.hpp">
-      <Filter>utils</Filter>
-    </ClInclude>
     <ClInclude Include="sdk\entities\CCSPlayerPawn.hpp">
       <Filter>sdk\entities\CCSPlayerPawn</Filter>
     </ClInclude>
@@ -159,9 +174,6 @@
     </ClInclude>
     <ClInclude Include="math\world_to_screen.hpp">
       <Filter>math\world_to_screen</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\interfaces\view_matrix.hpp">
-      <Filter>sdk\view_matrix</Filter>
     </ClInclude>
     <ClInclude Include="render\utils\im_vec_2.hpp">
       <Filter>render\utils</Filter>
@@ -223,6 +235,33 @@
     <ClInclude Include="features\utils\bounding_box.hpp">
       <Filter>features\utils</Filter>
     </ClInclude>
+    <ClInclude Include="menu\menu.hpp">
+      <Filter>menu</Filter>
+    </ClInclude>
+    <ClInclude Include="menu\options.hpp">
+      <Filter>menu\options</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\sdk.hpp">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\ViewMatrix.hpp">
+      <Filter>sdk\interfaces\ViewMatrix</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\CEntityIdentity.hpp">
+      <Filter>sdk\interfaces\CEntityIdentity</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\CEntityIterator.hpp">
+      <Filter>sdk\interfaces\CEntityIterator</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\CEntityClass.hpp">
+      <Filter>sdk\interfaces\CEntityClass</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\valve\utlmap.hpp">
+      <Filter>utils\valve</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\CConcreteEntityList.hpp">
+      <Filter>sdk\interfaces\CConcreteEntityList</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -255,9 +294,6 @@
     <ClCompile Include="math\world_to_screen.cpp">
       <Filter>math\world_to_screen</Filter>
     </ClCompile>
-    <ClCompile Include="sdk\interfaces\view_matrix.cpp">
-      <Filter>sdk\view_matrix</Filter>
-    </ClCompile>
     <ClCompile Include="render\utils\colors.cpp">
       <Filter>render\utils\colors</Filter>
     </ClCompile>
@@ -287,6 +323,15 @@
     </ClCompile>
     <ClCompile Include="features\utils\bounding_box.cpp">
       <Filter>features\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="menu\menu.cpp">
+      <Filter>menu</Filter>
+    </ClCompile>
+    <ClCompile Include="menu\options.cpp">
+      <Filter>menu\options</Filter>
+    </ClCompile>
+    <ClCompile Include="sdk\sdk.cpp">
+      <Filter>sdk</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
