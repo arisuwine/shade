@@ -7,7 +7,5 @@ class ViewMatrix {
 public:
 	ViewMatrix() = delete;
 
-	inline matrix4x4 get_matrix() {
-		return *reinterpret_cast<matrix4x4*>(THIS_ADDR);
-	}
+	SCHEMA(matrix4x4, 0x0, matrix);
 };

@@ -5,7 +5,5 @@ class CModelState {
 public:
 	CModelState() = delete;
 
-	inline uintptr_t BoneArray() const {
-		return *reinterpret_cast<uintptr_t*>(THIS_ADDR + offsets::CModelState::BoneArray);
-	}
+	SCHEMA(uintptr_t, offsets::CModelState::BoneArray, BoneArray);
 };

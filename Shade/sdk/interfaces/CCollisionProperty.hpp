@@ -6,11 +6,6 @@ class CCollisionProperty {
 public:
 	CCollisionProperty() = delete;
 
-	inline vector_3d m_vecMaxs() const {
-		return *reinterpret_cast<vector_3d*>(THIS_ADDR + offsets::CCollisionProperty::m_vecMaxs);
-	}
-
-	inline vector_3d m_vecMins() const {
-		return *reinterpret_cast<vector_3d*>(THIS_ADDR + offsets::CCollisionProperty::m_vecMins);
-	}
+	SCHEMA(vector_3d, offsets::CCollisionProperty::m_vecMaxs, m_vecMaxs);
+	SCHEMA(vector_3d, offsets::CCollisionProperty::m_vecMins, m_vecMins);
 };

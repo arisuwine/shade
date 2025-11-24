@@ -5,7 +5,5 @@ class CPlayer_MovementServices {
 public:
 	CPlayer_MovementServices() = delete;
 
-	inline float m_flDuckAmount() const {
-		return *reinterpret_cast<float*>(THIS_ADDR + offsets::CPlayer_MovementServices::m_flDuckAmount);
-	}
+	SCHEMA(float, offsets::CPlayer_MovementServices::m_flDuckAmount, m_flDuckAmount);
 };

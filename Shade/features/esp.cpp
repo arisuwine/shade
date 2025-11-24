@@ -1,12 +1,15 @@
 #include "esp.hpp"
 
-esp::esp(const CCSPlayerPawn* _pawn) : player(_pawn), bbox(_pawn) {}
+esp::esp(CCSPlayerPawn* _pawn) : player(_pawn), bbox(_pawn) {}
 
 void esp::initialize() {
+	if (!LocalPlayer::get().get_pawn())
+		return;
+
 	if (!g_options.esp_enabled)
 		return;
 
-	if (g_options.esp_enemies_only && (LocalPlayer::get().get_pawn()->m_iTeamNum() == player->m_iTeamNum()))
+	if (g_options.esp_enemies_only && (LocalPlayer::get().get_pawn()->m_iTeamNum == player->m_iTeamNum))
 		return;
 
 	if (g_options.esp_bouding_boxes)
@@ -26,13 +29,13 @@ void esp::render_name() {
 	if (!bbox.initialize(player))
 		return;
 
-	if (player->m_iHealth() <= 0)
+	if (player->m_iHealth <= 0)
 		return;
 
 	if (!bbox.transform_coordinates())
 		return;
 
-	const char* name = player->m_sSanitizedPlayerName() ? player->m_sSanitizedPlayerName() : "";
+	const char* name = player->m_hController.GetEntityFromHandle()->m_sSanitizedPlayerName ? player->m_hController.GetEntityFromHandle()->m_sSanitizedPlayerName : "null";
 
 	im_vec_2 text_size = ref_to_draw.get_text_size(fonts.get("MuseoSans-500-12"), name);
 	vector_2d top_middle = bbox.get_points()[bounding_box::TOP_MIDDLE];
@@ -44,7 +47,7 @@ void esp::render_box() {
 	if (!bbox.initialize(player))
 		return;
 
-	if (player->m_iHealth() <= 0)
+	if (player->m_iHealth <= 0)
 		return;
 
 	if (!bbox.transform_coordinates())
@@ -64,7 +67,7 @@ void esp::render_health() {
 	if (!bbox.initialize(player))
 		return;
 
-	if (player->m_iHealth() <= 0)
+	if (player->m_iHealth <= 0)
 		return;
 
 	if (!bbox.transform_coordinates())
@@ -78,14 +81,14 @@ void esp::render_health() {
 
 	ref_to_draw.draw_rect(top_left, im_vec_2(top_left.x + width, top_left.y + height), ImColor(34, 34, 34, 255));
 
-	ImColor health_color = { 1.0f - (float)player->m_iHealth() / 100.0f, (float)player->m_iHealth() / 100.0f, 0.0f, 1.0f };
-	ref_to_draw.draw_rect(im_vec_2(top_left.x + 1.0f, top_left.y + (height * (1.0f - (float)player->m_iHealth() / 100.0f)) + 1.0f), im_vec_2(top_left.x + 2.0f + health_width, top_left.y + height - 1.0f), health_color);
+	ImColor health_color = { 1.0f - (float)player->m_iHealth / 100.0f, (float)player->m_iHealth / 100.0f, 0.0f, 1.0f };
+	ref_to_draw.draw_rect(im_vec_2(top_left.x + 1.0f, top_left.y + (height * (1.0f - (float)player->m_iHealth / 100.0f)) + 1.0f), im_vec_2(top_left.x + 2.0f + health_width, top_left.y + height - 1.0f), health_color);
 	//if (player->m_iHealth() < 93.0f)
 		//ref_to_draw.draw_text(im_vec_2(top_left.x + 1.0f, top_left.y + (height * (1.0f - (float)player->m_iHealth() / 100.0f)) + 1.0f), ImColor(255, 255, 255, 255), fonts.get("MuseoSans-500_12"), std::to_string(player->m_iHealth()));
 }
 
 void esp::render_skeleton() {
-	if (player->m_iHealth() <= 0)
+	if (player->m_iHealth <= 0)
 		return;
 
 	vector_3d bone_position_start = { }, bone_position_end = { };

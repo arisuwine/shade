@@ -1,7 +1,7 @@
 #pragma once
-#include "../entities/CCSPlayerPawn.hpp"
 #include "../math/vector/vector_3d.hpp"
-#include "../offsets.hpp"
+
+#include "../entities/CCSPlayerPawn.hpp"
 
 enum bone_index : DWORD {
     Pelvis = 0,
@@ -30,5 +30,7 @@ enum bone_index : DWORD {
 
 class CBone {
 public:
-    static vector_3d get_bone_position(const CCSPlayerPawn* pawn, bone_index index);
+    CBone() = delete;
+
+    static vector_3d get_bone_position(CCSPlayerPawn* player, bone_index index);
 };

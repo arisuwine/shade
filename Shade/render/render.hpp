@@ -1,25 +1,15 @@
 #pragma once
 #include <d3d11.h>
 
-#include "../hooks/game_overlay.hpp"
-
 #include "utils/colors.hpp"
 #include "utils/gui.hpp"
 #include "utils/im_vec_2.hpp"
 
 #include "../features/esp.hpp"
 
-#include "../sdk/modules.hpp"
-#include "../sdk/offsets.hpp"
-#include "../sdk/entities/CCSPlayerPawn.hpp"
-#include "../sdk/interfaces/CEntityIdentity.hpp"
-
-#include "../math/world_to_screen.hpp"
-
 #include "imgui.h"
 #include "imgui_impl_win32.h"
 #include "imgui_impl_dx11.h"
-
 
 namespace render {
     extern IDXGISwapChain*          g_SwapChain;

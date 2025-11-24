@@ -8,12 +8,10 @@ class CEntityClass {
 public:
 	CEntityClass() = delete;
 
-	CEntityIdentity* m_pFirstEntity() const {
-		return *reinterpret_cast<CEntityIdentity**>(THIS_ADDR + offsets::CEntityClass::m_pFirstEntity);
-	}
+	SCHEMA(CEntityIdentity*, offsets::CEntityClass::m_pFirstEntity, m_pFirstEntity);
 
 	template <typename T>
-	CEntityIterator<T, true> all_entities() const {
-		return { m_pFirstEntity() };
+	CEntityIterator<T, true> all_entities() {
+		return m_pFirstEntity;
 	}
 };

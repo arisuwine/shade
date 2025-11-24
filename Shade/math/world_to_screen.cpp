@@ -1,7 +1,7 @@
 #include "world_to_screen.hpp"
 
 bool math::world_to_screen(const vector_3d& in, vector_2d& out) {
-    matrix4x4 matrix_v = g_ViewMatrix->get_matrix();
+    matrix4x4 matrix_v = g_ViewMatrix->matrix;
 
     if (in.is_zero())
         return 0;
