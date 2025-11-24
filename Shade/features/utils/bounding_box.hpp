@@ -1,11 +1,10 @@
 #pragma once
 #include <array>
-#include <algorithm>
-#define NOMINMAX
 
 #include "../sdk/math/vector.hpp"
-#include "../sdk/entities/CCSPlayerPawn.hpp"
 #include "../math/world_to_screen.hpp"
+
+#include "../sdk/entities/CCSPlayerPawn.hpp"
 
 class bounding_box {
 private:
@@ -25,11 +24,11 @@ public:
 	};
 
 	bounding_box() = default;
-	bounding_box(const CCSPlayerPawn* player);
+	bounding_box(CCSPlayerPawn* player);
 	
-	bool initialize(const CCSPlayerPawn* player);
+	bool initialize(CCSPlayerPawn* player);
 	bool transform_coordinates();
-	const std::array<vector_2d, 4>& get_points() const {
+	inline const std::array<vector_2d, 4>& get_points() const {
 		return points;
 	}
 

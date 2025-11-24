@@ -1,17 +1,11 @@
 #pragma once
 #include "../offsets.hpp"
-
-class CModelState;
+#include "CModelState.hpp"
 
 class CGameSceneNode {
 public:
 	CGameSceneNode() = delete;
 
-	inline CModelState* m_modelState() const {
-		return reinterpret_cast<CModelState*>(THIS_ADDR + offsets::CGameSceneNode::m_modelState);
-	}
-
-	inline vector_3d m_vecAbsOrigin() const {
-		return *reinterpret_cast<vector_3d*>(THIS_ADDR + offsets::CGameSceneNode::m_vecAbsOrigin);
-	}
+	SCHEMA_R(CModelState,	offsets::CGameSceneNode::m_modelState,		m_modelState);
+	SCHEMA	(vector_3d,		offsets::CGameSceneNode::m_vecAbsOrigin,	m_vecAbsOrigin);
 };

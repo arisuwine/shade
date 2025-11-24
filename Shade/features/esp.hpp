@@ -16,7 +16,7 @@ extern render::gui::font_map	fonts;
 
 class esp {
 private:
-	const CCSPlayerPawn* player;
+	CCSPlayerPawn* player;
 	bounding_box bbox;
 
 	static inline render::gui::draw_object& ref_to_draw = draw;
@@ -36,6 +36,6 @@ private:
 	void render_skeleton();
 
 public:
-	esp(const CCSPlayerPawn* _pawn);
+	esp(CCSPlayerPawn* _pawn);
 	void initialize();
 };

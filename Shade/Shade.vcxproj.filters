@@ -83,9 +83,6 @@
     <Filter Include="sdk\entities\CCSPlayerPawn">
       <UniqueIdentifier>{af2f9945-e3c9-4cf8-aed2-057d9d0eded9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sdk\interfaces\CCSPlayerController">
-      <UniqueIdentifier>{057be7d5-3efb-4fe8-b904-05d33e1c6659}</UniqueIdentifier>
-    </Filter>
     <Filter Include="sdk\utils">
       <UniqueIdentifier>{fccc5701-d206-4c49-b407-5a5fcdd383fa}</UniqueIdentifier>
     </Filter>
@@ -121,6 +118,24 @@
     </Filter>
     <Filter Include="sdk\interfaces\CConcreteEntityList">
       <UniqueIdentifier>{a2ea8f5e-a3d9-40c5-8dba-645ab8ee3d3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk\interfaces\CPlayer_WeaponServices">
+      <UniqueIdentifier>{0a8e8648-56d9-4cde-ab40-bed5357b7218}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk\interfaces\CEntityHandle">
+      <UniqueIdentifier>{94125987-26ab-4903-8587-6c04067217bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk\interfaces\CHandle">
+      <UniqueIdentifier>{eb615732-6092-4647-9770-154360fddc54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk\interfaces\CEntityInstance">
+      <UniqueIdentifier>{29049611-fa66-4f5a-87f6-3fde94904ba2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk\entities\C_BasePlayerWeapon">
+      <UniqueIdentifier>{b9e7cf8b-c4e3-4568-bd93-7b56187306fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk\entities\CCSPlayerController">
+      <UniqueIdentifier>{057be7d5-3efb-4fe8-b904-05d33e1c6659}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -223,9 +238,6 @@
     <ClInclude Include="sdk\interfaces\CModelState.hpp">
       <Filter>sdk\interfaces\CModelState</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\interfaces\CCSPlayerController.hpp">
-      <Filter>sdk\interfaces\CCSPlayerController</Filter>
-    </ClInclude>
     <ClInclude Include="sdk\utils\CUtlString.hpp">
       <Filter>sdk\utils</Filter>
     </ClInclude>
@@ -262,6 +274,24 @@
     <ClInclude Include="sdk\interfaces\CConcreteEntityList.hpp">
       <Filter>sdk\interfaces\CConcreteEntityList</Filter>
     </ClInclude>
+    <ClInclude Include="sdk\interfaces\CPlayer_WeaponServices.hpp">
+      <Filter>sdk\interfaces\CPlayer_WeaponServices</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\CEntityHandle.hpp">
+      <Filter>sdk\interfaces\CEntityHandle</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\CHandle.hpp">
+      <Filter>sdk\interfaces\CHandle</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\CEntityInstance.hpp">
+      <Filter>sdk\interfaces\CEntityInstance</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\entities\C_BasePlayerWeapon.hpp">
+      <Filter>sdk\entities\C_BasePlayerWeapon</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\entities\CCSPlayerController.hpp">
+      <Filter>sdk\entities\CCSPlayerController</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -284,9 +314,6 @@
     </ClCompile>
     <ClCompile Include="utils\pattern_scan\pattern_scan.cpp">
       <Filter>utils\pattern_scan</Filter>
-    </ClCompile>
-    <ClCompile Include="sdk\entities\CCSPlayerPawn.cpp">
-      <Filter>sdk\entities\CCSPlayerPawn</Filter>
     </ClCompile>
     <ClCompile Include="sdk\interfaces\CGameEntitySystem.cpp">
       <Filter>sdk\interfaces\CGameEntitySystem</Filter>

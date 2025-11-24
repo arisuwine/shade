@@ -1,30 +1,35 @@
 #include "bounding_box.hpp"
 
-bool bounding_box::initialize(const CCSPlayerPawn* player) {
-	CCollisionProperty* collision = player->m_pCollision();
+#include <algorithm>
+
+#include "../sdk/interfaces/CGameSceneNode.hpp"
+#include "../sdk/interfaces/CCollisionProperty.hpp"
+#include "../sdk/interfaces/CPlayer_MovementServices.hpp"
+
+bool bounding_box::initialize(CCSPlayerPawn* player) {
+	CCollisionProperty* collision = player->m_pCollision;
 	if (!collision) {
 		initialized = false;
 		return 0;
 	}
 
-	CGameSceneNode* game_scene_node = player->m_pGameSceneNode();
+	CGameSceneNode* game_scene_node = player->m_pGameSceneNode;
 	if (!game_scene_node) {
 		initialized = false;
 		return 0;
 	}
 
-	vector_3d origin = game_scene_node->m_vecAbsOrigin();
-	vector_3d m_vecMaxs = collision->m_vecMaxs();
-	m_vecMaxs.z = 72.0f; // z while standing
-	m_vecMaxs.z -= player->m_pMovementServices()->m_flDuckAmount() * 18.0f;
+	vector_3d origin = game_scene_node->m_vecAbsOrigin;
+	vector_3d m_vecMaxs = collision->m_vecMaxs;
+	m_vecMaxs.z -= player->m_pMovementServices->m_flDuckAmount * 18.0f;
 
 	max = m_vecMaxs + origin;
-	min = collision->m_vecMins() + origin;
+	min = collision->m_vecMins + origin;
 	initialized = true;
 	return 1;
 }
 
-bounding_box::bounding_box(const CCSPlayerPawn* player) {
+bounding_box::bounding_box(CCSPlayerPawn* player) {
 	initialize(player);
 }
 

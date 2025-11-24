@@ -1,6 +1,20 @@
 ﻿#include "render.hpp"
+
+#include "../hooks/game_overlay.hpp"
+
+#include "../sdk/modules.hpp"
+#include "../sdk/offsets.hpp"
+#include "../sdk/entities/CCSPlayerPawn.hpp"
+#include "../sdk/interfaces/CEntityIdentity.hpp"
+
+#include "../math/world_to_screen.hpp"
+
 #include "../sdk/interfaces/CEntityIterator.hpp"
 #include "../sdk/interfaces/CEntityClass.hpp"
+#include "../sdk/interfaces/CHandle.hpp"
+#include "../sdk/interfaces/CPlayer_WeaponServices.hpp"
+
+#include "../sdk/entities/C_BasePlayerWeapon.hpp"
 
 using namespace render::gui;
 
@@ -24,11 +38,13 @@ void render::setup_fonts() {
 }
 
 void render::draw_information() {
-    //LocalPlayer::get().update();
+    LocalPlayer::get().update();
 
-    auto& map = g_CGameEntitySystem->m_ClassesByName();
+    auto map = g_CGameEntitySystem->m_ClassesByName;
     auto all_entities = map["C_CSPlayerPawn"]->all_entities<CCSPlayerPawn>();
+
     for (auto begin = all_entities.begin(); begin != all_entities.end(); begin++) {
+        C_BasePlayerWeapon* active_weapon = (*begin)->m_pWeaponServices->m_hActiveWeapon.GetEntityFromHandle();
         esp visuals(*begin);
         visuals.initialize();
     }

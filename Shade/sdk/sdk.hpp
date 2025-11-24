@@ -2,7 +2,6 @@
 
 #include "interfaces/CGameEntitySystem.hpp"
 #include "interfaces/ViewMatrix.hpp"
-#include "interfaces/CCSPlayerController.hpp"
 
 namespace interfaces {
 	void initialize();

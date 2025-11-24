@@ -20,7 +20,7 @@ private:
 		}
 
 		Iterator& operator++() {
-			identity = ByClass ? identity->m_pNextByClass() : identity->m_pNext();
+			identity = ByClass ? identity->m_pNextByClass : identity->m_pNext;
 			return *this;
 		}
 
@@ -31,7 +31,7 @@ private:
 		}
 
 		Iterator& operator--() {
-			identity = ByClass ? identity->m_pPrevByClass() : identity->m_pPrev();
+			identity = ByClass ? identity->m_pPrevByClass : identity->m_pPrev;
 			return *this;
 		}
 
