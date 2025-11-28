@@ -2,6 +2,8 @@
 using namespace render::types;
 using namespace render::gui;
 
-namespace render {
+namespace menu {
+    void toggle();
+    void setup_styles();
     void draw_menu();
 }

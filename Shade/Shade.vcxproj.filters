@@ -131,11 +131,20 @@
     <Filter Include="sdk\interfaces\CEntityInstance">
       <UniqueIdentifier>{29049611-fa66-4f5a-87f6-3fde94904ba2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sdk\entities\C_BasePlayerWeapon">
-      <UniqueIdentifier>{b9e7cf8b-c4e3-4568-bd93-7b56187306fb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="sdk\entities\CCSPlayerController">
       <UniqueIdentifier>{057be7d5-3efb-4fe8-b904-05d33e1c6659}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils\vmt">
+      <UniqueIdentifier>{3ab346c5-7ef0-409a-bd62-6c63480dc532}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk\interfaces\CNetworkClientService">
+      <UniqueIdentifier>{24930759-2cfc-4cd3-90b6-44994768515a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk\interfaces\CNetworkGameClient">
+      <UniqueIdentifier>{03303a5d-6bef-4dde-b9be-335f0c2f5ae6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk\entities\C_CSWeaponBase">
+      <UniqueIdentifier>{b9e7cf8b-c4e3-4568-bd93-7b56187306fb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -286,11 +295,23 @@
     <ClInclude Include="sdk\interfaces\CEntityInstance.hpp">
       <Filter>sdk\interfaces\CEntityInstance</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\entities\C_BasePlayerWeapon.hpp">
-      <Filter>sdk\entities\C_BasePlayerWeapon</Filter>
+    <ClInclude Include="sdk\entities\C_CSWeaponBase.hpp">
+      <Filter>sdk\entities\C_CSWeaponBase</Filter>
     </ClInclude>
     <ClInclude Include="sdk\entities\CCSPlayerController.hpp">
       <Filter>sdk\entities\CCSPlayerController</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\utils\color.hpp">
+      <Filter>sdk\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\CNetworkClientService.hpp">
+      <Filter>sdk\interfaces\CNetworkClientService</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\vmt\vmt.hpp">
+      <Filter>utils\vmt</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\CNetworkGameClient.hpp">
+      <Filter>sdk\interfaces\CNetworkGameClient</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

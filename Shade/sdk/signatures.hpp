@@ -9,3 +9,6 @@
 #define CREATE_HOOK				"48 89 5C 24 ? 57 48 83 EC ? 33 C0"
 #define HK_PRESENT				"48 89 5C 24 ? 48 89 6C 24 ? 56 57 41 54 41 56 41 57 48 83 EC ? 41 8B E8"
 #define UN_HOOK					"48 89 5C 24 ? 55 56 57 41 54 41 55 41 56 41 57 48 81 EC ? ? ? ? 0F B6 DA"
+
+// engine2.dll
+#define NETWORK_CLIENT_SERVICE	"48 8D 35 ? ? ? ? 4C 89 65"

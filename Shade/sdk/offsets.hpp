@@ -7,27 +7,27 @@
 #define GET_SCHEMA_RAW(NAME, TYPE, OFFSET)								\
 	inline TYPE& Get_##NAME() {											\
 		return *(TYPE*)(THIS_ADDR + OFFSET);							\
-	}
+	}																	\
 
 #define SET_SCHEMA_RAW(NAME, TYPE, OFFSET)								\
     inline void Set_##NAME(TYPE val) {									\
         std::memcpy((void*)(THIS_ADDR + OFFSET), &val, sizeof(TYPE));	\
-    }
+    }																	\
 
 #define SCHEMA_R(TYPE, OFFSET, NAME)									\
     __declspec( property( get=Get_##NAME, put=Set_##NAME ) ) TYPE NAME; \
     GET_SCHEMA_RAW(NAME, TYPE, OFFSET);									\
-    SET_SCHEMA_RAW(NAME, TYPE, OFFSET);
+    SET_SCHEMA_RAW(NAME, TYPE, OFFSET);									\
 
 #define GET_SCHEMA(NAME, TYPE, OFFSET)									\
 	inline TYPE Get_##NAME() {											\
 		return *(TYPE*)(THIS_ADDR + OFFSET);							\
-	}
+	}																	\
 
 #define SET_SCHEMA(NAME, TYPE, OFFSET)									\
 	inline void Set_##NAME(TYPE val) {									\
 		*(TYPE*)(THIS_ADDR + OFFSET) = val;								\
-	}
+	}																	\
 
 #define SCHEMA(TYPE, OFFSET, NAME)										\
     __declspec( property( get=Get_##NAME, put=Set_##NAME ) ) TYPE NAME; \
@@ -56,6 +56,7 @@ namespace offsets {
 		CONST_OFFSET m_pMovementServices		= 0x1430;
 		CONST_OFFSET m_hController				= 0x15B8;
 		CONST_OFFSET m_pWeaponServices			= 0x13F0;
+		CONST_OFFSET m_pClippingWeapon			= 0x13a0;
 	}
 
 	namespace CCollisionProperty {
@@ -78,6 +79,7 @@ namespace offsets {
 
 	namespace CEntityIdentity {
 		CONST_OFFSET m_name						= 0x20;
+		CONST_OFFSET m_designerName				= 0x28;
 		CONST_OFFSET m_pPrev					= 0x50;
 		CONST_OFFSET m_pNext					= 0x58;
 		CONST_OFFSET m_pPrevByClass				= 0x60;
@@ -102,5 +104,15 @@ namespace offsets {
 	namespace CPlayer_WeaponServices {
 		CONST_OFFSET m_hMyWeapons				= 0x40;
 		CONST_OFFSET m_hActiveWeapon			= 0x58;
+		CONST_OFFSET m_iAmmo					= 0x60;
+	}
+
+	namespace CNetworkClientService  {
+		CONST_OFFSET m_pCNetworkGameClient		= 0x98;
+	}
+
+	namespace C_CSWeaponBase {
+		CONST_OFFSET m_pEntity					= 0x10;
+		CONST_OFFSET m_iClip1					= 0x18f0;
 	}
 }

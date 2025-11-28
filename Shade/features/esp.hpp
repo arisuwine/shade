@@ -9,8 +9,6 @@
 
 #include "utils/bounding_box.hpp"
 
-#include "../menu/options.hpp"
-
 extern render::gui::draw_object draw;
 extern render::gui::font_map	fonts;
 
@@ -34,6 +32,9 @@ private:
 	void render_box();
 	void render_health();
 	void render_skeleton();
+	void render_flags();
+	void render_weapon();
+	void render_ammo();
 
 public:
 	esp(CCSPlayerPawn* _pawn);

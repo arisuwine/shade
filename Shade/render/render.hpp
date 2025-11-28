@@ -27,6 +27,5 @@ namespace render {
     LRESULT wndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam, bool& returnRes);
     
     void setup_fonts();
-    void draw_menu();
-    void draw_information();
+    void draw_esp();
 }

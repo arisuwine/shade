@@ -1,6 +1,7 @@
 ﻿#include "render.hpp"
 
 #include "../hooks/game_overlay.hpp"
+#include "../menu/menu.hpp"
 
 #include "../sdk/modules.hpp"
 #include "../sdk/offsets.hpp"
@@ -13,8 +14,6 @@
 #include "../sdk/interfaces/CEntityClass.hpp"
 #include "../sdk/interfaces/CHandle.hpp"
 #include "../sdk/interfaces/CPlayer_WeaponServices.hpp"
-
-#include "../sdk/entities/C_BasePlayerWeapon.hpp"
 
 using namespace render::gui;
 
@@ -37,14 +36,16 @@ void render::setup_fonts() {
     fonts.push("MuseoSans-900-10",  "c:\\USERS\\ADMINISTRATOR\\APPDATA\\LOCAL\\MICROSOFT\\WINDOWS\\FONTS\\MuseoSansCyrl-900.ttf", 13.0f);
 }
 
-void render::draw_information() {
+void render::draw_esp() {
+    if (!g_CNetworkClientService->m_pCNetworkGameClient->IsInGame())
+        return;
+
     LocalPlayer::get().update();
 
     auto map = g_CGameEntitySystem->m_ClassesByName;
     auto all_entities = map["C_CSPlayerPawn"]->all_entities<CCSPlayerPawn>();
 
     for (auto begin = all_entities.begin(); begin != all_entities.end(); begin++) {
-        C_BasePlayerWeapon* active_weapon = (*begin)->m_pWeaponServices->m_hActiveWeapon.GetEntityFromHandle();
         esp visuals(*begin);
         visuals.initialize();
     }
@@ -72,18 +73,12 @@ void render::present_scene(IDXGISwapChain* SwapChain, UINT syncInterval, UINT fl
         height = backBufferDesc.Height;
         backBuffer->Release();
 
-        ImGui::CreateContext();
-        ImGuiIO& io = ImGui::GetIO(); (void)io;
-        io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
-        io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
-
         ImGui::StyleColorsDark();
 
         ImGuiStyle& style = ImGui::GetStyle();
         style.ScaleAllSizes(main_scale);
         style.FontScaleDpi = main_scale;
 
-        // Setup Platform/Renderer backends
         ImGui_ImplWin32_Init(hwnd);
         ImGui_ImplDX11_Init(g_Device, g_DeviceContext);
     }
@@ -94,9 +89,12 @@ void render::present_scene(IDXGISwapChain* SwapChain, UINT syncInterval, UINT fl
 
     draw.draw_list = ImGui::GetForegroundDrawList();
 
+    if (GetAsyncKeyState(VK_INSERT) & 1)
+        menu::toggle();
+
+    menu::draw_menu();
     setup_fonts();
-    //draw_menu();
-    draw_information();
+    draw_esp();
 
     ImGui::Render();
 

@@ -3,13 +3,15 @@
 #include "../offsets.hpp"
 
 #include "../interfaces/CGameEntitySystem.hpp"
-#include "../entities/CCSPlayerController.hpp"
 #include "../interfaces/CHandle.hpp"
+
+#include "../entities/CCSPlayerController.hpp"
 
 class CCollisionProperty;
 class CPlayer_MovementServices;
 class CGameSceneNode;
 class CPlayer_WeaponServices;
+class C_CSWeaponBase;
 
 class CCSPlayerPawn {
 public:
@@ -32,6 +34,9 @@ public:
 	SCHEMA  (CGameSceneNode*,				offsets::CCSPlayerPawn::m_pGameSceneNode,		m_pGameSceneNode	);
 	SCHEMA  (CPlayer_WeaponServices*,		offsets::CCSPlayerPawn::m_pWeaponServices,		m_pWeaponServices	);
 	SCHEMA_R(CHandle<CCSPlayerController>,	offsets::CCSPlayerPawn::m_hController,			m_hController		);
+	SCHEMA  (C_CSWeaponBase*,				offsets::CCSPlayerPawn::m_pClippingWeapon,		m_pClippingWeapon	);
+
+	bool IsAlive() const;
 };
 
 class LocalPlayer {
