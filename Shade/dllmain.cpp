@@ -2,6 +2,7 @@
 #include "hooks/game_overlay.hpp"
 #include "sdk/interfaces/CGameEntitySystem.hpp"
 #include "sdk/sdk.hpp"
+#include "menu/menu.hpp"
 
 #ifdef _DEBUG
 #include <conio.h>
@@ -15,6 +16,8 @@ DWORD WINAPI on_dll_attach(LPVOID lpParam) {
     try {
         interfaces::initialize();
         interfaces::dump();
+
+        menu::setup_styles();
 
         game_overlay::init_hooks();
 

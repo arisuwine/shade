@@ -164,7 +164,7 @@
     <ClInclude Include="render\utils\im_vec_2.hpp" />
     <ClInclude Include="sdk\entities\CCSPlayerController.hpp" />
     <ClInclude Include="sdk\entities\CCSPlayerPawn.hpp" />
-    <ClInclude Include="sdk\entities\C_BasePlayerWeapon.hpp" />
+    <ClInclude Include="sdk\entities\C_CSWeaponBase.hpp" />
     <ClInclude Include="sdk\interfaces\CBone.hpp" />
     <ClInclude Include="sdk\interfaces\CCollisionProperty.hpp" />
     <ClInclude Include="sdk\interfaces\CConcreteEntityList.hpp" />
@@ -176,6 +176,8 @@
     <ClInclude Include="sdk\interfaces\CGameSceneNode.hpp" />
     <ClInclude Include="sdk\interfaces\CHandle.hpp" />
     <ClInclude Include="sdk\interfaces\CModelState.hpp" />
+    <ClInclude Include="sdk\interfaces\CNetworkClientService.hpp" />
+    <ClInclude Include="sdk\interfaces\CNetworkGameClient.hpp" />
     <ClInclude Include="sdk\interfaces\CPlayer_MovementServices.hpp" />
     <ClInclude Include="sdk\interfaces\CGameEntitySystem.hpp" />
     <ClInclude Include="sdk\interfaces\CPlayer_WeaponServices.hpp" />
@@ -189,10 +191,12 @@
     <ClInclude Include="sdk\offsets.hpp" />
     <ClInclude Include="sdk\sdk.hpp" />
     <ClInclude Include="sdk\signatures.hpp" />
+    <ClInclude Include="sdk\utils\color.hpp" />
     <ClInclude Include="sdk\utils\CUtlString.hpp" />
     <ClInclude Include="utils\console.hpp" />
     <ClInclude Include="utils\pattern_scan\pattern_scan.hpp" />
     <ClInclude Include="utils\valve\utlmap.hpp" />
+    <ClInclude Include="utils\vmt\vmt.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">

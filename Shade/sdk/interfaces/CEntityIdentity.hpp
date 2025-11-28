@@ -36,6 +36,7 @@ public:
 
 	SCHEMA(CEntityHandle,		offsets::CEntityIdentity::m_EHandle,		m_EHandle		);
 	SCHEMA(const char*,			offsets::CEntityIdentity::m_name,			m_name			);
+	SCHEMA(const char*,			offsets::CEntityIdentity::m_designerName,	m_designerName	);
 	SCHEMA(CEntityIdentity*,	offsets::CEntityIdentity::m_pPrev,			m_pPrev			);
 	SCHEMA(CEntityIdentity*,	offsets::CEntityIdentity::m_pNext,			m_pNext			);
 	SCHEMA(CEntityIdentity*,	offsets::CEntityIdentity::m_pPrevByClass,	m_pPrevByClass	);
