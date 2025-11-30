@@ -1,5 +1,7 @@
 #include "pattern_scan.hpp"
 
+#include <psapi.h>
+
 void pattern_scan::parse_pattern(const std::string_view& pattern) {
 	bytes.clear();
 	mask.clear();

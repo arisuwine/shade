@@ -1,7 +1,5 @@
 #pragma once
-#include "../math/math.hpp"
-#include "../modules.hpp"
-#include "../signatures.hpp"
+#include "../math/matrix/matrix4x4.hpp"
 
 class ViewMatrix {
 public:

@@ -1,5 +1,6 @@
 #pragma once
 #include "../offsets.hpp"
+
 #include "CEntityIterator.hpp"
 
 class CEntityIdentity;

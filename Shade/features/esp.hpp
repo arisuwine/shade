@@ -1,24 +1,14 @@
 #pragma once
-#include <cmath>
-#include <array>
-#include <memory>
-
-#include "../render/render.hpp"
-#include "../sdk/entities/CCSPlayerPawn.hpp"
-#include "../sdk/interfaces/CBone.hpp"
+#include <vector>
 
 #include "utils/bounding_box.hpp"
 
-extern render::gui::draw_object draw;
-extern render::gui::font_map	fonts;
+#include "../sdk/interfaces/CBone.hpp"
 
-class esp {
+class ESP {
 private:
 	CCSPlayerPawn* player;
 	bounding_box bbox;
-
-	static inline render::gui::draw_object& ref_to_draw = draw;
-	static inline render::gui::font_map& ref_to_fonts = fonts;
 
 	static inline std::vector<std::vector<bone_index>> bones = {
 		{ Pelvis, Spine_1, Spine_2, Spine_3, Neck_0, Head },
@@ -36,7 +26,14 @@ private:
 	void render_weapon();
 	void render_ammo();
 
-public:
-	esp(CCSPlayerPawn* _pawn);
 	void initialize();
+
+	ESP() {};
+public:
+
+	static ESP& get() {
+		static ESP instance;
+		return instance;
+	}
+	void begin_render();
 };

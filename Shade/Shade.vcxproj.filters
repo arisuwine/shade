@@ -4,9 +4,6 @@
     <Filter Include="imgui">
       <UniqueIdentifier>{27cae28e-9e0d-4283-a3d0-6e64d24c3e71}</UniqueIdentifier>
     </Filter>
-    <Filter Include="hooks">
-      <UniqueIdentifier>{ce229b91-c80d-4470-9886-9b5470fc6318}</UniqueIdentifier>
-    </Filter>
     <Filter Include="sdk">
       <UniqueIdentifier>{571895f6-43ce-46bd-aef5-5bf43ec81e86}</UniqueIdentifier>
     </Filter>
@@ -52,9 +49,6 @@
     <Filter Include="render\utils\gui">
       <UniqueIdentifier>{9f261824-f4c6-47b1-a87d-176211b5d7bd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="hooks\game_overlay">
-      <UniqueIdentifier>{8a872087-07d5-4466-9f45-6edab7c725af}</UniqueIdentifier>
-    </Filter>
     <Filter Include="imgui\impl">
       <UniqueIdentifier>{247c1a4a-37f7-407b-8403-f0d59938c840}</UniqueIdentifier>
     </Filter>
@@ -63,10 +57,6 @@
     </Filter>
     <Filter Include="sdk\interfaces\CBone">
       <UniqueIdentifier>{5abce9fe-b853-4f38-946f-759b2090f5f0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="main">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="sdk\interfaces\CCollisionProperty">
       <UniqueIdentifier>{9a00bf89-a004-4d68-b1e1-2de25c8107cf}</UniqueIdentifier>
@@ -97,9 +87,6 @@
     </Filter>
     <Filter Include="menu">
       <UniqueIdentifier>{929f6acb-9eff-4d26-8796-3ea2c8891600}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="menu\options">
-      <UniqueIdentifier>{0138e60d-03a7-48ec-b4c7-b7c8e51b382c}</UniqueIdentifier>
     </Filter>
     <Filter Include="sdk\interfaces\ViewMatrix">
       <UniqueIdentifier>{7bceb4a6-1e7e-45a6-b373-a6ea4b88ac90}</UniqueIdentifier>
@@ -143,8 +130,17 @@
     <Filter Include="sdk\interfaces\CNetworkGameClient">
       <UniqueIdentifier>{03303a5d-6bef-4dde-b9be-335f0c2f5ae6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sdk\entities\C_CSWeaponBase">
+    <Filter Include="sdk\interfaces\CCSWeaponVData">
+      <UniqueIdentifier>{0384b762-9ebc-44de-9587-5aa36e51b668}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk\entities\CCSWeaponBase">
       <UniqueIdentifier>{b9e7cf8b-c4e3-4568-bd93-7b56187306fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hooks">
+      <UniqueIdentifier>{ce229b91-c80d-4470-9886-9b5470fc6318}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hooks\game_overlay">
+      <UniqueIdentifier>{8a872087-07d5-4466-9f45-6edab7c725af}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -259,9 +255,6 @@
     <ClInclude Include="menu\menu.hpp">
       <Filter>menu</Filter>
     </ClInclude>
-    <ClInclude Include="menu\options.hpp">
-      <Filter>menu\options</Filter>
-    </ClInclude>
     <ClInclude Include="sdk\sdk.hpp">
       <Filter>sdk</Filter>
     </ClInclude>
@@ -295,8 +288,8 @@
     <ClInclude Include="sdk\interfaces\CEntityInstance.hpp">
       <Filter>sdk\interfaces\CEntityInstance</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\entities\C_CSWeaponBase.hpp">
-      <Filter>sdk\entities\C_CSWeaponBase</Filter>
+    <ClInclude Include="sdk\entities\CCSWeaponBase.hpp">
+      <Filter>sdk\entities\CCSWeaponBase</Filter>
     </ClInclude>
     <ClInclude Include="sdk\entities\CCSPlayerController.hpp">
       <Filter>sdk\entities\CCSPlayerController</Filter>
@@ -313,11 +306,14 @@
     <ClInclude Include="sdk\interfaces\CNetworkGameClient.hpp">
       <Filter>sdk\interfaces\CNetworkGameClient</Filter>
     </ClInclude>
+    <ClInclude Include="sdk\interfaces\CCSWeaponBaseVData.hpp">
+      <Filter>sdk\interfaces\CCSWeaponVData</Filter>
+    </ClInclude>
+    <ClInclude Include="menu\options.hpp">
+      <Filter>menu</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="dllmain.cpp">
-      <Filter>main</Filter>
-    </ClCompile>
     <ClCompile Include="imgui\imgui.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
@@ -375,11 +371,12 @@
     <ClCompile Include="menu\menu.cpp">
       <Filter>menu</Filter>
     </ClCompile>
-    <ClCompile Include="menu\options.cpp">
-      <Filter>menu\options</Filter>
-    </ClCompile>
     <ClCompile Include="sdk\sdk.cpp">
       <Filter>sdk</Filter>
     </ClCompile>
+    <ClCompile Include="sdk\utils\color.cpp">
+      <Filter>sdk\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp" />
   </ItemGroup>
 </Project>

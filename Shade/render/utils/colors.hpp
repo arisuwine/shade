@@ -1,7 +1,8 @@
 #pragma once
-#include "imgui.h"
 #include <unordered_map>
 #include <string_view>
+
+#include "imgui.h"
 
 namespace render {
     namespace colors {

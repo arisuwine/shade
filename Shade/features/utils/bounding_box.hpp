@@ -2,9 +2,8 @@
 #include <array>
 
 #include "../sdk/math/vector.hpp"
-#include "../math/world_to_screen.hpp"
 
-#include "../sdk/entities/CCSPlayerPawn.hpp"
+class CCSPlayerPawn;
 
 class bounding_box {
 private:

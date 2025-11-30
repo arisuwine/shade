@@ -2,9 +2,14 @@
 
 #include <algorithm>
 
+#include "../sdk/entities/CCSPlayerPawn.hpp"
+
 #include "../sdk/interfaces/CGameSceneNode.hpp"
 #include "../sdk/interfaces/CCollisionProperty.hpp"
 #include "../sdk/interfaces/CPlayer_MovementServices.hpp"
+
+
+#include "../math/world_to_screen.hpp"
 
 bool bounding_box::initialize(CCSPlayerPawn* player) {
 	CCollisionProperty* collision = player->m_pCollision;

@@ -1,12 +1,9 @@
-#include "utils/console.hpp"
 #include "hooks/game_overlay.hpp"
-#include "sdk/interfaces/CGameEntitySystem.hpp"
 #include "sdk/sdk.hpp"
+
 #include "menu/menu.hpp"
 
-#ifdef _DEBUG
-#include <conio.h>
-#endif
+#include "utils/console.hpp"
 
 DWORD WINAPI on_dll_attach(LPVOID lpParam) {
 #ifdef _DEBUG
@@ -17,19 +14,13 @@ DWORD WINAPI on_dll_attach(LPVOID lpParam) {
         interfaces::initialize();
         interfaces::dump();
 
-        menu::setup_styles();
-
-        game_overlay::init_hooks();
-
-        //FreeLibraryAndExitThread(static_cast<HMODULE>(lpParam), 1);
+        game_overlay::initialize();
     }
     catch (const std::exception& e) {
         LOG("An error occured during initialization:\n");
         LOG("%s\n", e.what());
         LOG("Press any key to exit.\n");
-#ifdef _DEBUG
-        int ch = _getch();
-#endif
+
         FreeLibraryAndExitThread(static_cast<HMODULE>(lpParam), 1);
     }
 
@@ -39,7 +30,7 @@ DWORD WINAPI on_dll_attach(LPVOID lpParam) {
 BOOL WINAPI on_dll_detach() {
 #ifdef _DEBUG
     utils::detach_console();
-    game_overlay::unhook();
+    game_overlay::shutdown();
 #endif
 
     return TRUE;

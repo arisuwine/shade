@@ -1,7 +1,9 @@
 #pragma once
+#include <Windows.h>
+
 #include "../math/vector/vector_3d.hpp"
 
-#include "../entities/CCSPlayerPawn.hpp"
+class CCSPlayerPawn;
 
 enum bone_index : DWORD {
     Pelvis = 0,
