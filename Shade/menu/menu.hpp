@@ -1,9 +1,19 @@
-#include "../render/render.hpp"
-using namespace render::types;
-using namespace render::gui;
+#pragma once
 
-namespace menu {
-    void toggle();
+class Menu {
+private:
     void setup_styles();
-    void draw_menu();
-}
+
+    bool show;
+
+    Menu() {}
+
+public:
+    void initialize();
+    void toggle();
+    void render();
+    static Menu& get() {
+        static Menu instance;
+        return instance;
+    }
+};

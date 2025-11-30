@@ -1,5 +1,9 @@
 #include "world_to_screen.hpp"
 
+#include "../sdk/sdk.hpp"
+#include "../sdk/math/matrix.hpp"
+#include "../sdk/math/vector.hpp"
+
 bool math::world_to_screen(const vector_3d& in, vector_2d& out) {
     matrix4x4 matrix_v = g_ViewMatrix->matrix;
 

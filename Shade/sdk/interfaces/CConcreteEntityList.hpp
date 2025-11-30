@@ -1,18 +1,11 @@
 #pragma once
 #include "../offsets.hpp"
-#define MAX_ENTITY_LISTS 64
 
 class CEntityIdentity;
 
 class CConcreteEntityList
 {
 private:
-	struct CList
-	{
-		CEntityIdentity* m_pHead;
-		CEntityIdentity* m_pTail;
-		int m_nCount;
-	};
 public:
 	CConcreteEntityList() = delete;
 

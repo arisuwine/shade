@@ -1,5 +1,6 @@
 #pragma once
 #include <d3d11.h>
+
 #include "../sdk/modules.hpp"
 #include "../sdk/signatures.hpp"
 
@@ -20,9 +21,12 @@ private:
     static inline WNDPROC OriginalWndProc;
     static LRESULT WndProcHook(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
+    static HWND hwnd;
+    static bool is_init;
+
 public:
     game_overlay() = delete;
 
-    static BOOL init_hooks();
-    static void unhook();
+    static BOOL initialize();
+    static void shutdown();
 };

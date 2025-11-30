@@ -1,31 +1,21 @@
 #pragma once
-#include <d3d11.h>
-
-#include "utils/colors.hpp"
 #include "utils/gui.hpp"
-#include "utils/im_vec_2.hpp"
 
-#include "../features/esp.hpp"
+extern FontMap  fonts;
+extern GUI      gui;
 
-#include "imgui.h"
-#include "imgui_impl_win32.h"
-#include "imgui_impl_dx11.h"
+void setup_fonts();
 
-namespace render {
-    extern IDXGISwapChain*          g_SwapChain;
-    extern ID3D11Device*            g_Device;
-    extern ID3D11DeviceContext*     g_DeviceContext;
-    extern ID3D11RenderTargetView*  g_TargetView;
+class RenderTarget {
+private:
+    RenderTarget() {};
 
-    extern gui::font_map            fonts;
-    extern gui::draw_object         draw;
-    extern gui::draw_element        element;
+public:
+    static RenderTarget& get() {
+        static RenderTarget instance;
+        return instance;
+    }
 
-	extern HWND                     hwnd;
-
-    void present_scene(IDXGISwapChain* SwapChain, UINT syncInterval, UINT flags);
-    LRESULT wndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam, bool& returnRes);
-    
-    void setup_fonts();
-    void draw_esp();
-}
+    void initialize();
+    void begin_scene();
+};

@@ -7,5 +7,5 @@ class CEntityInstance {
 public:
 	CEntityInstance() = delete;
 	
-	OFFSET(CEntityIdentity*, offsets::CEntityInstance::m_pEntity, m_pEntity);
+	SCHEMA(CEntityIdentity*, offsets::CEntityInstance::m_pEntity, m_pEntity);
 };

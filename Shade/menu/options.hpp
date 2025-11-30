@@ -4,7 +4,7 @@
 
 #include "../sdk/utils/color.hpp"
 
-#define DEFAULT_COLOR color(255, 255, 255)
+#define DEFAULT_COLOR color(255, 255, 255, 255)
 
 #define STRINGIFY(s) #s
 #define OPTION(type, var, val) Var<type> var = { STRINGIFY(var), val }
@@ -28,8 +28,6 @@ public:
 
 class options {
 public:
-	OPTION(bool, show_menu, true);
-
 	// ESP
 	OPTION(bool, esp_enabled, true);
 	OPTION(bool, esp_enemies_only, true);
@@ -37,10 +35,12 @@ public:
 	OPTION(bool, esp_player_names, true);
 	OPTION(bool, esp_player_health, true);
 	OPTION(bool, esp_player_skeleton, true);
+	OPTION(bool, esp_player_weapon, true);
+	OPTION(bool, esp_weapon_ammo, true);
 
-	float col_esp_bounding_boxes[3];
-	float col_esp_player_names[3];
-	float col_esp_player_skeleton[3];
+	OPTION(color, col_esp_bounding_boxes, DEFAULT_COLOR);
+	OPTION(color, col_esp_weapon_ammo, DEFAULT_COLOR);
+	OPTION(color, col_esp_player_skeleton, DEFAULT_COLOR);
 };
 
 inline options g_options;

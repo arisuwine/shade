@@ -2,7 +2,6 @@
 #include <vector>
 #include <string>
 #include <Windows.h>
-#include <psapi.h>
 
 #ifdef _DEBUG
 #include <stdio.h>

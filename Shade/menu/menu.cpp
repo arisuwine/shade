@@ -1,95 +1,41 @@
 #include "menu.hpp"
 #include "options.hpp"
 
-draw_element render::element;
-im_vec_2 menu_pos(200.0f, 200.0f);
+#include "imgui.h"
 
-//void render::draw_menu() {
-//    ImGuiIO& io = ImGui::GetIO(); (void)io;
-//
-//    colors::state_colors common = {
-//        { "thumb_inactive", ImColor(255, 255, 255, 255) },
-//        { "thumb_hover",    ImColor(177, 217, 255, 255) },
-//        { "track",          ImColor(14, 18, 29, 255) },
-//
-//        { "text_active",    ImColor(255, 255, 255, 255) }
-//    };
-//    colors::state_colors dropdown = {
-//        { "tab",            ImColor(14, 18, 29, 255) },
-//        { "text_inactive",  ImColor(55, 64, 91, 255) },
-//        { "text_active",    ImColor(255, 255, 255, 255) }
-//    };
-//
-//    draw.draw_rect(menu_pos, menu_pos + ImVec2(800.0f, 500.0f), IM_COL32(9, 12, 20, 255), 10.0f, true);
-//    draw.draw_text(menu_pos + 30.0f, IM_COL32(255, 255, 255, 255), fonts.get("MuseoSans-900"), "Perfect Hack");
-//
-//    const std::string_view tabs[4] = {
-//        "Aimbot",
-//        "Visuals",
-//        "Misc",
-//        "Config"
-//    };
-//
-//    types::im_vec_2 tab_size = { 150.0f, 40.0f };
-//    float padding = 5.0f;
-//    for (size_t i = 0; i < 4; ++i) {
-//        draw.draw_tab(menu_pos + types::im_vec_2(30.0f, 81.0f) + types::im_vec_2(0, (float)i * (tab_size.y + 5.0f)), tab_size, IM_COL32(14, 22, 43, 255), IM_COL32(255, 255, 255, 255), tabs[i], fonts.get("MuseoSans-500"), gui::draw_object::left, 5.0f, true);
-//    }
-//
-//    draw.draw_rect(menu_pos + types::im_vec_2(202.0f, 81.0f), menu_pos + types::im_vec_2(202.0f, 81.0f) + types::im_vec_2(193.0f, 247.0f), IM_COL32(14, 22, 43, 255), 5.0f);
-//
-//    auto mouse_in_menu = [](im_vec_2& pos, const im_vec_2& size) {
-//        ImGuiIO& io = ImGui::GetIO();
-//        im_vec_2 mouse_pos = io.MousePos;
-//        im_vec_2 pos_end = pos + size;
-//        return pos.x < mouse_pos.x && pos.y < mouse_pos.y && pos_end.x > mouse_pos.x && pos_end.y > mouse_pos.y;
-//        };
-//
-//    gui::draw_element elements;
-//    elements.set_draw(&draw);
-//
-//    draw.draw_text(menu_pos + im_vec_2(212.0f, 91.0f), ImColor(54, 62, 85, 255), fonts.get("MuseoSans-900_10"), "AIMBOT");
-//    elements.draw_switcher("Enable", menu_pos + im_vec_2(212.0f, 123.0f), common, fonts.get("MuseoSans-500"));
-//    elements.draw_selector("Select Hitboxes", menu_pos + im_vec_2(212.0f, 178.0f), dropdown, tabs[0], fonts.get("MuseoSans-500_12"));
-//    elements.draw_slider("FOV", menu_pos + im_vec_2(212.0f, 230.0f), common, fonts.get("MuseoSans-500"));
-//}
+//#include "../render/render.hpp"
 
 namespace ImGuiEx {
     inline bool ColorEdit4(const char* label, color* v, bool show_alpha = true)
     {
         auto clr = ImVec4{
-            v->r / 255.0f,
-            v->g / 255.0f,
-            v->b / 255.0f,
-            v->a / 255.0f
+            v->r() / 255.0f,
+            v->g() / 255.0f,
+            v->b() / 255.0f,
+            v->a() / 255.0f
         };
 
         if (ImGui::ColorEdit4(label, &clr.x, show_alpha)) {
-            v->r = clr.x, v->g = clr.y, v->b = clr.z, v->a = clr.w;
+            v->set_color(clr.x, clr.y, clr.z, clr.w);
             return true;
         }
         return false;
     }
+
     inline bool ColorEdit3(const char* label, color* v)
     {
         return ColorEdit4(label, v, false);
     }
 }
 
-void menu::toggle() {
-    *g_options.show_menu = !*g_options.show_menu;
-}
-
-float col[] = {255.f, 0.f, 0.f, 255.f};
-
-void menu::setup_styles() {
-    ImGui::CreateContext();
+void Menu::setup_styles() {
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
 
     ImGui::StyleColorsDark();
     ImGuiStyle& style = ImGui::GetStyle();
+
     style.WindowPadding = ImVec2(15, 15);
     style.WindowRounding = 5.0f;
     style.FramePadding = ImVec2(5, 5);
@@ -101,6 +47,8 @@ void menu::setup_styles() {
     style.ScrollbarRounding = 9.0f;
     style.GrabMinSize = 5.0f;
     style.GrabRounding = 3.0f;
+    style.WindowMinSize = ImVec2(500.0f, 500.0f);
+    style.WindowMenuButtonPosition = ImGuiDir_None;
 
     style.Colors[ImGuiCol_Text] = ImVec4(0.80f, 0.80f, 0.83f, 1.00f);
     style.Colors[ImGuiCol_TextDisabled] = ImVec4(0.24f, 0.23f, 0.29f, 1.00f);
@@ -141,22 +89,19 @@ void menu::setup_styles() {
     style.Colors[ImGuiCol_TextSelectedBg] = ImVec4(0.25f, 1.00f, 0.00f, 0.43f);
 }
 
-void menu::draw_menu() {
-    ImGui::GetIO().MouseDrawCursor = *g_options.show_menu;
+void Menu::toggle() {
+    show = !show;
+}
 
-    if (!(*g_options.show_menu))
+void Menu::render() {
+    ImGui::GetIO().MouseDrawCursor = show;
+
+    if (!show)
         return;
 
-    ImGui::Begin("yuki-external", g_options.show_menu);
+    ImGui::Begin("##Menu", nullptr, ImGuiWindowFlags_NoTitleBar);
     if (ImGui::BeginTabBar("##MainTabBar", ImGuiTabBarFlags_None)) {
         if (ImGui::BeginTabItem("Aimbot")) {
-            //ImGui::Checkbox("Aimbot", &aimbotEnabled);
-            //ImGui::Checkbox("Sticky Aim", &stickyAimEnabled);
-            //ImGui::Checkbox("Use FOV", &useFOV);
-            //ImGui::Combo("Part", &selectedPartIndex, partOptions, IM_ARRAYSIZE(partOptions));
-            //ImGui::SliderFloat("Horizontal", &horizontalValue, 0.0f, 10.0f);
-            //ImGui::SliderFloat("Vertical", &verticalValue, 0.0f, 10.0f);
-            //ImGui::SliderFloat("Smoothness", &cameraSmoothness, 0.0f, 10.0f);
             ImGui::EndTabItem();
         }
 
@@ -165,22 +110,22 @@ void menu::draw_menu() {
             ImGui::Checkbox("Enemies Only", g_options.esp_enemies_only);
             ImGui::Checkbox("Bounding Boxes", g_options.esp_bounding_boxes);
             ImGui::SameLine();
-            ImGui::ColorEdit3("Bounding Boxes", &col[3]);
+            ImGuiEx::ColorEdit3("Bounding Boxes", g_options.col_esp_bounding_boxes);
 
             ImGui::Checkbox("Player Names", g_options.esp_player_names);
-            ImGui::SameLine();
-            ImGui::ColorEdit3("Player Names", &g_options.col_esp_player_names[3]);
 
             ImGui::Checkbox("Health", g_options.esp_player_health);
 
             ImGui::Checkbox("Skeleton", g_options.esp_player_skeleton);
             ImGui::SameLine();
-            ImGui::ColorEdit3("Skeleton", &g_options.col_esp_player_skeleton[3]);
+            ImGuiEx::ColorEdit3("Skeleton", g_options.col_esp_player_skeleton);
 
+            ImGui::Checkbox("Ammo", g_options.esp_weapon_ammo);
+            ImGui::SameLine();
+            ImGuiEx::ColorEdit3("Ammo", g_options.col_esp_weapon_ammo);
 
             ImGui::EndTabItem();
         }
-
 
         if (ImGui::BeginTabItem("Settings")) {
 
@@ -191,4 +136,9 @@ void menu::draw_menu() {
     }
 
     ImGui::End();
+}
+
+void Menu::initialize() {
+    setup_styles();
+    show = true;
 }

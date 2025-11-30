@@ -146,7 +146,6 @@
     <ClInclude Include="features\utils\bounding_box.hpp" />
     <ClInclude Include="hooks\game_overlay.hpp" />
     <ClInclude Include="math\world_to_screen.hpp" />
-    <ClInclude Include="matrix.hpp" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
     <ClInclude Include="imgui\imgui_impl_dx11.h" />
@@ -155,7 +154,6 @@
     <ClInclude Include="imgui\imstb_rectpack.h" />
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
-    <ClInclude Include="matrix4x4.hpp" />
     <ClInclude Include="menu\menu.hpp" />
     <ClInclude Include="menu\options.hpp" />
     <ClInclude Include="render\render.hpp" />
@@ -164,10 +162,11 @@
     <ClInclude Include="render\utils\im_vec_2.hpp" />
     <ClInclude Include="sdk\entities\CCSPlayerController.hpp" />
     <ClInclude Include="sdk\entities\CCSPlayerPawn.hpp" />
-    <ClInclude Include="sdk\entities\C_CSWeaponBase.hpp" />
+    <ClInclude Include="sdk\entities\CCSWeaponBase.hpp" />
     <ClInclude Include="sdk\interfaces\CBone.hpp" />
     <ClInclude Include="sdk\interfaces\CCollisionProperty.hpp" />
     <ClInclude Include="sdk\interfaces\CConcreteEntityList.hpp" />
+    <ClInclude Include="sdk\interfaces\CCSWeaponBaseVData.hpp" />
     <ClInclude Include="sdk\interfaces\CEntityClass.hpp" />
     <ClInclude Include="sdk\interfaces\CEntityHandle.hpp" />
     <ClInclude Include="sdk\interfaces\CEntityIdentity.hpp" />
@@ -184,6 +183,7 @@
     <ClInclude Include="sdk\interfaces\ViewMatrix.hpp" />
     <ClInclude Include="sdk\math\math.hpp" />
     <ClInclude Include="sdk\math\matrix.hpp" />
+    <ClInclude Include="sdk\math\matrix\matrix4x4.hpp" />
     <ClInclude Include="sdk\math\vector.hpp" />
     <ClInclude Include="sdk\math\vector\vector_2d.hpp" />
     <ClInclude Include="sdk\math\vector\vector_3d.hpp" />
@@ -242,7 +242,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="menu\menu.cpp" />
-    <ClCompile Include="menu\options.cpp" />
     <ClCompile Include="render\render.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
@@ -259,11 +258,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="sdk\interfaces\CGameEntitySystem.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="sdk\sdk.cpp" />
+    <ClCompile Include="sdk\utils\color.cpp" />
     <ClCompile Include="utils\console.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>

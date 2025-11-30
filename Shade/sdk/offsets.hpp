@@ -56,7 +56,7 @@ namespace offsets {
 		CONST_OFFSET m_pMovementServices		= 0x1430;
 		CONST_OFFSET m_hController				= 0x15B8;
 		CONST_OFFSET m_pWeaponServices			= 0x13F0;
-		CONST_OFFSET m_pClippingWeapon			= 0x13a0;
+		CONST_OFFSET m_pClippingWeapon			= 0x3de0;
 	}
 
 	namespace CCollisionProperty {
@@ -111,8 +111,15 @@ namespace offsets {
 		CONST_OFFSET m_pCNetworkGameClient		= 0x98;
 	}
 
-	namespace C_CSWeaponBase {
+	namespace CCSWeaponBase {
 		CONST_OFFSET m_pEntity					= 0x10;
 		CONST_OFFSET m_iClip1					= 0x18f0;
+		CONST_OFFSET m_pWeaponVData				= 0x388;
+	}
+	
+	namespace CCSWeaponBaseVData {
+		CONST_OFFSET m_szName					= 0x720;
+		CONST_OFFSET m_iMaxClip1				= 0x3e8;
+		CONST_OFFSET m_iMaxClip2				= 0x3ec;
 	}
 }

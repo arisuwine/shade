@@ -1,5 +1,4 @@
-#include <windows.h>
-#include <cstdio>
+#pragma once
 
 namespace utils {
 	void attach_console();

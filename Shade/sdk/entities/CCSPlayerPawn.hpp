@@ -1,17 +1,19 @@
 #pragma once
-#include "../math/vector.hpp"
 #include "../offsets.hpp"
+#include "../modules.hpp"
+#include "../signatures.hpp"
 
-#include "../interfaces/CGameEntitySystem.hpp"
 #include "../interfaces/CHandle.hpp"
 
 #include "../entities/CCSPlayerController.hpp"
+
+#include "../math/vector.hpp"
 
 class CCollisionProperty;
 class CPlayer_MovementServices;
 class CGameSceneNode;
 class CPlayer_WeaponServices;
-class C_CSWeaponBase;
+class CCSWeaponBase;
 
 class CCSPlayerPawn {
 public:
@@ -34,7 +36,7 @@ public:
 	SCHEMA  (CGameSceneNode*,				offsets::CCSPlayerPawn::m_pGameSceneNode,		m_pGameSceneNode	);
 	SCHEMA  (CPlayer_WeaponServices*,		offsets::CCSPlayerPawn::m_pWeaponServices,		m_pWeaponServices	);
 	SCHEMA_R(CHandle<CCSPlayerController>,	offsets::CCSPlayerPawn::m_hController,			m_hController		);
-	SCHEMA  (C_CSWeaponBase*,				offsets::CCSPlayerPawn::m_pClippingWeapon,		m_pClippingWeapon	);
+	SCHEMA  (CCSWeaponBase*,				offsets::CCSPlayerPawn::m_pClippingWeapon,		m_pClippingWeapon	);
 
 	bool IsAlive() const;
 };

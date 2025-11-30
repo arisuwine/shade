@@ -1,5 +1,8 @@
 #include "sdk.hpp"
 
+#include "modules.hpp"
+#include "signatures.hpp"
+
 void interfaces::initialize() {
 	#define GET_OPERAND_EX(type, addr, offset, size) reinterpret_cast<type*>(addr + *((int32_t*)(addr + offset)) + size)
 	#define GET_OPERAND(type, addr) GET_OPERAND_EX(type, addr, 3, 7)

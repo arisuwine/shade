@@ -1,4 +1,5 @@
 #include "../offsets.hpp"
+
 #include "../../utils/vmt/vmt.hpp"
 
 class CNetworkGameClient {
