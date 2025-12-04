@@ -8,8 +8,12 @@ void interfaces::initialize() {
 	#define GET_OPERAND(type, addr) GET_OPERAND_EX(type, addr, 3, 7)
 	#define DEREFERENCE(type, addr) *reinterpret_cast<type**>(GET_OPERAND(type, addr))
 
+	// client.dll
 	g_CGameEntitySystem		= DEREFERENCE(CGameEntitySystem,		modules::client.find(GAME_ENTITY_SYSTEM));
 	g_ViewMatrix			= GET_OPERAND(ViewMatrix,				modules::client.find(VIEW_MATRIX));
+	g_CGlowObjectManager	= GET_OPERAND(CGlowObjectManager,		modules::client.find(GLOW_MANAGER));
+
+	// engine2.dll
 	g_CNetworkClientService = GET_OPERAND(CNetworkClientService,	modules::engine2.find(NETWORK_CLIENT_SERVICE));
 }
 
@@ -20,4 +24,5 @@ void interfaces::dump() {
 	PRINT_INTERFACE(g_CGameEntitySystem		);
 	PRINT_INTERFACE(g_ViewMatrix			);
 	PRINT_INTERFACE(g_CNetworkClientService	);
+	PRINT_INTERFACE(g_CGlowObjectManager	);
 }

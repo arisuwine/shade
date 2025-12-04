@@ -5,6 +5,7 @@
 
 #include "utils/console.hpp"
 
+
 DWORD WINAPI on_dll_attach(LPVOID lpParam) {
 #ifdef _DEBUG
     utils::attach_console();
@@ -14,7 +15,7 @@ DWORD WINAPI on_dll_attach(LPVOID lpParam) {
         interfaces::initialize();
         interfaces::dump();
 
-        game_overlay::initialize();
+        GameOverlayHook::initialize();
     }
     catch (const std::exception& e) {
         LOG("An error occured during initialization:\n");
@@ -30,7 +31,7 @@ DWORD WINAPI on_dll_attach(LPVOID lpParam) {
 BOOL WINAPI on_dll_detach() {
 #ifdef _DEBUG
     utils::detach_console();
-    game_overlay::shutdown();
+    GameOverlayHook::shutdown();
 #endif
 
     return TRUE;

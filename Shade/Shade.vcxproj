@@ -111,7 +111,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>C:\Program Files\Microsoft Research\Detours\include;C:\Users\Administrator\source\repos\Shade\Shade\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Administrator\source\repos\Shade\Shade\minhook;C:\Program Files\Microsoft Research\Detours\include;C:\Users\Administrator\source\repos\Shade\Shade\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
     </ClCompile>
@@ -143,8 +143,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="features\esp.hpp" />
+    <ClInclude Include="features\glow.hpp" />
     <ClInclude Include="features\utils\bounding_box.hpp" />
     <ClInclude Include="hooks\game_overlay.hpp" />
+    <ClInclude Include="hooks\glow.hpp" />
     <ClInclude Include="math\world_to_screen.hpp" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
@@ -156,6 +158,14 @@
     <ClInclude Include="imgui\imstb_truetype.h" />
     <ClInclude Include="menu\menu.hpp" />
     <ClInclude Include="menu\options.hpp" />
+    <ClInclude Include="minhook\buffer.h" />
+    <ClInclude Include="minhook\hde\hde32.h" />
+    <ClInclude Include="minhook\hde\hde64.h" />
+    <ClInclude Include="minhook\hde\pstdint.h" />
+    <ClInclude Include="minhook\hde\table32.h" />
+    <ClInclude Include="minhook\hde\table64.h" />
+    <ClInclude Include="minhook\minhook.h" />
+    <ClInclude Include="minhook\trampoline.h" />
     <ClInclude Include="render\render.hpp" />
     <ClInclude Include="render\utils\colors.hpp" />
     <ClInclude Include="render\utils\gui.hpp" />
@@ -163,6 +173,8 @@
     <ClInclude Include="sdk\entities\CCSPlayerController.hpp" />
     <ClInclude Include="sdk\entities\CCSPlayerPawn.hpp" />
     <ClInclude Include="sdk\entities\CCSWeaponBase.hpp" />
+    <ClInclude Include="sdk\entities\C_BaseEntity.hpp" />
+    <ClInclude Include="sdk\entities\C_BasePlayerPawn.hpp" />
     <ClInclude Include="sdk\interfaces\CBone.hpp" />
     <ClInclude Include="sdk\interfaces\CCollisionProperty.hpp" />
     <ClInclude Include="sdk\interfaces\CConcreteEntityList.hpp" />
@@ -173,6 +185,8 @@
     <ClInclude Include="sdk\interfaces\CEntityInstance.hpp" />
     <ClInclude Include="sdk\interfaces\CEntityIterator.hpp" />
     <ClInclude Include="sdk\interfaces\CGameSceneNode.hpp" />
+    <ClInclude Include="sdk\interfaces\CGlowObjectManager.hpp" />
+    <ClInclude Include="sdk\interfaces\CGlowProperty.hpp" />
     <ClInclude Include="sdk\interfaces\CHandle.hpp" />
     <ClInclude Include="sdk\interfaces\CModelState.hpp" />
     <ClInclude Include="sdk\interfaces\CNetworkClientService.hpp" />
@@ -196,6 +210,7 @@
     <ClInclude Include="utils\console.hpp" />
     <ClInclude Include="utils\pattern_scan\pattern_scan.hpp" />
     <ClInclude Include="utils\valve\utlmap.hpp" />
+    <ClInclude Include="utils\valve\utlvector.hpp" />
     <ClInclude Include="utils\vmt\vmt.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -209,6 +224,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="hooks\glow.cpp" />
     <ClCompile Include="imgui\imgui.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
@@ -242,6 +258,11 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="menu\menu.cpp" />
+    <ClCompile Include="minhook\buffer.c" />
+    <ClCompile Include="minhook\hde\hde32.c" />
+    <ClCompile Include="minhook\hde\hde64.c" />
+    <ClCompile Include="minhook\hook.c" />
+    <ClCompile Include="minhook\trampoline.c" />
     <ClCompile Include="render\render.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>

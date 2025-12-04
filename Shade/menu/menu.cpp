@@ -3,10 +3,8 @@
 
 #include "imgui.h"
 
-//#include "../render/render.hpp"
-
 namespace ImGuiEx {
-    inline bool ColorEdit4(const char* label, color* v, bool show_alpha = true)
+    inline bool ColorEdit4(const char* label, Color* v, bool show_alpha = true)
     {
         auto clr = ImVec4{
             v->r() / 255.0f,
@@ -22,7 +20,7 @@ namespace ImGuiEx {
         return false;
     }
 
-    inline bool ColorEdit3(const char* label, color* v)
+    inline bool ColorEdit3(const char* label, Color* v)
     {
         return ColorEdit4(label, v, false);
     }
@@ -123,6 +121,10 @@ void Menu::render() {
             ImGui::Checkbox("Ammo", g_options.esp_weapon_ammo);
             ImGui::SameLine();
             ImGuiEx::ColorEdit3("Ammo", g_options.col_esp_weapon_ammo);
+
+            ImGui::Checkbox("Glow", g_options.esp_glow);
+            ImGui::SameLine();
+            ImGuiEx::ColorEdit3("Glow", g_options.col_esp_glow);
 
             ImGui::EndTabItem();
         }

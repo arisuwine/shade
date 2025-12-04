@@ -1,20 +1,27 @@
 #pragma once
 #include "imgui.h"
 
-class color {
+class Color {
 private:
 	unsigned char colors[4];
 
 public:
-	color();
-	color(int r, int g, int b, int a = 255);
-	color(float r, float g, float b, float a = 1.0f);
+	Color();
+	Color(int r, int g, int b, int a = 255);
+	Color(float r, float g, float b, float a = 1.0f);
 
-	explicit color(unsigned long hex) {
-		colors[2] = (unsigned char)((hex & 0x000000FF) >> (0 * 8));
-		colors[1] = (unsigned char)((hex & 0x0000FF00) >> (1 * 8));
+	explicit Color(unsigned long hex) {
 		colors[0] = (unsigned char)((hex & 0x00FF0000) >> (2 * 8));
+		colors[1] = (unsigned char)((hex & 0x0000FF00) >> (1 * 8));
+		colors[2] = (unsigned char)((hex & 0x000000FF) >> (0 * 8));
 		colors[3] = (unsigned char)((hex & 0xFF000000) >> (3 * 8));
+	}
+
+	unsigned long ByteColorRGBA() {
+		return	(static_cast<unsigned long>(colors[0]) << (2 * 8)) |
+				(static_cast<unsigned long>(colors[1]) << (1 * 8)) |
+				(static_cast<unsigned long>(colors[2]) << (0 * 8)) |
+				(static_cast<unsigned long>(colors[3]) << (3 * 8));
 	}
 
 	inline int r() const { return colors[0]; }
@@ -35,7 +42,7 @@ public:
 		return colors[index];
 	}
 
-	bool operator==(const color& clr) const;
-	bool operator!=(const color& clr) const;
-	color& operator=(const color& clr);
+	bool operator==(const Color& clr) const;
+	bool operator!=(const Color& clr) const;
+	Color& operator=(const Color& clr);
 };
