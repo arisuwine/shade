@@ -4,7 +4,7 @@
 
 #include "../sdk/utils/color.hpp"
 
-#define DEFAULT_COLOR color(255, 255, 255, 255)
+#define DEFAULT_COLOR Color(255, 255, 255, 255)
 
 #define STRINGIFY(s) #s
 #define OPTION(type, var, val) Var<type> var = { STRINGIFY(var), val }
@@ -37,10 +37,12 @@ public:
 	OPTION(bool, esp_player_skeleton, true);
 	OPTION(bool, esp_player_weapon, true);
 	OPTION(bool, esp_weapon_ammo, true);
+	OPTION(bool, esp_glow, true);
 
-	OPTION(color, col_esp_bounding_boxes, DEFAULT_COLOR);
-	OPTION(color, col_esp_weapon_ammo, DEFAULT_COLOR);
-	OPTION(color, col_esp_player_skeleton, DEFAULT_COLOR);
+	OPTION(Color, col_esp_bounding_boxes, DEFAULT_COLOR);
+	OPTION(Color, col_esp_weapon_ammo, DEFAULT_COLOR);
+	OPTION(Color, col_esp_player_skeleton, DEFAULT_COLOR);
+	OPTION(Color, col_esp_glow, DEFAULT_COLOR);
 };
 
 inline options g_options;

@@ -5,40 +5,29 @@
 
 #include "../interfaces/CHandle.hpp"
 
-#include "../entities/CCSPlayerController.hpp"
+#include "C_BasePlayerPawn.hpp"
 
 #include "../math/vector.hpp"
 
-class CCollisionProperty;
 class CPlayer_MovementServices;
-class CGameSceneNode;
 class CPlayer_WeaponServices;
 class CCSWeaponBase;
 
-class CCSPlayerPawn {
+class C_CSPlayerPawnBase : public C_BasePlayerPawn {
+public:
+	C_CSPlayerPawnBase() = delete;
+};
+
+class CCSPlayerPawn : public C_CSPlayerPawnBase {
 public:
 	CCSPlayerPawn() = delete;
 
-	enum TEAM : int {
-		SPEC = 1,
-		T = 2,
-		CT = 3
-	};
-
-	SCHEMA	(int,							offsets::CCSPlayerPawn::m_iHealth,				m_iHealth			);
 	SCHEMA	(int,							offsets::CCSPlayerPawn::m_ArmorValue,			m_ArmorValue		);
-	SCHEMA	(TEAM,							offsets::CCSPlayerPawn::m_iTeamNum,				m_iTeamNum			);
-	SCHEMA	(vector_3d,						offsets::CCSPlayerPawn::m_vOldOrigin,			m_vOldOrigin		);
 	SCHEMA	(bool,							offsets::CCSPlayerPawn::m_bIsScoped,			m_bIsScoped			);
 	SCHEMA	(bool,							offsets::CCSPlayerPawn::m_bIsDefusing,			m_bIsDefusing		);
-	SCHEMA	(CCollisionProperty*,			offsets::CCSPlayerPawn::m_pCollision,			m_pCollision		);
-	SCHEMA  (CPlayer_MovementServices*,		offsets::CCSPlayerPawn::m_pMovementServices,	m_pMovementServices	);
-	SCHEMA  (CGameSceneNode*,				offsets::CCSPlayerPawn::m_pGameSceneNode,		m_pGameSceneNode	);
-	SCHEMA  (CPlayer_WeaponServices*,		offsets::CCSPlayerPawn::m_pWeaponServices,		m_pWeaponServices	);
-	SCHEMA_R(CHandle<CCSPlayerController>,	offsets::CCSPlayerPawn::m_hController,			m_hController		);
 	SCHEMA  (CCSWeaponBase*,				offsets::CCSPlayerPawn::m_pClippingWeapon,		m_pClippingWeapon	);
 
-	bool IsAlive() const;
+	inline bool IsAlive();
 };
 
 class LocalPlayer {
@@ -73,3 +62,7 @@ public:
 		return pawn ? pawn : nullptr;
 	}
 };
+
+bool CCSPlayerPawn::IsAlive() {
+	return this->m_iHealth != 0;
+}

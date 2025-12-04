@@ -1,4 +1,6 @@
 #include "game_overlay.hpp"
+#include "glow.hpp"
+
 
 #include "imgui_impl_win32.h"
 #include "imgui_impl_dx11.h"
@@ -7,11 +9,11 @@
 #include "../render/render.hpp"
 #include "../menu/menu.hpp"
 
-__int64(__fastcall* game_overlay::CreateHook)(unsigned __int64 pFuncAddress, __int64 pDetourFuncAddress, unsigned __int64* pOriginalFuncAddressOut, int a4, __int64 sFuncName) = (decltype(CreateHook))(game_overlay::pCreateHook);
-void(__fastcall* game_overlay::UnHook)(unsigned __int64 pOriginalFuncAddress, bool bLogFailures) = (decltype(UnHook))(game_overlay::pUnHook);
+__int64(__fastcall* GameOverlayHook::CreateHook)(unsigned __int64 pFuncAddress, __int64 pDetourFuncAddress, unsigned __int64* pOriginalFuncAddressOut, int a4, __int64 sFuncName) = (decltype(CreateHook))(GameOverlayHook::pCreateHook);
+void(__fastcall* GameOverlayHook::UnHook)(unsigned __int64 pOriginalFuncAddress, bool bLogFailures) = (decltype(UnHook))(GameOverlayHook::pUnHook);
 
-bool game_overlay::is_init = false;
-HRESULT __stdcall game_overlay::PresentHook(IDXGISwapChain* SwapChain, UINT SyncInterval, UINT Flags) {
+bool GameOverlayHook::is_init = false;
+HRESULT __stdcall GameOverlayHook::PresentHook(IDXGISwapChain* SwapChain, UINT SyncInterval, UINT Flags) {
     if (!g_Device) {
         ID3D11Texture2D* renderTarget = nullptr;
 
@@ -31,6 +33,7 @@ HRESULT __stdcall game_overlay::PresentHook(IDXGISwapChain* SwapChain, UINT Sync
 
         RenderTarget::get().initialize();
         Menu::get().initialize();
+        Glow::initialize();
 
         is_init = true;
     }
@@ -41,14 +44,14 @@ HRESULT __stdcall game_overlay::PresentHook(IDXGISwapChain* SwapChain, UINT Sync
 }
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
-LRESULT game_overlay::WndProcHook(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+LRESULT GameOverlayHook::WndProcHook(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam);
 
     return OriginalWndProc(hWnd, msg, wParam, lParam);
 }
 
-HWND game_overlay::hwnd;
-BOOL game_overlay::initialize() {
+HWND GameOverlayHook::hwnd;
+bool GameOverlayHook::initialize() {
     hwnd = FindWindowA("SDL_APP", "Counter-Strike 2");
     if (!hwnd)
         hwnd = GetForegroundWindow();
@@ -63,7 +66,8 @@ BOOL game_overlay::initialize() {
     return TRUE;
 }
 
-void game_overlay::shutdown() {
+void GameOverlayHook::shutdown() {
     UnHook((__int64)&OriginalPresentFunc, 1);
     UnHook((__int64)&OriginalWndProc, 1);
+    Glow::shutdown();
 }

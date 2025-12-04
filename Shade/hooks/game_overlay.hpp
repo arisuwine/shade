@@ -4,7 +4,7 @@
 #include "../sdk/modules.hpp"
 #include "../sdk/signatures.hpp"
 
-class game_overlay {
+class GameOverlayHook {
 private:
     using OriginalPresent = HRESULT(*)(IDXGISwapChain*, UINT, UINT);
 
@@ -25,8 +25,8 @@ private:
     static bool is_init;
 
 public:
-    game_overlay() = delete;
+    GameOverlayHook() = delete;
 
-    static BOOL initialize();
+    static bool initialize();
     static void shutdown();
 };
