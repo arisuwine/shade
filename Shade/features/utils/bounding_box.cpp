@@ -2,16 +2,15 @@
 
 #include <algorithm>
 
-#include "../sdk/entities/CCSPlayerPawn.hpp"
+#include "../sdk/entities/C_CSPlayerPawn.hpp"
 
-#include "../sdk/interfaces/CGameSceneNode.hpp"
-#include "../sdk/interfaces/CCollisionProperty.hpp"
-#include "../sdk/interfaces/CPlayer_MovementServices.hpp"
-
+#include "../sdk/services/CGameSceneNode.hpp"
+#include "../sdk/services/CCollisionProperty.hpp"
+#include "../sdk/services/CPlayer_MovementServices.hpp"
 
 #include "../math/world_to_screen.hpp"
 
-bool bounding_box::initialize(CCSPlayerPawn* player) {
+bool bounding_box::initialize(C_CSPlayerPawn* player) {
 	CCollisionProperty* collision = player->m_pCollision;
 	if (!collision) {
 		initialized = false;
@@ -34,7 +33,7 @@ bool bounding_box::initialize(CCSPlayerPawn* player) {
 	return 1;
 }
 
-bounding_box::bounding_box(CCSPlayerPawn* player) {
+bounding_box::bounding_box(C_CSPlayerPawn* player) {
 	initialize(player);
 }
 

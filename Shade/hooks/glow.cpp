@@ -2,62 +2,103 @@
 
 #include "minhook.h"
 
-#include "../sdk/interfaces/CGlowProperty.hpp"
-#include "../sdk/entities/CCSPlayerPawn.hpp"
+#include "entity_system.hpp"
+
+#include "../sdk/entities/C_CSPlayerPawn.hpp"
+
+#include "../sdk/services/CGlowProperty.hpp"
 
 #include "../sdk/utils/color.hpp"
 
 #include "../menu/options.hpp"
 
-bool Glow::is_init = false;
-bool Glow::initialize() {
+#include "../utils/debug.hpp"
+
+bool GlowHook::is_init = false;
+bool GlowHook::initialize() {
 	if (is_init)
-		return true;
+		return TRUE;
 
-	if (MH_Initialize() != MH_OK)
-		return false;
+	if (MH_CreateHook((LPVOID)pGetGlow, &GetGlowHk, reinterpret_cast<void**>(&oGetGlow)) != MH_OK)
+		LOG_AND_RETURN("[-] GetGlowHk hook creation has failed.\n");
 
-	if (MH_CreateHook((LPVOID)pGetGlow, &GetGlowHk, reinterpret_cast<void**>(&GetGlowO)) != MH_OK)
-		return false;
+	if (MH_CreateHook((LPVOID)pIsGlowing, &IsGlowingHk, reinterpret_cast<void**>(&oIsGlowing)) != MH_OK)
+		LOG_AND_RETURN("[-] IsGlowingHk hook creation has failed.\n");
 
 	if (MH_EnableHook((LPVOID)pGetGlow) != MH_OK)
-		return false;
+		LOG_AND_RETURN("[-] pGetGlow hook enabling has failed.\n");
 
-	is_init = true;
-	return true;
+	if (MH_EnableHook((LPVOID)pIsGlowing) != MH_OK)
+		LOG_AND_RETURN("[-] pIsGlowing hook enabling has failed.\n");
+
+	is_init = TRUE;
+	return TRUE;
 }
 
-bool Glow::shutdown() {
+bool GlowHook::shutdown() {
 	if (!is_init)
-		return true;
+		return TRUE;
 
 	if (MH_DisableHook((LPVOID)pGetGlow) != MH_OK)
-		return false;
+		LOG_AND_RETURN("[-] pGetGlow hook disabling has failed.\n");
 
-	is_init = false;
+	if (MH_DisableHook((LPVOID)pIsGlowing) != MH_OK)
+		LOG_AND_RETURN("[-] pIsGlowing hook disabling has failed.\n");
+
+	is_init = FALSE;
+	return TRUE;
+}
+
+bool __fastcall GlowHook::IsGlowingHk(CGlowProperty* property) {
+	if (!(g_CNetworkClientService->m_pCNetworkGameClient->IsInGame()))
+		return oIsGlowing(property);
+
+	C_BaseEntity* entity = property->m_pParent;
+	if (entity == nullptr)
+		return oIsGlowing(property);
+
+	if (entity->IsWeapon() && entity->m_hOwnerEntity.m_Index == -1)
+		return true;
+
+	//if (is_projectile_class(entity))
+	//	return true;
+
+	if (entity->Schema_DynamicBinding() != g_CSchemaSystem->FindClassByScopedName("client.dll!C_CSPlayerPawn"))
+		return oIsGlowing(property);
+
 	return true;
 }
 
-void __fastcall Glow::GetGlowHk(CGlowProperty* property, int color) {
-	if (!g_options.esp_enabled)
-		return GetGlowO(property, color);
+void __fastcall GlowHook::GetGlowHk(CGlowProperty* property, int color) {
+	if (!g_CNetworkClientService->m_pCNetworkGameClient->IsInGame())
+		return oGetGlow(property, color);
 
-	if (!(g_CNetworkClientService->m_pCNetworkGameClient->IsInGame()))
-		return GetGlowO(property, color);
+	if (!g_options.esp_enabled || !g_options.esp_glow)
+		return oGetGlow(property, color);
 
-	if (!g_options.esp_glow)
-		return GetGlowO(property, color);
+	C_BaseEntity* entity = property->m_pParent;
+	if (!entity)
+		return oGetGlow(property, color);
 
-	CCSPlayerPawn* local_player = LocalPlayer::get().get_pawn();
-	C_BaseEntity* player = property->m_pParent;
+	int32_t glow_color = (*g_options.col_esp_glow).get_raw_color();
+	if (entity->IsWeapon())
+		return oGetGlow(property, glow_color);
 
-	if (player && property->m_pParent == local_player)
-		return GetGlowO(property, color);
+	//if (is_projectile_class(entity))
+	//	return GetGlowO(property, glow_color);
+	
+	if (entity->IsPawn())
+		return oGetGlow(property, color);
 
-	if (g_options.esp_enemies_only && (local_player->m_iTeamNum == player->m_iTeamNum))
-		return GetGlowO(property, color);
+	C_CSPlayerPawn* local_player = LocalPlayer::get().get_pawn();
+	if (!local_player)
+		return oGetGlow(property, color);
 
-	int32_t glow_color = (*g_options.col_esp_glow).ByteColorRGBA();
-	property->m_bGlowing = true;
-	return GetGlowO(property, glow_color);
+	if (entity == local_player)
+		return oGetGlow(property, color);
+
+	if (g_options.esp_enemies_only && (local_player->m_iTeamNum == entity->m_iTeamNum))
+		return oGetGlow(property, color);
+
+	return oGetGlow(property, glow_color);
 }

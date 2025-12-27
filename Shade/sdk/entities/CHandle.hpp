@@ -3,6 +3,8 @@
 
 #include "CEntityHandle.hpp"
 
+#define INVALID_EHANDLE_INDEX	0xFFFFFFFF
+
 template<typename T>
 class CHandle
 {
@@ -34,5 +36,19 @@ public:
 			return *(T**)v3;
 		else
 			return nullptr;
+	}
+
+	union
+	{
+		uint32_t m_Index;
+		struct
+		{
+			uint32_t m_EntityIndex : 15;
+			uint32_t m_Serial : 17;
+		} m_Parts;
+	};
+
+	inline bool IsValid() const {
+		return m_Index != INVALID_EHANDLE_INDEX;
 	}
 };

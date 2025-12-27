@@ -6,6 +6,6 @@ class CGameSceneNode {
 public:
 	CGameSceneNode() = delete;
 
-	SCHEMA_R(CModelState,	offsets::CGameSceneNode::m_modelState,		m_modelState);
+	PSCHEMA	(CModelState,	offsets::CGameSceneNode::m_modelState,		m_modelState);
 	SCHEMA	(vector_3d,		offsets::CGameSceneNode::m_vecAbsOrigin,	m_vecAbsOrigin);
 };

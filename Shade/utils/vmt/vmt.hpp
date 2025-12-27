@@ -28,4 +28,17 @@ namespace vmt {
 
 		return pFunc(instance, args...);
 	}
+
+	//template <typename T, typename... Args>
+	//T call_virtual_stret(void* instance, size_t index, Args... args) {
+	//	T result;
+
+	//	using fn = void(__fastcall*)(void*, T*, args);
+
+	//	auto pFunc = vmt::get_virtual<fn>(instance, index);
+	//	if (pFunc)
+	//		pFunc(this, &result, args);
+
+	//	return result;
+	//}
 }

@@ -33,7 +33,6 @@ HRESULT __stdcall GameOverlayHook::PresentHook(IDXGISwapChain* SwapChain, UINT S
 
         RenderTarget::get().initialize();
         Menu::get().initialize();
-        Glow::initialize();
 
         is_init = true;
     }
@@ -66,8 +65,9 @@ bool GameOverlayHook::initialize() {
     return TRUE;
 }
 
-void GameOverlayHook::shutdown() {
+bool GameOverlayHook::shutdown() {
     UnHook((__int64)&OriginalPresentFunc, 1);
     UnHook((__int64)&OriginalWndProc, 1);
-    Glow::shutdown();
+
+    return TRUE;
 }

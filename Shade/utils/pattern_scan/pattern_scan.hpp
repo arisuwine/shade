@@ -3,13 +3,6 @@
 #include <string>
 #include <Windows.h>
 
-#ifdef _DEBUG
-#include <stdio.h>
-#define LOG(...) printf(__VA_ARGS__)
-#else
-#define LOG(...)
-#endif
-
 class pattern_scan {
 public:
 	pattern_scan() {};

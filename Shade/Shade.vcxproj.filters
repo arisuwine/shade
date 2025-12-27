@@ -10,9 +10,6 @@
     <Filter Include="utils">
       <UniqueIdentifier>{f8f347d9-8473-45bf-906d-d0664011bf91}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sdk\entities">
-      <UniqueIdentifier>{8ccd2983-81e0-4058-81bc-19132025e6c3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="utils\pattern_scan">
       <UniqueIdentifier>{7f25701d-43b1-4d05-ac6c-70ccc34a486f}</UniqueIdentifier>
     </Filter>
@@ -34,9 +31,6 @@
     <Filter Include="sdk\interfaces">
       <UniqueIdentifier>{c296cf10-7aba-4676-82d2-b466fe96b84e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sdk\interfaces\CGameEntitySystem">
-      <UniqueIdentifier>{2f87c153-e152-4492-b3d0-928fea3b0746}</UniqueIdentifier>
-    </Filter>
     <Filter Include="math\world_to_screen">
       <UniqueIdentifier>{1f83b0c7-09b8-4397-b3af-3118778defa6}</UniqueIdentifier>
     </Filter>
@@ -55,24 +49,6 @@
     <Filter Include="utils\console">
       <UniqueIdentifier>{96b4694c-fa20-4281-9f0e-21f4b48d4775}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sdk\interfaces\CBone">
-      <UniqueIdentifier>{5abce9fe-b853-4f38-946f-759b2090f5f0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="sdk\interfaces\CCollisionProperty">
-      <UniqueIdentifier>{9a00bf89-a004-4d68-b1e1-2de25c8107cf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="sdk\interfaces\CPlayer_MovementServices">
-      <UniqueIdentifier>{89692624-b186-4685-a58a-b436e2068499}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="sdk\interfaces\CGameSceneNode">
-      <UniqueIdentifier>{053e94f8-6fc3-45ec-bb07-bd3b3816ae3a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="sdk\interfaces\CModelState">
-      <UniqueIdentifier>{b97643f4-af93-4539-8e2a-d86c2d557f37}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="sdk\entities\CCSPlayerPawn">
-      <UniqueIdentifier>{af2f9945-e3c9-4cf8-aed2-057d9d0eded9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="sdk\utils">
       <UniqueIdentifier>{fccc5701-d206-4c49-b407-5a5fcdd383fa}</UniqueIdentifier>
     </Filter>
@@ -88,53 +64,11 @@
     <Filter Include="menu">
       <UniqueIdentifier>{929f6acb-9eff-4d26-8796-3ea2c8891600}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sdk\interfaces\ViewMatrix">
-      <UniqueIdentifier>{7bceb4a6-1e7e-45a6-b373-a6ea4b88ac90}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="sdk\interfaces\CEntityIdentity">
-      <UniqueIdentifier>{cba985f2-28fe-46bc-abdf-de3a2b43275b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="sdk\interfaces\CEntityIterator">
-      <UniqueIdentifier>{d0adac5a-b818-40c0-a037-a7edadb6be89}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="sdk\interfaces\CEntityClass">
-      <UniqueIdentifier>{a17c60b7-0985-4b55-b38a-9d86043816f1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="utils\valve">
       <UniqueIdentifier>{967c4e0a-cd8f-41b1-b8ed-e9f25363795b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sdk\interfaces\CConcreteEntityList">
-      <UniqueIdentifier>{a2ea8f5e-a3d9-40c5-8dba-645ab8ee3d3d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="sdk\interfaces\CPlayer_WeaponServices">
-      <UniqueIdentifier>{0a8e8648-56d9-4cde-ab40-bed5357b7218}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="sdk\interfaces\CEntityHandle">
-      <UniqueIdentifier>{94125987-26ab-4903-8587-6c04067217bf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="sdk\interfaces\CHandle">
-      <UniqueIdentifier>{eb615732-6092-4647-9770-154360fddc54}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="sdk\interfaces\CEntityInstance">
-      <UniqueIdentifier>{29049611-fa66-4f5a-87f6-3fde94904ba2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="sdk\entities\CCSPlayerController">
-      <UniqueIdentifier>{057be7d5-3efb-4fe8-b904-05d33e1c6659}</UniqueIdentifier>
-    </Filter>
     <Filter Include="utils\vmt">
       <UniqueIdentifier>{3ab346c5-7ef0-409a-bd62-6c63480dc532}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="sdk\interfaces\CNetworkClientService">
-      <UniqueIdentifier>{24930759-2cfc-4cd3-90b6-44994768515a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="sdk\interfaces\CNetworkGameClient">
-      <UniqueIdentifier>{03303a5d-6bef-4dde-b9be-335f0c2f5ae6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="sdk\interfaces\CCSWeaponVData">
-      <UniqueIdentifier>{0384b762-9ebc-44de-9587-5aa36e51b668}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="sdk\entities\CCSWeaponBase">
-      <UniqueIdentifier>{b9e7cf8b-c4e3-4568-bd93-7b56187306fb}</UniqueIdentifier>
     </Filter>
     <Filter Include="hooks">
       <UniqueIdentifier>{ce229b91-c80d-4470-9886-9b5470fc6318}</UniqueIdentifier>
@@ -142,29 +76,32 @@
     <Filter Include="hooks\game_overlay">
       <UniqueIdentifier>{8a872087-07d5-4466-9f45-6edab7c725af}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sdk\interfaces\CGlowObjectManager">
-      <UniqueIdentifier>{37ecf4b3-f012-4e39-8ede-81ce9fbdcfd8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="minhook">
       <UniqueIdentifier>{459d3361-e948-4548-b5c7-0ca2d15f8354}</UniqueIdentifier>
     </Filter>
     <Filter Include="minhook\hde">
       <UniqueIdentifier>{9c53e54f-646e-4c4c-8d44-be92b325a0b3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="features\glow">
-      <UniqueIdentifier>{68b04cc7-11d7-42f4-b7d8-83c4a7507d34}</UniqueIdentifier>
-    </Filter>
     <Filter Include="hooks\glow">
       <UniqueIdentifier>{f9da78e5-e05e-4b5c-9c10-18aa458f5ae5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sdk\interfaces\CGlowProperty">
-      <UniqueIdentifier>{ab4009d2-fc69-4d82-b241-efae4e3a5e60}</UniqueIdentifier>
+    <Filter Include="sdk\services">
+      <UniqueIdentifier>{cc7ef5bc-2c6c-4f64-853b-00999f5fa7e0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sdk\entities\C_BasePlayerPawn">
-      <UniqueIdentifier>{03c1788d-c4d7-407d-aa1c-6d8e6cbef610}</UniqueIdentifier>
+    <Filter Include="sdk\data">
+      <UniqueIdentifier>{0485c2a9-bf45-4e03-9c3e-156b6e4b1e36}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sdk\entities\C_BaseEntity">
-      <UniqueIdentifier>{bb5620a4-e6c1-4607-a0cb-bf9751e8f65b}</UniqueIdentifier>
+    <Filter Include="sdk\entities">
+      <UniqueIdentifier>{8ccd2983-81e0-4058-81bc-19132025e6c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk\entities\system">
+      <UniqueIdentifier>{79e9371a-99ce-420e-9f91-add1aeab67f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hooks\entity_system">
+      <UniqueIdentifier>{8ac4d1a4-a249-45db-9089-860798ba146a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hooks\view_render">
+      <UniqueIdentifier>{5af6bb03-dcdb-487b-8d5f-59860cb2cd31}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -195,9 +132,6 @@
     <ClInclude Include="sdk\signatures.hpp">
       <Filter>sdk</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\entities\CCSPlayerPawn.hpp">
-      <Filter>sdk\entities\CCSPlayerPawn</Filter>
-    </ClInclude>
     <ClInclude Include="sdk\math\vector.hpp">
       <Filter>sdk\math</Filter>
     </ClInclude>
@@ -206,9 +140,6 @@
     </ClInclude>
     <ClInclude Include="sdk\math\math.hpp">
       <Filter>sdk\math</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\interfaces\CGameEntitySystem.hpp">
-      <Filter>sdk\interfaces\CGameEntitySystem</Filter>
     </ClInclude>
     <ClInclude Include="math\world_to_screen.hpp">
       <Filter>math\world_to_screen</Filter>
@@ -246,21 +177,6 @@
     <ClInclude Include="sdk\math\vector\vector_3d.hpp">
       <Filter>sdk\math\vector</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\interfaces\CBone.hpp">
-      <Filter>sdk\interfaces\CBone</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\interfaces\CCollisionProperty.hpp">
-      <Filter>sdk\interfaces\CCollisionProperty</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\interfaces\CPlayer_MovementServices.hpp">
-      <Filter>sdk\interfaces\CPlayer_MovementServices</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\interfaces\CGameSceneNode.hpp">
-      <Filter>sdk\interfaces\CGameSceneNode</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\interfaces\CModelState.hpp">
-      <Filter>sdk\interfaces\CModelState</Filter>
-    </ClInclude>
     <ClInclude Include="sdk\utils\CUtlString.hpp">
       <Filter>sdk\utils</Filter>
     </ClInclude>
@@ -276,65 +192,20 @@
     <ClInclude Include="sdk\sdk.hpp">
       <Filter>sdk</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\interfaces\ViewMatrix.hpp">
-      <Filter>sdk\interfaces\ViewMatrix</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\interfaces\CEntityIdentity.hpp">
-      <Filter>sdk\interfaces\CEntityIdentity</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\interfaces\CEntityIterator.hpp">
-      <Filter>sdk\interfaces\CEntityIterator</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\interfaces\CEntityClass.hpp">
-      <Filter>sdk\interfaces\CEntityClass</Filter>
-    </ClInclude>
     <ClInclude Include="utils\valve\utlmap.hpp">
       <Filter>utils\valve</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\interfaces\CConcreteEntityList.hpp">
-      <Filter>sdk\interfaces\CConcreteEntityList</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\interfaces\CPlayer_WeaponServices.hpp">
-      <Filter>sdk\interfaces\CPlayer_WeaponServices</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\interfaces\CEntityHandle.hpp">
-      <Filter>sdk\interfaces\CEntityHandle</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\interfaces\CHandle.hpp">
-      <Filter>sdk\interfaces\CHandle</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\interfaces\CEntityInstance.hpp">
-      <Filter>sdk\interfaces\CEntityInstance</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\entities\CCSWeaponBase.hpp">
-      <Filter>sdk\entities\CCSWeaponBase</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\entities\CCSPlayerController.hpp">
-      <Filter>sdk\entities\CCSPlayerController</Filter>
     </ClInclude>
     <ClInclude Include="sdk\utils\color.hpp">
       <Filter>sdk\utils</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\interfaces\CNetworkClientService.hpp">
-      <Filter>sdk\interfaces\CNetworkClientService</Filter>
-    </ClInclude>
     <ClInclude Include="utils\vmt\vmt.hpp">
       <Filter>utils\vmt</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\interfaces\CNetworkGameClient.hpp">
-      <Filter>sdk\interfaces\CNetworkGameClient</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\interfaces\CCSWeaponBaseVData.hpp">
-      <Filter>sdk\interfaces\CCSWeaponVData</Filter>
     </ClInclude>
     <ClInclude Include="menu\options.hpp">
       <Filter>menu</Filter>
     </ClInclude>
     <ClInclude Include="sdk\math\matrix\matrix4x4.hpp">
       <Filter>sdk\math\matrix</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\interfaces\CGlowObjectManager.hpp">
-      <Filter>sdk\interfaces\CGlowObjectManager</Filter>
     </ClInclude>
     <ClInclude Include="utils\valve\utlvector.hpp">
       <Filter>utils\valve</Filter>
@@ -363,20 +234,119 @@
     <ClInclude Include="minhook\minhook.h">
       <Filter>minhook</Filter>
     </ClInclude>
-    <ClInclude Include="features\glow.hpp">
-      <Filter>features\glow</Filter>
-    </ClInclude>
     <ClInclude Include="hooks\glow.hpp">
       <Filter>hooks\glow</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\interfaces\CGlowProperty.hpp">
-      <Filter>sdk\interfaces\CGlowProperty</Filter>
+    <ClInclude Include="sdk\entities\C_CSWeaponBase.hpp">
+      <Filter>sdk\entities</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\entities\C_BasePlayerPawn.hpp">
-      <Filter>sdk\entities\C_BasePlayerPawn</Filter>
+    <ClInclude Include="sdk\entities\C_CSPlayerPawn.hpp">
+      <Filter>sdk\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\entities\C_CSPlayerController.hpp">
+      <Filter>sdk\entities</Filter>
     </ClInclude>
     <ClInclude Include="sdk\entities\C_BaseEntity.hpp">
-      <Filter>sdk\entities\C_BaseEntity</Filter>
+      <Filter>sdk\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\ViewMatrix.hpp">
+      <Filter>sdk\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\CNetworkGameClient.hpp">
+      <Filter>sdk\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\CShemaSystem.hpp">
+      <Filter>sdk\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="hooks\hooks.hpp">
+      <Filter>hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\data\SchemaMetaInfoHandle_t.hpp">
+      <Filter>sdk\data</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\data\SchemaClassInfoData_t.hpp">
+      <Filter>sdk\data</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\entities\CConcreteEntityList.hpp">
+      <Filter>sdk\entities\system</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\entities\CEntityHandle.hpp">
+      <Filter>sdk\entities\system</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\entities\CEntityIterator.hpp">
+      <Filter>sdk\entities\system</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\entities\CGameEntitySystem.hpp">
+      <Filter>sdk\entities\system</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\entities\CHandle.hpp">
+      <Filter>sdk\entities\system</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\entities\CEntityIdentity.hpp">
+      <Filter>sdk\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\entities\CEntityInstance.hpp">
+      <Filter>sdk\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\entities\CEntityClass.hpp">
+      <Filter>sdk\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\CGlowObjectManager.hpp">
+      <Filter>sdk\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\services\CPlayer_WeaponServices.hpp">
+      <Filter>sdk\services</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\services\CBone.hpp">
+      <Filter>sdk\services</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\services\CCollisionProperty.hpp">
+      <Filter>sdk\services</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\services\CCSWeaponBaseVData.hpp">
+      <Filter>sdk\services</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\services\CGameSceneNode.hpp">
+      <Filter>sdk\services</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\services\CGlowProperty.hpp">
+      <Filter>sdk\services</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\services\CModelState.hpp">
+      <Filter>sdk\services</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\services\CNetworkClientService.hpp">
+      <Filter>sdk\services</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\services\CPlayer_MovementServices.hpp">
+      <Filter>sdk\services</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\debug.hpp">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="hooks\entity_system.hpp">
+      <Filter>hooks\entity_system</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\services\CGlobalVarsBase.hpp">
+      <Filter>sdk\services</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\CInterfaceSystem.hpp">
+      <Filter>sdk\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\IVEngineClient.hpp">
+      <Filter>sdk\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\ICVar.hpp">
+      <Filter>sdk\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\CViewRender.hpp">
+      <Filter>sdk\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="hooks\view_render.hpp">
+      <Filter>hooks\view_render</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\math\QAngle.hpp">
+      <Filter>sdk\math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -422,9 +392,6 @@
     <ClCompile Include="render\render.cpp">
       <Filter>render</Filter>
     </ClCompile>
-    <ClCompile Include="sdk\interfaces\CBone.cpp">
-      <Filter>sdk\interfaces\CBone</Filter>
-    </ClCompile>
     <ClCompile Include="features\esp.cpp">
       <Filter>features\esp</Filter>
     </ClCompile>
@@ -458,6 +425,18 @@
     </ClCompile>
     <ClCompile Include="hooks\glow.cpp">
       <Filter>hooks\glow</Filter>
+    </ClCompile>
+    <ClCompile Include="hooks\hooks.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="sdk\services\CBone.cpp">
+      <Filter>sdk\services</Filter>
+    </ClCompile>
+    <ClCompile Include="hooks\entity_system.cpp">
+      <Filter>hooks\entity_system</Filter>
+    </ClCompile>
+    <ClCompile Include="hooks\view_render.cpp">
+      <Filter>hooks\view_render</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

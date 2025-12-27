@@ -3,7 +3,7 @@
 
 #include "../math/vector/vector_3d.hpp"
 
-class CCSPlayerPawn;
+class C_CSPlayerPawn;
 
 enum bone_index : DWORD {
     Pelvis = 0,
@@ -34,5 +34,5 @@ class CBone {
 public:
     CBone() = delete;
 
-    static vector_3d get_bone_position(CCSPlayerPawn* player, bone_index index);
+    static vector_3d get_bone_position(C_CSPlayerPawn* player, bone_index index);
 };

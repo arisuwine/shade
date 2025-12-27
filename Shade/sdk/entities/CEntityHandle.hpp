@@ -1,6 +1,8 @@
 #pragma once
 #include <cstdint>
 
+#include "../offsets.hpp"
+
 class CEntityHandle
 {
 public:

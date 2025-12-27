@@ -25,6 +25,8 @@ enum EntityFlags_t : uint32_t
 	EF_SUSPEND_OUTSIDE_PVS = 0x8000,
 };
 
+class CEntityClass;
+
 class CEntityIdentity {
 public:
 	CEntityIdentity() = delete;
@@ -34,6 +36,7 @@ public:
 		return *reinterpret_cast<T**>(THIS_ADDR);
 	}
 
+	SCHEMA(CEntityClass*,		offsets::CEntityIdentity::m_pClass,			m_pClass		);
 	SCHEMA(CEntityHandle,		offsets::CEntityIdentity::m_EHandle,		m_EHandle		);
 	SCHEMA(const char*,			offsets::CEntityIdentity::m_name,			m_name			);
 	SCHEMA(const char*,			offsets::CEntityIdentity::m_designerName,	m_designerName	);

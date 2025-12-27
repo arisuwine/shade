@@ -143,10 +143,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="features\esp.hpp" />
-    <ClInclude Include="features\glow.hpp" />
     <ClInclude Include="features\utils\bounding_box.hpp" />
+    <ClInclude Include="hooks\entity_system.hpp" />
     <ClInclude Include="hooks\game_overlay.hpp" />
     <ClInclude Include="hooks\glow.hpp" />
+    <ClInclude Include="hooks\hooks.hpp" />
+    <ClInclude Include="hooks\view_render.hpp" />
     <ClInclude Include="math\world_to_screen.hpp" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
@@ -170,44 +172,53 @@
     <ClInclude Include="render\utils\colors.hpp" />
     <ClInclude Include="render\utils\gui.hpp" />
     <ClInclude Include="render\utils\im_vec_2.hpp" />
-    <ClInclude Include="sdk\entities\CCSPlayerController.hpp" />
-    <ClInclude Include="sdk\entities\CCSPlayerPawn.hpp" />
-    <ClInclude Include="sdk\entities\CCSWeaponBase.hpp" />
+    <ClInclude Include="sdk\data\SchemaClassInfoData_t.hpp" />
+    <ClInclude Include="sdk\data\SchemaMetaInfoHandle_t.hpp" />
+    <ClInclude Include="sdk\entities\CConcreteEntityList.hpp" />
+    <ClInclude Include="sdk\entities\CEntityClass.hpp" />
+    <ClInclude Include="sdk\entities\CEntityHandle.hpp" />
+    <ClInclude Include="sdk\entities\CEntityIdentity.hpp" />
+    <ClInclude Include="sdk\entities\CEntityInstance.hpp" />
+    <ClInclude Include="sdk\entities\CEntityIterator.hpp" />
+    <ClInclude Include="sdk\entities\CGameEntitySystem.hpp" />
+    <ClInclude Include="sdk\entities\CHandle.hpp" />
+    <ClInclude Include="sdk\entities\C_CSPlayerController.hpp" />
+    <ClInclude Include="sdk\entities\C_CSPlayerPawn.hpp" />
+    <ClInclude Include="sdk\entities\C_CSWeaponBase.hpp" />
     <ClInclude Include="sdk\entities\C_BaseEntity.hpp" />
-    <ClInclude Include="sdk\entities\C_BasePlayerPawn.hpp" />
-    <ClInclude Include="sdk\interfaces\CBone.hpp" />
-    <ClInclude Include="sdk\interfaces\CCollisionProperty.hpp" />
-    <ClInclude Include="sdk\interfaces\CConcreteEntityList.hpp" />
-    <ClInclude Include="sdk\interfaces\CCSWeaponBaseVData.hpp" />
-    <ClInclude Include="sdk\interfaces\CEntityClass.hpp" />
-    <ClInclude Include="sdk\interfaces\CEntityHandle.hpp" />
-    <ClInclude Include="sdk\interfaces\CEntityIdentity.hpp" />
-    <ClInclude Include="sdk\interfaces\CEntityInstance.hpp" />
-    <ClInclude Include="sdk\interfaces\CEntityIterator.hpp" />
-    <ClInclude Include="sdk\interfaces\CGameSceneNode.hpp" />
     <ClInclude Include="sdk\interfaces\CGlowObjectManager.hpp" />
-    <ClInclude Include="sdk\interfaces\CGlowProperty.hpp" />
-    <ClInclude Include="sdk\interfaces\CHandle.hpp" />
-    <ClInclude Include="sdk\interfaces\CModelState.hpp" />
-    <ClInclude Include="sdk\interfaces\CNetworkClientService.hpp" />
+    <ClInclude Include="sdk\interfaces\CInterfaceSystem.hpp" />
     <ClInclude Include="sdk\interfaces\CNetworkGameClient.hpp" />
-    <ClInclude Include="sdk\interfaces\CPlayer_MovementServices.hpp" />
-    <ClInclude Include="sdk\interfaces\CGameEntitySystem.hpp" />
-    <ClInclude Include="sdk\interfaces\CPlayer_WeaponServices.hpp" />
+    <ClInclude Include="sdk\interfaces\CShemaSystem.hpp" />
+    <ClInclude Include="sdk\interfaces\CViewRender.hpp" />
+    <ClInclude Include="sdk\interfaces\ICVar.hpp" />
+    <ClInclude Include="sdk\interfaces\IVEngineClient.hpp" />
     <ClInclude Include="sdk\interfaces\ViewMatrix.hpp" />
     <ClInclude Include="sdk\math\math.hpp" />
     <ClInclude Include="sdk\math\matrix.hpp" />
     <ClInclude Include="sdk\math\matrix\matrix4x4.hpp" />
+    <ClInclude Include="sdk\math\QAngle.hpp" />
     <ClInclude Include="sdk\math\vector.hpp" />
     <ClInclude Include="sdk\math\vector\vector_2d.hpp" />
     <ClInclude Include="sdk\math\vector\vector_3d.hpp" />
     <ClInclude Include="sdk\modules.hpp" />
     <ClInclude Include="sdk\offsets.hpp" />
     <ClInclude Include="sdk\sdk.hpp" />
+    <ClInclude Include="sdk\services\CBone.hpp" />
+    <ClInclude Include="sdk\services\CCollisionProperty.hpp" />
+    <ClInclude Include="sdk\services\CCSWeaponBaseVData.hpp" />
+    <ClInclude Include="sdk\services\CGameSceneNode.hpp" />
+    <ClInclude Include="sdk\services\CGlobalVarsBase.hpp" />
+    <ClInclude Include="sdk\services\CGlowProperty.hpp" />
+    <ClInclude Include="sdk\services\CModelState.hpp" />
+    <ClInclude Include="sdk\services\CNetworkClientService.hpp" />
+    <ClInclude Include="sdk\services\CPlayer_MovementServices.hpp" />
+    <ClInclude Include="sdk\services\CPlayer_WeaponServices.hpp" />
     <ClInclude Include="sdk\signatures.hpp" />
     <ClInclude Include="sdk\utils\color.hpp" />
     <ClInclude Include="sdk\utils\CUtlString.hpp" />
     <ClInclude Include="utils\console.hpp" />
+    <ClInclude Include="utils\debug.hpp" />
     <ClInclude Include="utils\pattern_scan\pattern_scan.hpp" />
     <ClInclude Include="utils\valve\utlmap.hpp" />
     <ClInclude Include="utils\valve\utlvector.hpp" />
@@ -220,11 +231,14 @@
     </ClCompile>
     <ClCompile Include="features\esp.cpp" />
     <ClCompile Include="features\utils\bounding_box.cpp" />
+    <ClCompile Include="hooks\entity_system.cpp" />
     <ClCompile Include="hooks\game_overlay.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="hooks\glow.cpp" />
+    <ClCompile Include="hooks\hooks.cpp" />
+    <ClCompile Include="hooks\view_render.cpp" />
     <ClCompile Include="imgui\imgui.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
@@ -275,11 +289,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="sdk\interfaces\CBone.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="sdk\sdk.cpp" />
+    <ClCompile Include="sdk\services\CBone.cpp" />
     <ClCompile Include="sdk\utils\color.cpp" />
     <ClCompile Include="utils\console.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>

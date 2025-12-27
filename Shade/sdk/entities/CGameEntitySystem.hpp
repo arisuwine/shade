@@ -18,7 +18,7 @@ public:
 	SCHEMA(EntityMap,				offsets::CGameEntitySystem::m_ClassesByName,	m_ClassesByName	);
 
 	template <typename T>
-	static T* GetEntityByIndex(int idx);
+	T* GetEntityByIndex(int idx);
 };
 
 template <typename T>
