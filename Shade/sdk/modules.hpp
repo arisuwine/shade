@@ -5,4 +5,5 @@ namespace modules {
 	inline pattern_scan overlay_renderer		= GetModuleHandleA("GameOverlayRenderer64.dll");
 	inline pattern_scan client					= GetModuleHandleA("client.dll");
 	inline pattern_scan engine2					= GetModuleHandleA("engine2.dll");
+	inline pattern_scan schemasystem			= GetModuleHandleA("schemasystem.dll");
 }

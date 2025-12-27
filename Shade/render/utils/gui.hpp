@@ -34,7 +34,7 @@ struct GUI {
 
     static im_vec_2 get_text_size(ImFont* font, const std::string_view& text);
 
-    static void     draw_text(const im_vec_2& pos, const ImColor& col, ImFont* font, const std::string_view& text);
+    static void     draw_text(const im_vec_2& pos, const ImColor& col, ImFont* font, bool outline, const std::string_view& text);
     static void     draw_circle(const im_vec_2& pos, float radius, const ImColor& col, bool filled = true, int num_segments = 0, float thickness = 1.0f);
     static void     draw_rect(const im_vec_2& pos_start, const im_vec_2& pos_end, const ImColor& col, float rounding = 0.0f, bool filled = true, float thickness = 1.0f, ImDrawFlags flags = 0);
     static void     draw_line(const im_vec_2& pos_start, const im_vec_2& pos_end, const ImColor& col, float thickness = 1.0f);

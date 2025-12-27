@@ -3,26 +3,24 @@
 #include "modules.hpp"
 #include "signatures.hpp"
 
+#include "../utils/debug.hpp"
+
+#include "interfaces/CInterfaceSystem.hpp"
+
 void interfaces::initialize() {
-	#define GET_OPERAND_EX(type, addr, offset, size) reinterpret_cast<type*>(addr + *((int32_t*)(addr + offset)) + size)
-	#define GET_OPERAND(type, addr) GET_OPERAND_EX(type, addr, 3, 7)
-	#define DEREFERENCE(type, addr) *reinterpret_cast<type**>(GET_OPERAND(type, addr))
+	LOG("[INTERFACE] Initialization of interfaces.\n");
 
 	// client.dll
-	g_CGameEntitySystem		= DEREFERENCE(CGameEntitySystem,		modules::client.find(GAME_ENTITY_SYSTEM));
-	g_ViewMatrix			= GET_OPERAND(ViewMatrix,				modules::client.find(VIEW_MATRIX));
-	g_CGlowObjectManager	= GET_OPERAND(CGlowObjectManager,		modules::client.find(GLOW_MANAGER));
+	g_CGameEntitySystem		= DEREFERENCE(CGameEntitySystem,				modules::client.find(GAME_ENTITY_SYSTEM));
+	g_CViewRender			= RESOLVE_RIP(CViewRender,						modules::client.find(VIEW_RENDER));
+	g_ViewMatrix			= RESOLVE_RIP(ViewMatrix,						modules::client.find(VIEW_MATRIX));
+	g_CGlowObjectManager	= RESOLVE_RIP(CGlowObjectManager,				modules::client.find(GLOW_MANAGER));
+	gpGlobals				= RESOLVE_RIP(CGlobalVarsBase,					modules::client.find(GP_GLOBALS));
 
-	// engine2.dll
-	g_CNetworkClientService = GET_OPERAND(CNetworkClientService,	modules::engine2.find(NETWORK_CLIENT_SERVICE));
-}
+	LOG("g_CViewRender: %p\n", g_CViewRender);
 
-void interfaces::dump() {
-	#define STRINGIFY(s) #s
-	#define PRINT_INTERFACE(name) LOG("%25s: %p\n", STRINGIFY(name), name)
-
-	PRINT_INTERFACE(g_CGameEntitySystem		);
-	PRINT_INTERFACE(g_ViewMatrix			);
-	PRINT_INTERFACE(g_CNetworkClientService	);
-	PRINT_INTERFACE(g_CGlowObjectManager	);
+	g_CNetworkClientService = CInterfaceSystem::get<CNetworkClientService>	("engine2.dll",			"NetworkClientService_001");
+	g_EngineClient			= CInterfaceSystem::get<IVEngineClient>			("engine2.dll",			"Source2EngineToClient001");
+	g_CVar					= CInterfaceSystem::get<ICVar>					("tier0.dll",			"VEngineCvar007");
+	g_CSchemaSystem			= CInterfaceSystem::get<CShemaSystem>			("schemasystem.dll",	"SchemaSystem_001");
 }

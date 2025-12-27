@@ -16,6 +16,8 @@ void setup_fonts() {
     fonts.push("MuseoSans-500-12",  "c:\\USERS\\ADMINISTRATOR\\APPDATA\\LOCAL\\MICROSOFT\\WINDOWS\\FONTS\\MuseoSansCyrl-500.ttf", 12.0f);
     fonts.push("MuseoSans-900",     "c:\\USERS\\ADMINISTRATOR\\APPDATA\\LOCAL\\MICROSOFT\\WINDOWS\\FONTS\\MuseoSansCyrl-900.ttf", 24.0f);
     fonts.push("MuseoSans-900-10",  "c:\\USERS\\ADMINISTRATOR\\APPDATA\\LOCAL\\MICROSOFT\\WINDOWS\\FONTS\\MuseoSansCyrl-900.ttf", 13.0f);
+    fonts.push("Verdana-12", "C:\\WINDOWS\\FONTS\\VERDANA.TTF", 12.0f);
+    fonts.push("Verdana-13", "C:\\WINDOWS\\FONTS\\VERDANA.TTF", 13.0f);
 }
 
 void RenderTarget::initialize() {

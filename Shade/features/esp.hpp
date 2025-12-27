@@ -3,11 +3,11 @@
 
 #include "utils/bounding_box.hpp"
 
-#include "../sdk/interfaces/CBone.hpp"
+#include "../sdk/services/CBone.hpp"
 
 class ESP {
 private:
-	CCSPlayerPawn* player;
+	C_CSPlayerPawn* player;
 	bounding_box bbox;
 
 	static inline std::vector<std::vector<bone_index>> bones = {
@@ -36,4 +36,5 @@ public:
 		return instance;
 	}
 	void begin_render();
+	static void render_dropped_weapon();
 };

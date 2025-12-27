@@ -106,6 +106,7 @@ void Menu::render() {
         if (ImGui::BeginTabItem("Visuals")) {
             ImGui::Checkbox("Enable", g_options.esp_enabled);
             ImGui::Checkbox("Enemies Only", g_options.esp_enemies_only);
+
             ImGui::Checkbox("Bounding Boxes", g_options.esp_bounding_boxes);
             ImGui::SameLine();
             ImGuiEx::ColorEdit3("Bounding Boxes", g_options.col_esp_bounding_boxes);
@@ -126,10 +127,21 @@ void Menu::render() {
             ImGui::SameLine();
             ImGuiEx::ColorEdit3("Glow", g_options.col_esp_glow);
 
+            ImGui::Checkbox("Dropped Weapon", g_options.esp_dropped_items);
+            ImGui::SameLine();
+            ImGuiEx::ColorEdit3("Dropped Weapon", g_options.col_esp_dropped_items);
+
+            ImGui::Checkbox("Attachments", g_options.esp_attachments);
+            ImGui::Checkbox("Projectiles", g_options.esp_projectiles);
+
             ImGui::EndTabItem();
         }
 
-        if (ImGui::BeginTabItem("Settings")) {
+        if (ImGui::BeginTabItem("Misc")) {
+            ImGui::DragFloat("Aspect Ratio", g_options.misc_aspect_ratio, 1.0f, 1.0f, 200.0f);
+
+            ImGui::DragFloat("View Model FOV", g_options.misc_viewmodel_fov, 1.0f, 38.0f, 120.0f);
+            ImGui::DragFloat("FOV", g_options.misc_fov, 1.0f, 58.0f, 150.0f);
 
             ImGui::EndTabItem();
         }

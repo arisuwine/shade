@@ -95,7 +95,7 @@ public:
             m_Memory.Grow(m_Size + num - m_Memory.NumAllocated());
 
         m_Size += num;
-        ResetDbgInfo();
+        //ResetDbgInfo();
     }
 
     void ShiftElementsRight(int elem, int num = 1)
@@ -105,6 +105,7 @@ public:
             memmove(&Element(elem + num), &Element(elem), numToMove * sizeof(T));
     }
 
+    int m_Size;
     CAllocator m_Memory;
     //
     // m_Memory Fields
@@ -112,12 +113,11 @@ public:
     //T* m_pMemory;
     //int m_nAllocationCount;
     //int m_nGrowSize;
-    int m_Size;
 
-    T* m_pElements;
+    //T* m_pElements;
 
-    inline void ResetDbgInfo()
-    {
-        m_pElements = Base();
-    }
+    //inline void ResetDbgInfo()
+    //{
+    //    m_pElements = Base();
+    //}
 };

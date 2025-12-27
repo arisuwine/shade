@@ -2,6 +2,8 @@
 
 #include <psapi.h>
 
+#include "../debug.hpp"
+
 void pattern_scan::parse_pattern(const std::string_view& pattern) {
 	bytes.clear();
 	mask.clear();
@@ -41,13 +43,13 @@ void pattern_scan::parse_pattern(const std::string_view& pattern) {
 pattern_scan::pattern_scan(const std::string_view& module_name) {
 	HMODULE hModule;
 	if (!(hModule = GetModuleHandleA(module_name.data()))) {
-		LOG("Module Name is invalid argument\n");
+		LOG("[PATTERN SCAN] Module Name is invalid argument\n");
 		return;
 	}
 
 	MODULEINFO info = { 0 };
 	if (!GetModuleInformation(GetCurrentProcess(), hModule, &info, sizeof(MODULEINFO))) {
-		LOG("Failed to get module information: %d\n", GetLastError());
+		LOG("[PATTERN SCAN] Failed to get module information: %d\n", GetLastError());
 		return;
 	}
 
@@ -57,13 +59,13 @@ pattern_scan::pattern_scan(const std::string_view& module_name) {
 
 pattern_scan::pattern_scan(HMODULE hModule) {
 	if (!hModule) {
-		LOG("HMODULE is invalid argument\n");
+		LOG("[PATTERN SCAN] HMODULE is invalid argument\n");
 		return;
 	}
 
 	MODULEINFO info = { 0 };
 	if (!GetModuleInformation(GetCurrentProcess(), hModule, &info, sizeof(MODULEINFO))) {
-		LOG("Failed to get module information: %d\n", GetLastError());
+		LOG("[PATTERN SCAN] Failed to get module information: %d\n", GetLastError());
 		return;
 	}
 
@@ -86,7 +88,6 @@ uintptr_t pattern_scan::find(const std::string_view& pattern) {
 		}
 
 		if (found) {
-			//LOG("Success! Found at address: %p\n", reinterpret_cast<uintptr_t>(base_first_byte + i));
 			return reinterpret_cast<uintptr_t>(base_first_byte + i);
 		}
 	}

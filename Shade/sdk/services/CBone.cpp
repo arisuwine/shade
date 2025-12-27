@@ -2,12 +2,12 @@
 
 #include "../offsets.hpp"
 
-#include "../interfaces/CGameSceneNode.hpp"
-#include "../interfaces/CModelState.hpp"
+#include "../entities/C_CSPlayerPawn.hpp"
 
-#include "../entities/CCSPlayerPawn.hpp"
+#include "../services/CGameSceneNode.hpp"
+#include "../services/CModelState.hpp"
 
-vector_3d CBone::get_bone_position(CCSPlayerPawn* player, bone_index index) {
+vector_3d CBone::get_bone_position(C_CSPlayerPawn* player, bone_index index) {
 	uintptr_t bone_array = player->m_pGameSceneNode->m_modelState.BoneArray;
 
 	if (!bone_array)

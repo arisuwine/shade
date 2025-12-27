@@ -46,7 +46,13 @@ im_vec_2 GUI::get_text_size(ImFont* font, const std::string_view& text) {
     return font->CalcTextSizeA(font->LegacySize, FLT_MAX, 0.0f, text.data(), text.data() + text.size());
 }
 
-void GUI::draw_text(const im_vec_2& pos, const ImColor& col, ImFont* font, const std::string_view& text) {
+void GUI::draw_text(const im_vec_2& pos, const ImColor& col, ImFont* font, bool outline, const std::string_view& text) {
+    if (outline) {
+        ImGui::PushFont(font, font->LegacySize);
+        draw_list->AddText(pos + im_vec_2(1.0f, 1.0f), ImColor(0, 0, 0, 200), text.data(), text.data() + text.size());
+        ImGui::PopFont();
+    }
+
     ImGui::PushFont(font, font->LegacySize);
     draw_list->AddText(pos, col, text.data(), text.data() + text.size());
     ImGui::PopFont();

@@ -3,7 +3,7 @@
 
 #include "../sdk/math/vector.hpp"
 
-class CCSPlayerPawn;
+class C_CSPlayerPawn;
 
 class bounding_box {
 private:
@@ -23,9 +23,9 @@ public:
 	};
 
 	bounding_box() = default;
-	bounding_box(CCSPlayerPawn* player);
+	bounding_box(C_CSPlayerPawn* player);
 	
-	bool initialize(CCSPlayerPawn* player);
+	bool initialize(C_CSPlayerPawn* player);
 	bool transform_coordinates();
 	inline const std::array<vector_2d, 4>& get_points() const {
 		return points;
