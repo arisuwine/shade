@@ -28,6 +28,7 @@ For educational purposes only.
 
 ## 📦 Dependencies
 [imgui](https://github.com/ocornut/imgui) / gui library
+
 [minhook](https://github.com/TsudaKageyu/minhook) / hooking library
 
 ## ✏️ Contributing
