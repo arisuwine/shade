@@ -23,8 +23,8 @@ For educational purposes only.
 **This base is 100% detected.** I have not tried to bypass VAC or other anti-cheat systems.
 
 ## 📋 Requirements
-- C++ Standart / 20
-- Inject Method / LoadLibrary
+- C++ Standard / 20
+- Injection Method / LoadLibrary
 
 ## 📦 Dependencies
 - [imgui](https://github.com/ocornut/imgui) / gui library
