@@ -27,9 +27,8 @@ For educational purposes only.
 - Inject Method / LoadLibrary
 
 ## 📦 Dependencies
-[imgui](https://github.com/ocornut/imgui) / gui library
-
-[minhook](https://github.com/TsudaKageyu/minhook) / hooking library
+- [imgui](https://github.com/ocornut/imgui) / gui library
+- [minhook](https://github.com/TsudaKageyu/minhook) / hooking library
 
 ## ✏️ Contributing
 Feel free to make pull requests.
