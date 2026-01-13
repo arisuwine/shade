@@ -10,17 +10,17 @@
 
 #include "../math/world_to_screen.hpp"
 
-bool bounding_box::initialize(C_CSPlayerPawn* player) {
+bool BoundingBox::Initialize(C_CSPlayerPawn* player) {
 	CCollisionProperty* collision = player->m_pCollision;
 	if (!collision) {
 		initialized = false;
-		return 0;
+		return FALSE;
 	}
 
 	CGameSceneNode* game_scene_node = player->m_pGameSceneNode;
 	if (!game_scene_node) {
 		initialized = false;
-		return 0;
+		return FALSE;
 	}
 
 	vector_3d origin = game_scene_node->m_vecAbsOrigin;
@@ -30,14 +30,14 @@ bool bounding_box::initialize(C_CSPlayerPawn* player) {
 	max = m_vecMaxs + origin;
 	min = collision->m_vecMins + origin;
 	initialized = true;
-	return 1;
+	return TRUE;
 }
 
-bounding_box::bounding_box(C_CSPlayerPawn* player) {
-	initialize(player);
+BoundingBox::BoundingBox(C_CSPlayerPawn* player) {
+	Initialize(player);
 }
 
-bool bounding_box::transform_coordinates() {
+bool BoundingBox::TransformCoordinates() {
 	points[TOP_LEFT].y = points[TOP_LEFT].x = FLT_MAX;
 	points[BOTTOM_RIGHT].y = points[BOTTOM_RIGHT].x = -FLT_MAX;
 
@@ -45,7 +45,7 @@ bool bounding_box::transform_coordinates() {
 		vector_3d point(i & 1 ? max.x : this->min.x, i & 2 ? max.y : min.y, i & 4 ? max.z : min.z);
 
 		vector_2d screen_pos;
-		if (!math::world_to_screen(point, screen_pos))
+		if (!math::WorldToScreen(point, screen_pos))
 			return 0;
 
 		points[TOP_LEFT] = vector_2d(std::min(points[TOP_LEFT].x, screen_pos.x), std::min(points[TOP_LEFT].y, screen_pos.y));
@@ -55,5 +55,5 @@ bool bounding_box::transform_coordinates() {
 	points[TOP_MIDDLE] = points[TOP_LEFT] + vector_2d((points[BOTTOM_RIGHT].x - points[TOP_LEFT].x) * 0.5f, 0.0f);
 	points[BOTTOM_MIDDLE] = vector_2d(points[TOP_MIDDLE].x, points[TOP_MIDDLE].y + points[BOTTOM_RIGHT].y - points[TOP_LEFT].y);
 
-	return 1;
+	return TRUE;
 }

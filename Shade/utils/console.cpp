@@ -3,13 +3,13 @@
 #include <windows.h>
 #include <cstdio>
 
-void utils::attach_console() {
+void utils::AttachConsole() {
     AllocConsole();
     freopen("CONOUT$", "w", stdout);
     freopen("CONOUT$", "w", stderr);
     freopen("CONIN$", "r", stdin);
 }
 
-void utils::detach_console() {
+void utils::DetachConsole() {
     FreeConsole();
 }

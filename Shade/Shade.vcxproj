@@ -114,6 +114,7 @@
       <AdditionalIncludeDirectories>C:\Users\Administrator\source\repos\Shade\Shade\minhook;C:\Program Files\Microsoft Research\Detours\include;C:\Users\Administrator\source\repos\Shade\Shade\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

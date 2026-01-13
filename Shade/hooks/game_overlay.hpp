@@ -27,6 +27,6 @@ private:
 public:
     GameOverlayHook() = delete;
 
-    static bool initialize();
-    static bool shutdown();
+    static bool Initialize();
+    static bool Shutdown();
 };

@@ -52,6 +52,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
+#include "hooks/game_overlay.hpp"
 #include "hooks/hooks.hpp"
 
 #include "sdk/sdk.hpp"
@@ -61,31 +62,44 @@ THE SOFTWARE.
 #include "utils/console.hpp"
 #include "utils/debug.hpp"
 
-DWORD WINAPI on_dll_attach(LPVOID lpParam) {
+bool g_Unload = FALSE;
+
+BOOL WINAPI OnDllDetach() {
 #ifdef _DEBUG
-    utils::attach_console();
+    utils::DetachConsole();
 #endif
 
-    try {
-        interfaces::initialize();
-        hooks::initialize();
-    }
-    catch (const std::exception& e) {
-        //LOG("An error occured during initialization:\n");
-        //LOG("%s\n", e.what());
-        //LOG("Press any key to exit.\n");
-
-        FreeLibraryAndExitThread(static_cast<HMODULE>(lpParam), 1);
-    }
+    hooks::Shutdown();
 
     return TRUE;
 }
 
-BOOL WINAPI on_dll_detach() {
+DWORD WINAPI OnDllAttach(LPVOID lpParam) {
 #ifdef _DEBUG
-    utils::detach_console();
-    hooks::shutdown();
+    utils::AttachConsole();
 #endif
+
+    try {
+        interfaces::Initialize();
+        hooks::Initialize();
+
+		while (!g_Unload) {
+            if (GetAsyncKeyState(VK_DELETE) & 0x8000)
+                g_Unload = TRUE;
+
+			Sleep(100);
+        }
+    }
+    catch (const std::exception& e) {
+        LOG("An error occured during initialization:\n");
+        LOG("%s\n", e.what());
+        LOG("Press any key to exit.\n");
+
+        FreeLibraryAndExitThread(static_cast<HMODULE>(lpParam), 1);
+    }
+
+    OnDllDetach();
+    FreeLibraryAndExitThread((HMODULE)lpParam, 0);
 
     return TRUE;
 }
@@ -98,11 +112,8 @@ BOOL APIENTRY DllMain(
 {
     switch(ul_reason_for_call) {
         case DLL_PROCESS_ATTACH:
-            CreateThread(nullptr, 0, on_dll_attach, hModule, 0, 0);
-            return TRUE;
-        case DLL_PROCESS_DETACH:
-            if (lpReserved == nullptr)
-                return on_dll_detach();
+            DisableThreadLibraryCalls(hModule);
+            CreateThread(nullptr, 0, OnDllAttach, hModule, 0, 0);
             return TRUE;
         default:
             return TRUE;

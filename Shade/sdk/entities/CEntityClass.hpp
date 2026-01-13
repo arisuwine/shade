@@ -9,10 +9,10 @@ class CEntityClass {
 public:
 	CEntityClass() = delete;
 
-	SCHEMA(CEntityIdentity*, offsets::CEntityClass::m_pFirstEntity, m_pFirstEntity);
+	SCHEMA(CEntityIdentity*, offsets::client::CEntityClass::m_pFirstEntity, m_pFirstEntity);
 
 	template <typename T>
-	CEntityIterator<T, true> all_entities() {
+	CEntityIterator<T, true> AllEntities() {
 		return m_pFirstEntity;
 	}
 };

@@ -9,7 +9,7 @@ private:
 public:
 	CConcreteEntityList() = delete;
 
-	SCHEMA(CEntityIdentity**,	0x0,	m_pIdentityChunks	);
-	SCHEMA(CEntityIdentity*,	0x200,	m_pFirstActiveEntity);
-	SCHEMA(CEntityIdentity*,	0x208,	m_usedList_Head		);
+	SCHEMA(CEntityIdentity**,	offsets::client::CConcreteEntityList::m_pIdentityChunks,	m_pIdentityChunks	);
+	SCHEMA(CEntityIdentity*,	offsets::client::CConcreteEntityList::m_pFirstActiveEntity,	m_pFirstActiveEntity);
+	SCHEMA(CEntityIdentity*,	offsets::client::CConcreteEntityList::m_usedList_Head,		m_usedList_Head		);
 };

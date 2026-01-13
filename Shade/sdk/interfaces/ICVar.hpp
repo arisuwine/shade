@@ -12,8 +12,8 @@ public:
 
 	ConVarRef();
 
-	SCHEMA(uint16_t,	offsets::ConVarRef::m_ConVarAccessIndex,		m_ConVarAccessIndex		);
-	SCHEMA(int,			offsets::ConVarRef::m_ConVarRegisteredIndex,	m_ConVarRegisteredIndex	);
+	SCHEMA(uint16_t,	offsets::tier0::ConVarRef::m_ConVarAccessIndex,		m_ConVarAccessIndex		);
+	SCHEMA(int,			offsets::tier0::ConVarRef::m_ConVarRegisteredIndex,	m_ConVarRegisteredIndex	);
 
 	//inline void InvalidateRef() { m_ConVarAccessIndex = kInvalidAccessIndex; m_ConVarRegisteredIndex = 0; }
 	inline bool		IsValidRef()			 { return m_ConVarAccessIndex != kInvalidAccessIndex; }

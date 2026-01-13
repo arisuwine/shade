@@ -17,7 +17,7 @@
 #include "../utils/debug.hpp"
 
 bool EntitySystemHook::is_init = false;
-bool EntitySystemHook::initialize() {
+bool EntitySystemHook::Initialize() {
 	if (is_init)
 		return TRUE;
 
@@ -37,7 +37,7 @@ bool EntitySystemHook::initialize() {
 	return TRUE;
 }
 
-bool EntitySystemHook::shutdown() {
+bool EntitySystemHook::Shutdown() {
 	if (!is_init)
 		return TRUE;
 

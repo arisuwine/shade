@@ -7,7 +7,7 @@
 
 #include "interfaces/CInterfaceSystem.hpp"
 
-void interfaces::initialize() {
+void interfaces::Initialize() {
 	LOG("[INTERFACE] Initialization of interfaces.\n");
 
 	// client.dll
@@ -19,8 +19,8 @@ void interfaces::initialize() {
 
 	LOG("g_CViewRender: %p\n", g_CViewRender);
 
-	g_CNetworkClientService = CInterfaceSystem::get<CNetworkClientService>	("engine2.dll",			"NetworkClientService_001");
-	g_EngineClient			= CInterfaceSystem::get<IVEngineClient>			("engine2.dll",			"Source2EngineToClient001");
-	g_CVar					= CInterfaceSystem::get<ICVar>					("tier0.dll",			"VEngineCvar007");
-	g_CSchemaSystem			= CInterfaceSystem::get<CShemaSystem>			("schemasystem.dll",	"SchemaSystem_001");
+	g_CNetworkClientService = CInterfaceSystem::Get<CNetworkClientService>	("engine2.dll",			"NetworkClientService_001");
+	g_EngineClient			= CInterfaceSystem::Get<IVEngineClient>			("engine2.dll",			"Source2EngineToClient001");
+	g_CVar					= CInterfaceSystem::Get<ICVar>					("tier0.dll",			"VEngineCvar007");
+	g_CSchemaSystem			= CInterfaceSystem::Get<CShemaSystem>			("schemasystem.dll",	"SchemaSystem_001");
 }

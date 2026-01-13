@@ -14,7 +14,7 @@ namespace ImGuiEx {
         };
 
         if (ImGui::ColorEdit4(label, &clr.x, show_alpha)) {
-            v->set_color(clr.x, clr.y, clr.z, clr.w);
+            v->SetColor(clr.x, clr.y, clr.z, clr.w);
             return true;
         }
         return false;
@@ -26,7 +26,7 @@ namespace ImGuiEx {
     }
 }
 
-void Menu::setup_styles() {
+void Menu::SetupStyles() {
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
@@ -87,11 +87,11 @@ void Menu::setup_styles() {
     style.Colors[ImGuiCol_TextSelectedBg] = ImVec4(0.25f, 1.00f, 0.00f, 0.43f);
 }
 
-void Menu::toggle() {
+void Menu::Toggle() {
     show = !show;
 }
 
-void Menu::render() {
+void Menu::Render() {
     ImGui::GetIO().MouseDrawCursor = show;
 
     if (!show)
@@ -152,7 +152,7 @@ void Menu::render() {
     ImGui::End();
 }
 
-void Menu::initialize() {
-    setup_styles();
+void Menu::Initialize() {
+    SetupStyles();
     show = true;
 }

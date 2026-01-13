@@ -10,22 +10,9 @@
 #define RESOLVE_RIP(type, addr) RESOLVE_RIP_EX(type, addr, 3, 7)
 #define DEREFERENCE(type, addr) *reinterpret_cast<type**>(RESOLVE_RIP(type, addr))
 
-//std::uint8_t* resolve_rip(std::uint8_t* address, std::uint32_t rva_offset, std::uint32_t rip_offset)
-//{
-//	if (!address || !rva_offset || !rip_offset)
-//	{
-//		return nullptr;
-//	}
-//
-//	std::uint32_t rva = *reinterpret_cast<std::uint32_t*>(address + rva_offset);
-//	std::uint64_t rip = reinterpret_cast<std::uint64_t>(address) + rip_offset;
-//
-//	return reinterpret_cast<std::uint8_t*>(rva + rip);
-//}
-
 namespace CInterfaceSystem {
 	template<typename T>
-	static T* get(const std::string_view& module_name, const std::string_view& interface_name){
+	static T* Get(const std::string_view& module_name, const std::string_view& interface_name){
 		HMODULE hModule = GetModuleHandleA(module_name.data());
 
 		if (!hModule)

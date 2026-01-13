@@ -8,7 +8,7 @@
 class ESP {
 private:
 	C_CSPlayerPawn* player;
-	bounding_box bbox;
+	BoundingBox bbox;
 
 	static inline std::vector<std::vector<bone_index>> bones = {
 		{ Pelvis, Spine_1, Spine_2, Spine_3, Neck_0, Head },
@@ -18,23 +18,23 @@ private:
 		{ Pelvis, Leg_Upper_L, Leg_Lower_L, Ankle_L }
 	};
 
-	void render_name();
-	void render_box();
-	void render_health();
-	void render_skeleton();
-	void render_flags();
-	void render_weapon();
-	void render_ammo();
+	void RenderName();
+	void RenderBox();
+	void RenderHealth();
+	void RenderSkeleton();
+	void RenderFlags();
+	void RenderWeapon();
+	void RenderAmmo();
 
-	void initialize();
+	void Initalize();
 
-	ESP() {};
+	ESP() {}
 public:
 
-	static ESP& get() {
+	static ESP& Get() {
 		static ESP instance;
 		return instance;
 	}
-	void begin_render();
-	static void render_dropped_weapon();
+	void BeginRender();
+	static void RenderDropperWeapons();
 };

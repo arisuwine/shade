@@ -30,20 +30,20 @@ public:
 	inline int b() const { return colors[2]; }
 	inline int a() const { return colors[3]; }
 
-	void set_raw_color(uint32_t clr)
+	void SetRawColor(uint32_t clr)
 	{
 		*((int*)this) = clr;
 	}
 
-	int get_raw_color() const
+	int GetRawColor() const
 	{
 		return *((int*)this);
 	}
 
-	inline void set_color(int r, int g, int b, int a = 255);
-	inline void set_color(float r, float g, float b, float a = 1.0f);
-	void get_color(int& r, int& g, int& b, int& a) const;
-	ImColor get_color() const;
+	inline void SetColor(int r, int g, int b, int a = 255);
+	inline void SetColor(float r, float g, float b, float a = 1.0f);
+	void GetColor(int& r, int& g, int& b, int& a) const;
+	ImColor GetColor() const;
 
 	unsigned char& operator[](size_t index) {
 		return colors[index];

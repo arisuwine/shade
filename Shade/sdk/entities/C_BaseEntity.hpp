@@ -28,17 +28,17 @@ public:
 		CT = 3
 	};
 
-	SCHEMA	(int,					offsets::C_BaseEntity::m_iHealth,			m_iHealth		);
-	SCHEMA	(TEAM,					offsets::C_BaseEntity::m_iTeamNum,			m_iTeamNum		);
-	SCHEMA	(CCollisionProperty*,	offsets::C_BaseEntity::m_pCollision,		m_pCollision	);
-	SCHEMA	(CGameSceneNode*,		offsets::C_BaseEntity::m_pGameSceneNode,	m_pGameSceneNode);
-	PSCHEMA	(CHandle<C_BaseEntity>, offsets::C_BaseEntity::m_hOwnerEntity,		m_hOwnerEntity	);
+	SCHEMA	(int,					offsets::client::C_BaseEntity::m_iHealth,			m_iHealth		);
+	SCHEMA	(TEAM,					offsets::client::C_BaseEntity::m_iTeamNum,			m_iTeamNum		);
+	SCHEMA	(CCollisionProperty*,	offsets::client::C_BaseEntity::m_pCollision,		m_pCollision	);
+	SCHEMA	(CGameSceneNode*,		offsets::client::C_BaseEntity::m_pGameSceneNode,	m_pGameSceneNode);
+	PSCHEMA	(CHandle<C_BaseEntity>, offsets::client::C_BaseEntity::m_hOwnerEntity,		m_hOwnerEntity	);
 
 	bool operator==(C_BaseEntity* entity) {
 		return this == entity;
 	}
 
-	bool IsWeapon() {
+	inline bool IsWeapon() {
 		const char* binding_name = Schema_DynamicBinding()->m_pszName;
 		if (std::strncmp(binding_name, "C_Weapon", 8) == 0) {
 			return TRUE;
@@ -55,7 +55,7 @@ public:
 		}
 	}
 
-	bool IsGrenade() {
+	inline bool IsGrenade() {
 		const char* binding_name = Schema_DynamicBinding()->m_pszName;
 
 		switch (hash_str(binding_name)) {
@@ -71,7 +71,7 @@ public:
 		}
 	}
 
-	bool IsProjectile() {
+	inline bool IsProjectile() {
 		const char* binding_name = Schema_DynamicBinding()->m_pszName;
 
 		switch (hash_str(binding_name)) {
@@ -86,8 +86,12 @@ public:
 		}
 	}
 
-	bool IsPawn() {
+	inline bool IsPawn() {
 		return Schema_DynamicBinding() == g_CSchemaSystem->FindClassByScopedName("client.dll!C_CSPlayerPawn");
+	}
+
+	inline bool IsAlive() {
+		return this->m_iHealth != 0;
 	}
 };
 

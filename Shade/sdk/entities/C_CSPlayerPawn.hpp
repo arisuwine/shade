@@ -17,10 +17,10 @@ class C_BasePlayerPawn : public C_BaseCombatCharacter {
 public:
 	C_BasePlayerPawn() = delete;
 
-	SCHEMA	(vector_3d,							offsets::C_BasePlayerPawn::m_vOldOrigin,		m_vOldOrigin		);
-	SCHEMA	(CPlayer_MovementServices*,			offsets::C_BasePlayerPawn::m_pMovementServices, m_pMovementServices	);
-	SCHEMA	(CPlayer_WeaponServices*,			offsets::C_BasePlayerPawn::m_pWeaponServices,	m_pWeaponServices	);
-	PSCHEMA	(CHandle<C_CSPlayerController>,		offsets::C_BasePlayerPawn::m_hController,		m_hController		);
+	SCHEMA	(vector_3d,							offsets::client::C_BasePlayerPawn::m_vOldOrigin,		m_vOldOrigin		);
+	SCHEMA	(CPlayer_MovementServices*,			offsets::client::C_BasePlayerPawn::m_pMovementServices, m_pMovementServices	);
+	SCHEMA	(CPlayer_WeaponServices*,			offsets::client::C_BasePlayerPawn::m_pWeaponServices,	m_pWeaponServices	);
+	PSCHEMA	(CHandle<C_CSPlayerController>,		offsets::client::C_BasePlayerPawn::m_hController,		m_hController		);
 };
 
 class C_CSPlayerPawnBase : public C_BasePlayerPawn {
@@ -32,12 +32,12 @@ class C_CSPlayerPawn : public C_CSPlayerPawnBase {
 public:
 	C_CSPlayerPawn() = delete;
 
-	SCHEMA(int,					offsets::C_CSPlayerPawn::m_ArmorValue,			m_ArmorValue		);
-	SCHEMA(bool,				offsets::C_CSPlayerPawn::m_bIsScoped,			m_bIsScoped			);
-	SCHEMA(bool,				offsets::C_CSPlayerPawn::m_bIsDefusing,			m_bIsDefusing		);
-	SCHEMA(C_CSWeaponBase*,		offsets::C_CSPlayerPawn::m_pClippingWeapon,		m_pClippingWeapon	);
+	SCHEMA(int,					offsets::client::C_CSPlayerPawn::m_ArmorValue,			m_ArmorValue		);
+	SCHEMA(bool,				offsets::client::C_CSPlayerPawn::m_bIsScoped,			m_bIsScoped			);
+	SCHEMA(bool,				offsets::client::C_CSPlayerPawn::m_bIsDefusing,			m_bIsDefusing		);
+	SCHEMA(C_CSWeaponBase*,		offsets::client::C_CSPlayerPawn::m_pClippingWeapon,		m_pClippingWeapon	);
 
-	inline bool IsAlive();
+	
 };
 
 class LocalPlayer {
@@ -50,29 +50,25 @@ private:
 	LocalPlayer() : pawn(nullptr) {}
 
 public:
-	static LocalPlayer& get() {
+	static LocalPlayer& Get() {
 		static LocalPlayer instance;
 		return instance;
 	}
 
-	inline void initialize() {
+	inline void Initialize() {
 		if (!handle)
 			handle = modules::client.find(LOCAL_PLAYER_CONTROLLER);
 
 			controller = *reinterpret_cast<C_CSPlayerController**>(handle + *((int32_t*)(handle + 3)) + 7);
 	}
 
-	void update() {
-		initialize();
+	void Update() {
+		Initialize();
 
 		pawn = controller->m_hPawn.GetEntityFromHandle();
 	}
 
-	C_CSPlayerPawn* get_pawn() const {
+	C_CSPlayerPawn* GetPawn() const {
 		return pawn ? pawn : nullptr;
 	}
 };
-
-bool C_CSPlayerPawn::IsAlive() {
-	return this->m_iHealth != 0;
-}

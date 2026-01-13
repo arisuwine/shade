@@ -15,7 +15,7 @@
 #include "../utils/debug.hpp"
 
 bool GlowHook::is_init = false;
-bool GlowHook::initialize() {
+bool GlowHook::Initialize() {
 	if (is_init)
 		return TRUE;
 
@@ -35,7 +35,7 @@ bool GlowHook::initialize() {
 	return TRUE;
 }
 
-bool GlowHook::shutdown() {
+bool GlowHook::Shutdown() {
 	if (!is_init)
 		return TRUE;
 
@@ -60,9 +60,6 @@ bool __fastcall GlowHook::IsGlowingHk(CGlowProperty* property) {
 	if (entity->IsWeapon() && entity->m_hOwnerEntity.m_Index == -1)
 		return true;
 
-	//if (is_projectile_class(entity))
-	//	return true;
-
 	if (entity->Schema_DynamicBinding() != g_CSchemaSystem->FindClassByScopedName("client.dll!C_CSPlayerPawn"))
 		return oIsGlowing(property);
 
@@ -80,17 +77,14 @@ void __fastcall GlowHook::GetGlowHk(CGlowProperty* property, int color) {
 	if (!entity)
 		return oGetGlow(property, color);
 
-	int32_t glow_color = (*g_options.col_esp_glow).get_raw_color();
+	int32_t glow_color = (*g_options.col_esp_glow).GetRawColor();
 	if (entity->IsWeapon())
 		return oGetGlow(property, glow_color);
-
-	//if (is_projectile_class(entity))
-	//	return GetGlowO(property, glow_color);
 	
 	if (entity->IsPawn())
 		return oGetGlow(property, color);
 
-	C_CSPlayerPawn* local_player = LocalPlayer::get().get_pawn();
+	C_CSPlayerPawn* local_player = LocalPlayer::Get().GetPawn();
 	if (!local_player)
 		return oGetGlow(property, color);
 

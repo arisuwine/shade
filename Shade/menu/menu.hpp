@@ -2,17 +2,17 @@
 
 class Menu {
 private:
-    void setup_styles();
+    void SetupStyles();
 
     bool show;
 
     Menu() {}
 
 public:
-    void initialize();
-    void toggle();
-    void render();
-    static Menu& get() {
+    void Initialize();
+    void Toggle();
+    void Render();
+    static Menu& Get() {
         static Menu instance;
         return instance;
     }
