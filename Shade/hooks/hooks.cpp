@@ -1,6 +1,7 @@
 #include "hooks.hpp"
 
 #include "minhook.h"
+#include "imgui_impl_dx11.h"
 
 #include "game_overlay.hpp"
 #include "glow.hpp"
@@ -9,33 +10,33 @@
 
 #include "../utils/debug.hpp"
 
-bool hooks::initialize() {
+bool hooks::Initialize() {
 	LOG("\n[HOOK] Initialization of hooks.\n");
 
 	if (auto status = MH_Initialize(); status != MH_OK && status != MH_ERROR_ALREADY_INITIALIZED)
 		LOG_AND_RETURN("[-] MH Initialize has failed. Status: %d\n", status);
 
-	if (!GameOverlayHook::initialize())
+	if (!GameOverlayHook::Initialize())
 		return FALSE;
 
 	LOG("[+] GameOverlayHook has been initialized.\n");
 
-	if (!GlowHook::initialize())
+	if (!GlowHook::Initialize())
 		return FALSE;
 
 	LOG("[+] GlowHook has been initialized.\n");
 
-	if (!EntitySystemHook::initialize())
+	if (!EntitySystemHook::Initialize())
 		return FALSE;
 
 	LOG("[+] EntitySystemHook has been initialized.\n");
 
-	if (!ViewRenderHook::initialize())
+	if (!ViewRenderHook::Initialize())
 		return FALSE;
 
 	LOG("[+] ViewRenderHook has been initialized.\n");
 
-	if (!OverrideViewModelHook::initialize())
+	if (!OverrideViewModelHook::Initialize())
 		return FALSE;
 
 	LOG("[+] OverrideViewModelHook has been initialized.\n");
@@ -43,21 +44,23 @@ bool hooks::initialize() {
 	return TRUE;
 }
 
-bool hooks::shutdown() {
-	if (!GlowHook::shutdown())
+bool hooks::Shutdown() {
+	if (!GameOverlayHook::Shutdown())
 		return FALSE;
 
-	if (!GameOverlayHook::shutdown())
+	if (!GlowHook::Shutdown())
 		return FALSE;
 
-	if (!EntitySystemHook::shutdown())
+	if (!EntitySystemHook::Shutdown())
 		return FALSE;
 
-	if (!ViewRenderHook::shutdown())
+	if (!ViewRenderHook::Shutdown())
 		return FALSE;
 
-	if (!OverrideViewModelHook::shutdown())
+	if (!OverrideViewModelHook::Shutdown())
 		return FALSE;
+
+	MH_Uninitialize();
 
 	return TRUE;
 }

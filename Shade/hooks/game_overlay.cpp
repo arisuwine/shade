@@ -1,7 +1,6 @@
 #include "game_overlay.hpp"
 #include "glow.hpp"
 
-
 #include "imgui_impl_win32.h"
 #include "imgui_impl_dx11.h"
 
@@ -31,13 +30,13 @@ HRESULT __stdcall GameOverlayHook::PresentHook(IDXGISwapChain* SwapChain, UINT S
         ImGui_ImplWin32_Init(hwnd);
         ImGui_ImplDX11_Init(g_Device, g_DeviceContext);
 
-        RenderTarget::get().initialize();
-        Menu::get().initialize();
+        RenderTarget::Get().Initialize();
+        Menu::Get().Initialize();
 
         is_init = true;
     }
 
-    RenderTarget::get().begin_scene();
+    RenderTarget::Get().BeginScene();
 
     return OriginalPresentFunc(SwapChain, SyncInterval, Flags);
 }
@@ -50,7 +49,7 @@ LRESULT GameOverlayHook::WndProcHook(HWND hWnd, UINT msg, WPARAM wParam, LPARAM 
 }
 
 HWND GameOverlayHook::hwnd;
-bool GameOverlayHook::initialize() {
+bool GameOverlayHook::Initialize() {
     hwnd = FindWindowA("SDL_APP", "Counter-Strike 2");
     if (!hwnd)
         hwnd = GetForegroundWindow();
@@ -65,9 +64,28 @@ bool GameOverlayHook::initialize() {
     return TRUE;
 }
 
-bool GameOverlayHook::shutdown() {
-    UnHook((__int64)&OriginalPresentFunc, 1);
-    UnHook((__int64)&OriginalWndProc, 1);
+bool GameOverlayHook::Shutdown() {
+    UnHook((__int64)pHkPresent, 1);
+    UnHook((__int64)GetWindowLongPtrW(hwnd, GWLP_WNDPROC), 1);
+
+    if (is_init) {
+        ImGui_ImplDX11_Shutdown();
+        ImGui_ImplWin32_Shutdown();
+		ImGui::DestroyContext();
+
+        SetWindowLongPtr(hwnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(OriginalWndProc));
+
+        g_Device->Release();
+        g_Device = nullptr;
+
+		g_DeviceContext->Release();
+		g_DeviceContext = nullptr;
+
+		g_TargetView->Release();
+		g_TargetView = nullptr;
+
+        is_init = FALSE;
+    }
 
     return TRUE;
 }

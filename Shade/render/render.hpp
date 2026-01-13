@@ -11,11 +11,11 @@ private:
     RenderTarget() {};
 
 public:
-    static RenderTarget& get() {
+    static RenderTarget& Get() {
         static RenderTarget instance;
         return instance;
     }
 
-    void initialize();
-    void begin_scene();
+    void Initialize();
+    void BeginScene();
 };

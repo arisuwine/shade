@@ -27,5 +27,5 @@ public:
 
 	using GlowObjectsVector = CUtlVector<GlowObjectDefinition_t>;
 
-	SCHEMA(GlowObjectsVector, offsets::CGlowObjectManager::m_GlowObjectDefinitions, m_GlowObjectDefinitions);
+	SCHEMA(GlowObjectsVector, offsets::client::CGlowObjectManager::m_GlowObjectDefinitions, m_GlowObjectDefinitions);
 };

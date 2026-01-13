@@ -5,7 +5,7 @@
 
 class C_CSPlayerPawn;
 
-class bounding_box {
+class BoundingBox {
 private:
 	bool initialized;
 
@@ -22,12 +22,12 @@ public:
 		BOTTOM_MIDDLE = 3
 	};
 
-	bounding_box() = default;
-	bounding_box(C_CSPlayerPawn* player);
+	BoundingBox() = default;
+	BoundingBox(C_CSPlayerPawn* player);
 	
-	bool initialize(C_CSPlayerPawn* player);
-	bool transform_coordinates();
-	inline const std::array<vector_2d, 4>& get_points() const {
+	bool Initialize(C_CSPlayerPawn* player);
+	bool TransformCoordinates();
+	inline const std::array<vector_2d, 4>& GetPoints() const {
 		return points;
 	}
 

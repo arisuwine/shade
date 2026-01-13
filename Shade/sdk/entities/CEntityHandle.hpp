@@ -8,5 +8,5 @@ class CEntityHandle
 public:
 	CEntityHandle() = delete;
 
-	SCHEMA(uint32_t, 0x0, m_Index);
+	SCHEMA(uint32_t, offsets::client::CEntityHandle::m_Index, m_Index);
 };

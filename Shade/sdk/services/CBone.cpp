@@ -7,8 +7,8 @@
 #include "../services/CGameSceneNode.hpp"
 #include "../services/CModelState.hpp"
 
-vector_3d CBone::get_bone_position(C_CSPlayerPawn* player, bone_index index) {
-	uintptr_t bone_array = player->m_pGameSceneNode->m_modelState.BoneArray;
+vector_3d CBone::GetBonePosition(C_CSPlayerPawn* player, bone_index index) {
+	uintptr_t bone_array = player->m_pGameSceneNode->m_modelState.m_BoneArray;
 
 	if (!bone_array)
 		return vector_3d();

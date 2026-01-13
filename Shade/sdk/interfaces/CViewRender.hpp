@@ -26,12 +26,12 @@ public:
 	//float	m_flAspectRatio; // 0x0518
 	//BYTE	pad05[0x71];
 	//BYTE	nSomeFlags;
-	PSCHEMA(float,			offsets::CViewSetup::m_flFov,			m_flFov			);
-	PSCHEMA(float,			offsets::CViewSetup::m_flFovViewModel,	m_flFovViewModel);
-	PSCHEMA(vector_3d,		offsets::CViewSetup::m_vecOrigin,		m_vecOrigin		);
-	PSCHEMA(QAngle,			offsets::CViewSetup::m_angView,			m_angView		);
-	PSCHEMA(float,			offsets::CViewSetup::m_flAspectRatio,	m_flAspectRatio	);
-	PSCHEMA(BYTE,			offsets::CViewSetup::m_nSomeFlags,		m_nSomeFlags	);
+	PSCHEMA(float,			offsets::client::CViewSetup::m_flFov,			m_flFov			);
+	PSCHEMA(float,			offsets::client::CViewSetup::m_flFovViewModel,	m_flFovViewModel);
+	PSCHEMA(vector_3d,		offsets::client::CViewSetup::m_vecOrigin,		m_vecOrigin		);
+	PSCHEMA(QAngle,			offsets::client::CViewSetup::m_angView,			m_angView		);
+	PSCHEMA(float,			offsets::client::CViewSetup::m_flAspectRatio,	m_flAspectRatio	);
+	PSCHEMA(BYTE,			offsets::client::CViewSetup::m_nSomeFlags,		m_nSomeFlags	);
 
 	void* operator&() {
 		return this;
@@ -50,5 +50,5 @@ public:
 		return retDegrees * 2.0f;
 	}
 
-	PSCHEMA(CViewSetup,		offsets::CViewRender::m_CurrentView,	m_CurrentView	);
+	PSCHEMA(CViewSetup,		offsets::client::CViewRender::m_CurrentView,	m_CurrentView	);
 };

@@ -28,8 +28,8 @@ private:
 	static bool is_init;
 
 public:
-	static bool initialize();
-	static bool shutdown();
+	static bool Initialize();
+	static bool Shutdown();
 };
 
 extern std::vector<C_CSWeaponBase*>	g_WeaponsCache;

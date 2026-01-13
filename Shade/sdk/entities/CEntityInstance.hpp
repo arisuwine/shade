@@ -12,7 +12,7 @@ class CEntityInstance {
 public:
 	CEntityInstance() = delete;
 	
-	SCHEMA(CEntityIdentity*, offsets::CEntityInstance::m_pEntity, m_pEntity);
+	SCHEMA(CEntityIdentity*, offsets::client::CEntityInstance::m_pEntity, m_pEntity);
 
 	auto Schema_DynamicBinding() {
 		SchemaMetaInfoHandle_t<CSchemaClassInfo> result{};

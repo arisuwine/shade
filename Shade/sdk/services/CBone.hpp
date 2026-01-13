@@ -34,5 +34,5 @@ class CBone {
 public:
     CBone() = delete;
 
-    static vector_3d get_bone_position(C_CSPlayerPawn* player, bone_index index);
+    static vector_3d GetBonePosition(C_CSPlayerPawn* player, bone_index index);
 };

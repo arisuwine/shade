@@ -14,7 +14,7 @@
 #include "services/CNetworkClientService.hpp"
 
 namespace interfaces {
-	void initialize();
+	void Initialize();
 }
 
 // D3D11

@@ -14,8 +14,8 @@ public:
 
 	using EntityMap = CUtlMap<const char*, CEntityClass*, std::uint16_t, CDefCaselessStringLess>;
 
-	SCHEMA(CConcreteEntityList,		offsets::CGameEntitySystem::m_entityList,		m_entityList	);
-	SCHEMA(EntityMap,				offsets::CGameEntitySystem::m_ClassesByName,	m_ClassesByName	);
+	SCHEMA(CConcreteEntityList,		offsets::client::CGameEntitySystem::m_entityList,		m_entityList	);
+	SCHEMA(EntityMap,				offsets::client::CGameEntitySystem::m_ClassesByName,	m_ClassesByName	);
 
 	template <typename T>
 	T* GetEntityByIndex(int idx);

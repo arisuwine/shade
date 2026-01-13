@@ -5,5 +5,5 @@ class ViewMatrix {
 public:
 	ViewMatrix() = delete;
 
-	SCHEMA(matrix4x4, 0x0, matrix);
+	SCHEMA(matrix4x4, 0x0, m_Matrix);
 };

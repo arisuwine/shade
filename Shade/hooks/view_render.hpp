@@ -28,8 +28,8 @@ private:
     static bool is_init;
 
 public:
-    static bool initialize();
-    static bool shutdown();
+    static bool Initialize();
+    static bool Shutdown();
 };
 
 class OverrideViewModelHook {
@@ -45,6 +45,6 @@ private:
     static bool is_init;
 
 public:
-    static bool initialize();
-    static bool shutdown();
+    static bool Initialize();
+    static bool Shutdown();
 };

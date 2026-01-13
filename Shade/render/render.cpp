@@ -10,7 +10,7 @@
 
 #include "../features/esp.hpp"
 
-void setup_fonts() {
+void SetupFonts() {
     fonts.set_io();
     fonts.push("MuseoSans-500",     "c:\\USERS\\ADMINISTRATOR\\APPDATA\\LOCAL\\MICROSOFT\\WINDOWS\\FONTS\\MuseoSansCyrl-500.ttf", 15.0f);
     fonts.push("MuseoSans-500-12",  "c:\\USERS\\ADMINISTRATOR\\APPDATA\\LOCAL\\MICROSOFT\\WINDOWS\\FONTS\\MuseoSansCyrl-500.ttf", 12.0f);
@@ -20,24 +20,24 @@ void setup_fonts() {
     fonts.push("Verdana-13", "C:\\WINDOWS\\FONTS\\VERDANA.TTF", 13.0f);
 }
 
-void RenderTarget::initialize() {
-    setup_fonts();
+void RenderTarget::Initialize() {
+    SetupFonts();
 }
 
-void RenderTarget::begin_scene() {
+void RenderTarget::BeginScene() {
     ImGui_ImplDX11_NewFrame();
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();
 
-    if (GetAsyncKeyState(VK_INSERT) & 1 || GetAsyncKeyState(VK_DELETE) & 1)
-        Menu::get().toggle();
+    if (GetAsyncKeyState(VK_INSERT) & 1)
+        Menu::Get().Toggle();
 
-    Menu::get().render();
+    Menu::Get().Render();
 
     gui.draw_list = ImGui::GetBackgroundDrawList();
 
     if (g_CNetworkClientService->m_pCNetworkGameClient->IsInGame() && g_options.esp_enabled)
-        ESP::get().begin_render();
+        ESP::Get().BeginRender();
 
     ImGui::Render();
 

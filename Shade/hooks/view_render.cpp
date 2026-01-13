@@ -10,7 +10,7 @@
 
 bool ViewRenderHook::is_init = FALSE;
 CViewSetupCache view_setup_cache = {};
-bool ViewRenderHook::initialize() {
+bool ViewRenderHook::Initialize() {
 	if (is_init)
 		return TRUE;
 
@@ -24,7 +24,7 @@ bool ViewRenderHook::initialize() {
 	return TRUE;
 }
 
-bool ViewRenderHook::shutdown() {
+bool ViewRenderHook::Shutdown() {
 	if (!is_init)
 		return TRUE;
 
@@ -54,20 +54,20 @@ void* __fastcall ViewRenderHook::OnRenderStartHk(CViewRender* pViewRender) {
 	//pViewRender->m_CurrentView.m_flFovViewModel = CViewRender::ScaleFOVByWidthRatio(g_options.misc_viewmodel_fov, pViewRender->m_CurrentView.m_flAspectRatio * 0.75f);
 
 	
-	LOG("Aspect Ratio: %f, FOV: %f, ViewModel FOV: %f, My FOV: %f, My ViewModel FOV: %f, Dif: %f %f\n",
-		pViewRender->m_CurrentView.m_flAspectRatio,
-		pViewRender->m_CurrentView.m_flFov,
-		pViewRender->m_CurrentView.m_flFovViewModel,
-		CViewRender::ScaleFOVByWidthRatio(g_options.misc_fov, pViewRender->m_CurrentView.m_flAspectRatio * 0.75f),
-		CViewRender::ScaleFOVByWidthRatio(g_options.misc_viewmodel_fov, pViewRender->m_CurrentView.m_flAspectRatio * 0.75f),
-		pViewRender->m_CurrentView.m_flFov - CViewRender::ScaleFOVByWidthRatio(g_options.misc_fov, pViewRender->m_CurrentView.m_flAspectRatio * 0.75f),
-		pViewRender->m_CurrentView.m_flFovViewModel - CViewRender::ScaleFOVByWidthRatio(g_options.misc_viewmodel_fov, pViewRender->m_CurrentView.m_flAspectRatio * 0.75f));
+	//LOG("Aspect Ratio: %f, FOV: %f, ViewModel FOV: %f, My FOV: %f, My ViewModel FOV: %f, Dif: %f %f\n",
+	//	pViewRender->m_CurrentView.m_flAspectRatio,
+	//	pViewRender->m_CurrentView.m_flFov,
+	//	pViewRender->m_CurrentView.m_flFovViewModel,
+	//	CViewRender::ScaleFOVByWidthRatio(g_options.misc_fov, pViewRender->m_CurrentView.m_flAspectRatio * 0.75f),
+	//	CViewRender::ScaleFOVByWidthRatio(g_options.misc_viewmodel_fov, pViewRender->m_CurrentView.m_flAspectRatio * 0.75f),
+	//	pViewRender->m_CurrentView.m_flFov - CViewRender::ScaleFOVByWidthRatio(g_options.misc_fov, pViewRender->m_CurrentView.m_flAspectRatio * 0.75f),
+	//	pViewRender->m_CurrentView.m_flFovViewModel - CViewRender::ScaleFOVByWidthRatio(g_options.misc_viewmodel_fov, pViewRender->m_CurrentView.m_flAspectRatio * 0.75f));
 
 	return result;
 }
 
 bool OverrideViewModelHook::is_init = FALSE;
-bool OverrideViewModelHook::initialize() {
+bool OverrideViewModelHook::Initialize() {
 	if (is_init)
 		return TRUE;
 
@@ -81,7 +81,7 @@ bool OverrideViewModelHook::initialize() {
 	return TRUE;
 }
 
-bool OverrideViewModelHook::shutdown() {
+bool OverrideViewModelHook::Shutdown() {
 	if (!is_init)
 		return TRUE;
 

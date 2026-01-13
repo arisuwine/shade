@@ -5,5 +5,5 @@ class CModelState {
 public:
 	CModelState() = delete;
 
-	SCHEMA(uintptr_t, offsets::CModelState::BoneArray, BoneArray);
+	SCHEMA(uintptr_t, offsets::client::CModelState::BoneArray, m_BoneArray);
 };

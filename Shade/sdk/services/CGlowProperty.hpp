@@ -9,8 +9,8 @@ class CGlowProperty {
 public:
 	CGlowProperty() = delete;
 
-	SCHEMA(C_BaseEntity*,	offsets::CGlowProperty::m_pParent,				m_pParent);
-	SCHEMA(vector_3d,		offsets::CGlowProperty::m_vGlowColor,			m_vGlowColor);
-	SCHEMA(uint32_t,		offsets::CGlowProperty::m_glowColorOverride,	m_glowColorOverride);
-	SCHEMA(bool,			offsets::CGlowProperty::m_bGlowing,				m_bGlowing);
+	SCHEMA(C_BaseEntity*,	offsets::client::CGlowProperty::m_pParent,				m_pParent);
+	SCHEMA(vector_3d,		offsets::client::CGlowProperty::m_vGlowColor,			m_vGlowColor);
+	SCHEMA(uint32_t,		offsets::client::CGlowProperty::m_glowColorOverride,	m_glowColorOverride);
+	SCHEMA(bool,			offsets::client::CGlowProperty::m_bGlowing,				m_bGlowing);
 };
