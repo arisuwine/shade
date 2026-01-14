@@ -1,6 +1,8 @@
 #pragma once
 
 // client.dll
+#define SOURCE2_CLIENT			"48 8D 05 ? ? ? ? 48 89 71 ? 48 8B D9 48 89 71"
+#define FRAME_STAGE_NOTIFY		"48 89 5C 24 ? 56 48 83 EC ? 48 8B F1 45 84 C0"
 #define VIEW_MATRIX				"48 8D 0D ? ? ? ? 48 89 44 24 ? 48 89 4C 24 ? 4C 8D 0D"
 #define VIEW_RENDER				"48 8D 0D ? ? ? ? E8 ? ? ? ? 48 8D 0D ? ? ? ? 48 83 C4 ? E9 ? ? ? ? 48 8D 0D ? ? ? ? E9 ? ? ? ? ? ? ? ? 4C 8B DC"
 #define ON_RENDER_START			"48 89 5C 24 ? 48 89 6C 24 ? 56 57 41 56 48 81 EC ? ? ? ? 4C 8B F1 48 8D 94 24"

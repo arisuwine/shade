@@ -52,7 +52,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-#include "hooks/game_overlay.hpp"
 #include "hooks/hooks.hpp"
 
 #include "sdk/sdk.hpp"

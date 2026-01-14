@@ -146,6 +146,7 @@
     <ClInclude Include="features\esp.hpp" />
     <ClInclude Include="features\utils\bounding_box.hpp" />
     <ClInclude Include="hooks\entity_system.hpp" />
+    <ClInclude Include="hooks\frame_stage_notify.hpp" />
     <ClInclude Include="hooks\game_overlay.hpp" />
     <ClInclude Include="hooks\glow.hpp" />
     <ClInclude Include="hooks\hooks.hpp" />
@@ -193,6 +194,7 @@
     <ClInclude Include="sdk\interfaces\CShemaSystem.hpp" />
     <ClInclude Include="sdk\interfaces\CViewRender.hpp" />
     <ClInclude Include="sdk\interfaces\ICVar.hpp" />
+    <ClInclude Include="sdk\interfaces\ISource2Client.hpp" />
     <ClInclude Include="sdk\interfaces\IVEngineClient.hpp" />
     <ClInclude Include="sdk\interfaces\ViewMatrix.hpp" />
     <ClInclude Include="sdk\math\math.hpp" />
@@ -233,6 +235,7 @@
     <ClCompile Include="features\esp.cpp" />
     <ClCompile Include="features\utils\bounding_box.cpp" />
     <ClCompile Include="hooks\entity_system.cpp" />
+    <ClCompile Include="hooks\frame_stage_notify.cpp" />
     <ClCompile Include="hooks\game_overlay.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>

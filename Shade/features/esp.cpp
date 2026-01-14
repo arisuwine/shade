@@ -60,6 +60,9 @@ void ESP::BeginRender() {
 		if (g_options.esp_enemies_only && (local_player->m_iTeamNum == player->m_iTeamNum))
 			continue;
 
+		if (!player->IsAlive())
+			continue;
+
 		Initalize();
 	}
 
@@ -67,12 +70,6 @@ void ESP::BeginRender() {
 }
 
 void ESP::RenderName() {
-	if (!bbox.Initialize(player)) // Remove this line later
-		return;
-
-	if (player->m_iHealth <= 0)
-		return;
-
 	if (!bbox.TransformCoordinates())
 		return;
 
@@ -89,9 +86,6 @@ void ESP::RenderName() {
 }
 
 void ESP::RenderBox() {
-	if (player->m_iHealth <= 0)
-		return;
-
 	if (!bbox.TransformCoordinates())
 		return;
 
@@ -114,12 +108,6 @@ void ESP::RenderBox() {
 }
 
 void ESP::RenderHealth() {
-	if (!bbox.Initialize(player))
-		return;
-
-	if (player->m_iHealth <= 0)
-		return;
-
 	if (!bbox.TransformCoordinates())
 		return;
 
@@ -138,9 +126,6 @@ void ESP::RenderHealth() {
 }
 
 void ESP::RenderSkeleton() {
-	if (player->m_iHealth <= 0)
-		return;
-
 	vector_3d bone_position_start = { }, bone_position_end = { };
 	vector_2d line_start = { }, line_end = { };
 	
@@ -164,12 +149,6 @@ void ESP::RenderSkeleton() {
 }
 
 void ESP::RenderFlags() {
-	if (!bbox.Initialize(player))
-		return;
-
-	if (player->m_iHealth <= 0)
-		return;
-
 	if (!bbox.TransformCoordinates())
 		return;
 
@@ -184,12 +163,6 @@ void ESP::RenderFlags() {
 }
 
 void ESP::RenderWeapon() {
-	if (!bbox.Initialize(player))
-		return;
-
-	if (player->m_iHealth <= 0)
-		return;
-
 	if (!bbox.TransformCoordinates())
 		return;
 
@@ -211,12 +184,6 @@ void ESP::RenderWeapon() {
 }
 
 void ESP::RenderAmmo() {
-	if (!bbox.Initialize(player))
-		return;
-
-	if (player->m_iHealth <= 0)
-		return;
-
 	if (!bbox.TransformCoordinates())
 		return;
 
