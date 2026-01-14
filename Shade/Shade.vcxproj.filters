@@ -103,6 +103,9 @@
     <Filter Include="hooks\view_render">
       <UniqueIdentifier>{5af6bb03-dcdb-487b-8d5f-59860cb2cd31}</UniqueIdentifier>
     </Filter>
+    <Filter Include="hooks\frame_stage_notify">
+      <UniqueIdentifier>{f089cb17-64e3-4da5-94f5-9a9b311298fd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -348,6 +351,12 @@
     <ClInclude Include="sdk\math\QAngle.hpp">
       <Filter>sdk\math</Filter>
     </ClInclude>
+    <ClInclude Include="sdk\interfaces\ISource2Client.hpp">
+      <Filter>sdk\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="hooks\frame_stage_notify.hpp">
+      <Filter>hooks\frame_stage_notify</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui\imgui.cpp">
@@ -437,6 +446,9 @@
     </ClCompile>
     <ClCompile Include="hooks\view_render.cpp">
       <Filter>hooks\view_render</Filter>
+    </ClCompile>
+    <ClCompile Include="hooks\frame_stage_notify.cpp">
+      <Filter>hooks\frame_stage_notify</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -7,6 +7,7 @@
 #include "glow.hpp"
 #include "entity_system.hpp"
 #include "view_render.hpp"
+#include "frame_stage_notify.hpp"
 
 #include "../utils/debug.hpp"
 
@@ -41,6 +42,11 @@ bool hooks::Initialize() {
 
 	LOG("[+] OverrideViewModelHook has been initialized.\n");
 
+	if (!FrameStageNotifyHook::Initialize())
+		return FALSE;
+
+	LOG("[+] FrameStageNotifyHook has been initialized.\n");
+
 	return TRUE;
 }
 
@@ -58,6 +64,9 @@ bool hooks::Shutdown() {
 		return FALSE;
 
 	if (!OverrideViewModelHook::Shutdown())
+		return FALSE;
+
+	if (!FrameStageNotifyHook::Shutdown())
 		return FALSE;
 
 	MH_Uninitialize();
