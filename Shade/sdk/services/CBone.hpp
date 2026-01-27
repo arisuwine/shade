@@ -1,7 +1,7 @@
 #pragma once
 #include <Windows.h>
 
-#include "../math/vector/vector_3d.hpp"
+#include "../math/vector_3d.hpp"
 
 class C_CSPlayerPawn;
 
@@ -32,7 +32,5 @@ enum bone_index : DWORD {
 
 class CBone {
 public:
-    CBone() = delete;
-
-    static vector_3d GetBonePosition(C_CSPlayerPawn* player, bone_index index);
+    static Vector3D GetBonePosition(C_CSPlayerPawn* m_pPawn, bone_index index);
 };

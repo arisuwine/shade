@@ -7,12 +7,10 @@ class CEntityIdentity;
 
 class CEntityClass {
 public:
-	CEntityClass() = delete;
-
 	SCHEMA(CEntityIdentity*, offsets::client::CEntityClass::m_pFirstEntity, m_pFirstEntity);
 
 	template <typename T>
-	CEntityIterator<T, true> AllEntities() {
+	CEntityIterator<T, true> GetAll() {
 		return m_pFirstEntity;
 	}
 };

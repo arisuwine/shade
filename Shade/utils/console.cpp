@@ -2,6 +2,7 @@
 
 #include <windows.h>
 #include <cstdio>
+#include <conio.h>
 
 void utils::AttachConsole() {
     AllocConsole();
@@ -11,5 +12,15 @@ void utils::AttachConsole() {
 }
 
 void utils::DetachConsole() {
+    std::printf("\nPress any key to exit...\n");
+    
+    while (_kbhit()) _getch();
+
+    _getch();
+
+    fclose(stdout);
+    fclose(stderr);
+    fclose(stdin);
+
     FreeConsole();
 }

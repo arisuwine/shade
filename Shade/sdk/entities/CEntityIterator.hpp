@@ -6,21 +6,21 @@ class CEntityIterator {
 private:
 	class Iterator {
 	private:
-		CEntityIdentity* identity;
+		CEntityIdentity* m_pIdentity;
 
 	public:
-		Iterator(CEntityIdentity* ptr) : identity(ptr) {}
+		Iterator(CEntityIdentity* ptr) : m_pIdentity(ptr) {}
 
 		T* operator*() const {
-			return identity->m_pInstance<T>();
+			return m_pIdentity->m_pInstance<T>();
 		}
 
 		T* operator->() const {
-			return identity->m_pInstance<T>();
+			return m_pIdentity->m_pInstance<T>();
 		}
 
 		Iterator& operator++() {
-			identity = ByClass ? identity->m_pNextByClass : identity->m_pNext;
+			m_pIdentity = ByClass ? m_pIdentity->m_pNextByClass : m_pIdentity->m_pNext;
 			return *this;
 		}
 
@@ -31,7 +31,7 @@ private:
 		}
 
 		Iterator& operator--() {
-			identity = ByClass ? identity->m_pPrevByClass : identity->m_pPrev;
+			m_pIdentity = ByClass ? m_pIdentity->m_pPrevByClass : m_pIdentity->m_pPrev;
 			return *this;
 		}
 
@@ -41,16 +41,20 @@ private:
 			return temp;
 		}
 
+		bool operator!=(const Iterator& other) const {
+			return m_pIdentity != other.m_pIdentity;
+		}
+
 		auto operator<=>(const Iterator&) const = default;
 	};
 
-	CEntityIdentity* identity;
+	CEntityIdentity* m_pIdentity;
 
 public:
-	CEntityIterator(CEntityIdentity* ptr) : identity(ptr) {}
+	CEntityIterator(CEntityIdentity* ptr) : m_pIdentity(ptr) {}
 
 	Iterator begin() const {
-		return Iterator(identity);
+		return Iterator(m_pIdentity);
 	}
 
 	Iterator end() const {

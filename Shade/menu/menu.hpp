@@ -1,19 +1,18 @@
 #pragma once
+#include "../utils/singleton.hpp"
 
-class Menu {
+class Menu : public Singleton<Menu> {
+    friend class Singleton<Menu>;
+
 private:
     void SetupStyles();
 
-    bool show;
+    bool m_bShow;
 
-    Menu() {}
+    Menu() = default;
 
 public:
     void Initialize();
     void Toggle();
     void Render();
-    static Menu& Get() {
-        static Menu instance;
-        return instance;
-    }
 };

@@ -22,12 +22,6 @@
     <Filter Include="sdk\math">
       <UniqueIdentifier>{a13a7de8-7ba2-492e-8f60-3a4062db7022}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sdk\math\matrix">
-      <UniqueIdentifier>{1940326e-1f74-48f3-bc00-703c98408fc5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="sdk\math\vector">
-      <UniqueIdentifier>{f302d89d-762a-445f-82b3-e3d5553c5110}</UniqueIdentifier>
-    </Filter>
     <Filter Include="sdk\interfaces">
       <UniqueIdentifier>{c296cf10-7aba-4676-82d2-b466fe96b84e}</UniqueIdentifier>
     </Filter>
@@ -36,12 +30,6 @@
     </Filter>
     <Filter Include="render\utils">
       <UniqueIdentifier>{46848350-4416-40a9-b867-b5b62b80ca00}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="render\utils\colors">
-      <UniqueIdentifier>{ae9d1bff-4764-4f26-853a-9d65e8b5106a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="render\utils\gui">
-      <UniqueIdentifier>{9f261824-f4c6-47b1-a87d-176211b5d7bd}</UniqueIdentifier>
     </Filter>
     <Filter Include="imgui\impl">
       <UniqueIdentifier>{247c1a4a-37f7-407b-8403-f0d59938c840}</UniqueIdentifier>
@@ -63,9 +51,6 @@
     </Filter>
     <Filter Include="menu">
       <UniqueIdentifier>{929f6acb-9eff-4d26-8796-3ea2c8891600}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="utils\valve">
-      <UniqueIdentifier>{967c4e0a-cd8f-41b1-b8ed-e9f25363795b}</UniqueIdentifier>
     </Filter>
     <Filter Include="utils\vmt">
       <UniqueIdentifier>{3ab346c5-7ef0-409a-bd62-6c63480dc532}</UniqueIdentifier>
@@ -103,7 +88,7 @@
     <Filter Include="hooks\view_render">
       <UniqueIdentifier>{5af6bb03-dcdb-487b-8d5f-59860cb2cd31}</UniqueIdentifier>
     </Filter>
-    <Filter Include="hooks\frame_stage_notify">
+    <Filter Include="hooks\source2client">
       <UniqueIdentifier>{f089cb17-64e3-4da5-94f5-9a9b311298fd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -135,26 +120,8 @@
     <ClInclude Include="sdk\signatures.hpp">
       <Filter>sdk</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\math\vector.hpp">
-      <Filter>sdk\math</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\math\matrix.hpp">
-      <Filter>sdk\math</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\math\math.hpp">
-      <Filter>sdk\math</Filter>
-    </ClInclude>
     <ClInclude Include="math\world_to_screen.hpp">
       <Filter>math\world_to_screen</Filter>
-    </ClInclude>
-    <ClInclude Include="render\utils\im_vec_2.hpp">
-      <Filter>render\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="render\utils\colors.hpp">
-      <Filter>render\utils\colors</Filter>
-    </ClInclude>
-    <ClInclude Include="render\utils\gui.hpp">
-      <Filter>render\utils\gui</Filter>
     </ClInclude>
     <ClInclude Include="utils\pattern_scan\pattern_scan.hpp">
       <Filter>utils\pattern_scan</Filter>
@@ -174,13 +141,7 @@
     <ClInclude Include="render\render.hpp">
       <Filter>render</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\math\vector\vector_2d.hpp">
-      <Filter>sdk\math\vector</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\math\vector\vector_3d.hpp">
-      <Filter>sdk\math\vector</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\utils\CUtlString.hpp">
+    <ClInclude Include="sdk\utils\cutlstring.hpp">
       <Filter>sdk\utils</Filter>
     </ClInclude>
     <ClInclude Include="features\esp.hpp">
@@ -195,9 +156,6 @@
     <ClInclude Include="sdk\sdk.hpp">
       <Filter>sdk</Filter>
     </ClInclude>
-    <ClInclude Include="utils\valve\utlmap.hpp">
-      <Filter>utils\valve</Filter>
-    </ClInclude>
     <ClInclude Include="sdk\utils\color.hpp">
       <Filter>sdk\utils</Filter>
     </ClInclude>
@@ -206,12 +164,6 @@
     </ClInclude>
     <ClInclude Include="menu\options.hpp">
       <Filter>menu</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\math\matrix\matrix4x4.hpp">
-      <Filter>sdk\math\matrix</Filter>
-    </ClInclude>
-    <ClInclude Include="utils\valve\utlvector.hpp">
-      <Filter>utils\valve</Filter>
     </ClInclude>
     <ClInclude Include="minhook\buffer.h">
       <Filter>minhook</Filter>
@@ -246,7 +198,7 @@
     <ClInclude Include="sdk\entities\C_CSPlayerPawn.hpp">
       <Filter>sdk\entities</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\entities\C_CSPlayerController.hpp">
+    <ClInclude Include="sdk\entities\CCSPlayerController.hpp">
       <Filter>sdk\entities</Filter>
     </ClInclude>
     <ClInclude Include="sdk\entities\C_BaseEntity.hpp">
@@ -354,8 +306,41 @@
     <ClInclude Include="sdk\interfaces\ISource2Client.hpp">
       <Filter>sdk\interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="hooks\frame_stage_notify.hpp">
-      <Filter>hooks\frame_stage_notify</Filter>
+    <ClInclude Include="hooks\source2client.hpp">
+      <Filter>hooks\source2client</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\utils\cutlmemory.hpp">
+      <Filter>sdk\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\utils\cutlmap.hpp">
+      <Filter>sdk\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\utils\cutlvector.hpp">
+      <Filter>sdk\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\IGameResourceService.hpp">
+      <Filter>sdk\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\singleton.hpp">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\hash.hpp">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\utils\item_name.hpp">
+      <Filter>sdk\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="render\utils\gui.hpp">
+      <Filter>render\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\math\vector_2d.hpp">
+      <Filter>sdk\math</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\math\vector_3d.hpp">
+      <Filter>sdk\math</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\math\matrix4x4.hpp">
+      <Filter>sdk\math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -379,12 +364,6 @@
     </ClCompile>
     <ClCompile Include="math\world_to_screen.cpp">
       <Filter>math\world_to_screen</Filter>
-    </ClCompile>
-    <ClCompile Include="render\utils\colors.cpp">
-      <Filter>render\utils\colors</Filter>
-    </ClCompile>
-    <ClCompile Include="render\utils\gui.cpp">
-      <Filter>render\utils\gui</Filter>
     </ClCompile>
     <ClCompile Include="hooks\game_overlay.cpp">
       <Filter>hooks\game_overlay</Filter>
@@ -447,8 +426,17 @@
     <ClCompile Include="hooks\view_render.cpp">
       <Filter>hooks\view_render</Filter>
     </ClCompile>
-    <ClCompile Include="hooks\frame_stage_notify.cpp">
-      <Filter>hooks\frame_stage_notify</Filter>
+    <ClCompile Include="hooks\source2client.cpp">
+      <Filter>hooks\source2client</Filter>
+    </ClCompile>
+    <ClCompile Include="sdk\utils\cutlstring.cpp">
+      <Filter>sdk\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\vmt\vmt.cpp">
+      <Filter>utils\vmt</Filter>
+    </ClCompile>
+    <ClCompile Include="render\utils\gui.cpp">
+      <Filter>render\utils</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

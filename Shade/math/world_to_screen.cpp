@@ -1,13 +1,12 @@
 #include "world_to_screen.hpp"
 
 #include "../sdk/sdk.hpp"
-#include "../sdk/math/matrix.hpp"
-#include "../sdk/math/vector.hpp"
+#include "../sdk/math/matrix4x4.hpp"
 
-bool math::WorldToScreen(const vector_3d& in, vector_2d& out) {
-    matrix4x4 matrix_v = g_ViewMatrix->m_Matrix;
+bool math::WorldToScreen(const Vector3D& in, Vector2D& out) {
+    Matrix4x4 matrix_v = g_ViewMatrix->m_Matrix;
 
-    if (in.is_zero())
+    if (in.IsZero())
         return 0;
 
     out.x = matrix_v.matrix[0][0] * in.x + matrix_v.matrix[0][1] * in.y + matrix_v.matrix[0][2] * in.z + matrix_v.matrix[0][3];

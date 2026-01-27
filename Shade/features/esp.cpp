@@ -8,150 +8,145 @@
 #include "../render/render.hpp"
 
 #include "../sdk/entities/C_CSPlayerPawn.hpp"
-#include "../sdk/entities/C_CSPlayerController.hpp"
+#include "../sdk/entities/CCSPlayerController.hpp"
 #include "../sdk/entities/C_CSWeaponBase.hpp"
 #include "../sdk/entities/CEntityClass.hpp"
 
 #include "../sdk/services/CCSWeaponBaseVData.hpp"
 #include "../sdk/services/CGameSceneNode.hpp"
+#include "../sdk/services/CPlayer_WeaponServices.hpp"
+
+#include "../sdk/utils/item_name.hpp"
 
 #include "../math/world_to_screen.hpp"
 
 #include "../utils/debug.hpp"
 
-void ESP::Initalize() {
-	if (g_options.esp_bounding_boxes)
-		RenderBox();
-
-	if (g_options.esp_player_health)
-		RenderHealth();
-
-	if (g_options.esp_player_names)
-		RenderName();
-
-	if (g_options.esp_player_skeleton)
+void ESP::Initialize() {
+	if (g_Options.esp_player_skeleton)
 		RenderSkeleton();
 
-	if (g_options.esp_player_weapon)
+	if (!m_bbox.TransformCoordinates())
+		return;
+
+	if (g_Options.esp_bounding_boxes)
+		RenderBoundingBox();
+
+	if (g_Options.esp_player_health)
+		RenderHealth();
+
+	if (g_Options.esp_player_names)
+		RenderName();
+
+	if (g_Options.esp_player_weapon)
 		RenderWeapon();
 
-	if (g_options.esp_weapon_ammo)
+	if (g_Options.esp_weapon_ammo)
 		RenderAmmo();
 }
 
 void ESP::BeginRender() {
 	LocalPlayer::Get().Update();
-	C_CSPlayerPawn* local_player = LocalPlayer::Get().GetPawn();
-	if (!local_player || local_player == nullptr)
+	if (!LocalPlayer::Get().IsValid())
 		return;
 
-	auto map = g_CGameEntitySystem->m_ClassesByName;
-	auto all_entities = map["C_CSPlayerPawn"]->AllEntities<C_CSPlayerPawn>();
+	for (auto controller : g_CGameEntitySystem->GetAll<CCSPlayerController>()) {
+		if (!controller)
+			break;
 
-	for (auto identity = all_entities.begin(); identity != all_entities.end(); identity++) {
-		player = *identity;
+		m_pController = controller;
+		m_pPawn = m_pController->m_hPawn.GetEntityFromHandle();
 
-		if (player == local_player)
+		if (!m_pPawn || m_pPawn == LocalPlayer::Get().GetPawn())
 			continue;
 
-		if (!bbox.Initialize(player))
+		if (g_Options.esp_enemies_only && (LocalPlayer::Get().GetPawn()->m_iTeamNum == m_pPawn->m_iTeamNum))
 			continue;
 
-		if (g_options.esp_enemies_only && (local_player->m_iTeamNum == player->m_iTeamNum))
+		if (!m_pPawn->IsAlive())
 			continue;
 
-		if (!player->IsAlive())
+		if (!m_bbox.Initialize(m_pPawn))
 			continue;
 
-		Initalize();
+		Initialize();
 	}
 
-	RenderDropperWeapons();
+	RenderDroppedWeapons();
 }
 
 void ESP::RenderName() {
-	if (!bbox.TransformCoordinates())
-		return;
+	Vector2D pos = m_bbox.GetPoints()[BoundingBox::TOP_MIDDLE];
+	Render::Get().RenderText(ImVec2(pos.x, pos.y - 15.0f), Color(255, 255, 255, 255), Fonts::Get().Find("MuseoSans-500-12"), Render::Center, true, m_pController->m_sSanitizedPlayerName);
+} 
 
-	C_CSPlayerController* controller = player->m_hController.GetEntityFromHandle();
-	if (!controller || controller == nullptr)
-		return;
+void ESP::RenderBoundingBox() {
+	auto& points	= m_bbox.GetPoints();
 
-	std::string_view name = controller->m_sSanitizedPlayerName ? controller->m_sSanitizedPlayerName : "";
+	ImVec2 start	= ImVec2(points[BoundingBox::TOP_LEFT].x,		points[BoundingBox::TOP_LEFT].y);
+	ImVec2 end		= ImVec2(points[BoundingBox::BOTTOM_RIGHT].x,	points[BoundingBox::BOTTOM_RIGHT].y);
 
-	im_vec_2 text_size = gui.get_text_size(fonts.get("MuseoSans-500-12"), name);
-	vector_2d top_middle = bbox.GetPoints()[BoundingBox::TOP_MIDDLE];
+	Color& color	= *g_Options.col_esp_bounding_boxes;
 
-	gui.draw_text(im_vec_2(top_middle.x - text_size.x * 0.5f, top_middle.y - text_size.y), ImColor(255, 255, 255, 255), fonts.get("MuseoSans-500-12"), true, name);
-}
-
-void ESP::RenderBox() {
-	if (!bbox.TransformCoordinates())
-		return;
-
-	std::array<vector_2d, 4> points = bbox.GetPoints();
-	float width = points[BoundingBox::BOTTOM_RIGHT].x - points[BoundingBox::TOP_LEFT].x;
-	float height = points[BoundingBox::BOTTOM_MIDDLE].y - points[BoundingBox::TOP_MIDDLE].y;
-
-	auto color = (*g_options.col_esp_bounding_boxes).GetColor();
-	auto outline = ImColor(0, 0, 0, 255);
-
-	gui.draw_line(points[BoundingBox::TOP_LEFT], im_vec_2(points[BoundingBox::TOP_LEFT].x, points[BoundingBox::TOP_LEFT].y + height), outline, 3.0f);
-	gui.draw_line(im_vec_2(points[BoundingBox::TOP_LEFT].x, points[BoundingBox::TOP_LEFT].y + height), im_vec_2(points[BoundingBox::TOP_LEFT].x + width, points[BoundingBox::TOP_LEFT].y + height), outline, 3.0f);
-	gui.draw_line(im_vec_2(points[BoundingBox::TOP_LEFT].x + width, points[BoundingBox::TOP_LEFT].y + height), im_vec_2(points[BoundingBox::TOP_LEFT].x + width, points[BoundingBox::TOP_LEFT].y), outline, 3.0f);
-	gui.draw_line(im_vec_2(points[BoundingBox::TOP_LEFT].x + width, points[BoundingBox::TOP_LEFT].y), points[BoundingBox::TOP_LEFT], outline, 3.0f);
-
-	gui.draw_line(points[BoundingBox::TOP_LEFT], im_vec_2(points[BoundingBox::TOP_LEFT].x, points[BoundingBox::TOP_LEFT].y + height), color, 0.8f);
-	gui.draw_line(im_vec_2(points[BoundingBox::TOP_LEFT].x, points[BoundingBox::TOP_LEFT].y + height), im_vec_2(points[BoundingBox::TOP_LEFT].x + width, points[BoundingBox::TOP_LEFT].y + height), color, 0.8f);
-	gui.draw_line(im_vec_2(points[BoundingBox::TOP_LEFT].x + width, points[BoundingBox::TOP_LEFT].y + height), im_vec_2(points[BoundingBox::TOP_LEFT].x + width, points[BoundingBox::TOP_LEFT].y), color, 0.8f);
-	gui.draw_line(im_vec_2(points[BoundingBox::TOP_LEFT].x + width, points[BoundingBox::TOP_LEFT].y), points[BoundingBox::TOP_LEFT], color, 0.8f);
+	Render::Get().RenderBox(start, end, color, true);
 }
 
 void ESP::RenderHealth() {
-	if (!bbox.TransformCoordinates())
-		return;
+	auto& points		= m_bbox.GetPoints();
 
-	std::array<vector_2d, 4> points = bbox.GetPoints();
-	float height = points[BoundingBox::BOTTOM_MIDDLE].y - points[BoundingBox::TOP_MIDDLE].y;
+	float height		= points[BoundingBox::BOTTOM_MIDDLE].y - points[BoundingBox::TOP_MIDDLE].y;
+	float width			= 2.0f;
+	float distance		= 3.0f;
+	float health_offset = height * (1.0f - (float)m_pPawn->m_iHealth / 100.0f);
 
-	float width = 4.0f, health_width = 1.0f;
-	vector_2d top_left = vector_2d(points[BoundingBox::TOP_LEFT].x - 3.0f - width, points[BoundingBox::TOP_MIDDLE].y);
+	ImVec2 start		= { points[BoundingBox::TOP_LEFT].x - width - distance, points[BoundingBox::TOP_MIDDLE].y };
+	ImVec2 end			= { start.x + width,									points[BoundingBox::TOP_MIDDLE].y + height };
+	
+	Color health_color	= { 1.0f - (float)m_pPawn->m_iHealth / 100.0f, (float)m_pPawn->m_iHealth / 100.0f, 0.0f, 1.0f };
 
-	gui.draw_rect(top_left, im_vec_2(top_left.x + width, top_left.y + height), ImColor(34, 34, 34, 255));
+	Render::Get().RenderFilledBox(start, end, {0, 0, 0, 255}, true);
+	Render::Get().RenderFilledBox(ImVec2(start.x, start.y + health_offset), end, health_color, false);
 
-	ImColor health_color = { 1.0f - (float)player->m_iHealth / 100.0f, (float)player->m_iHealth / 100.0f, 0.0f, 1.0f };
-	gui.draw_rect(im_vec_2(top_left.x + 1.0f, top_left.y + (height * (1.0f - (float)player->m_iHealth / 100.0f)) + 1.0f), im_vec_2(top_left.x + 2.0f + health_width, top_left.y + height - 1.0f), health_color);
-	//if (player->m_iHealth() < 93.0f)
-		//gui.draw_text(im_vec_2(top_left.x + 1.0f, top_left.y + (height * (1.0f - (float)player->m_iHealth() / 100.0f)) + 1.0f), ImColor(255, 255, 255, 255), fonts.get("MuseoSans-500_12"), std::to_string(player->m_iHealth()));
+	if (m_pPawn->m_iHealth < 93)
+		Render::Get().RenderText(ImVec2(start.x, start.y + health_offset - 5.0f), Color(255, 255, 255, 255), Fonts::Get().Find("MuseoSans-500-12"), Render::Center, true, std::to_string(m_pPawn->m_iHealth));
 }
 
 void ESP::RenderSkeleton() {
-	vector_3d bone_position_start = { }, bone_position_end = { };
-	vector_2d line_start = { }, line_end = { };
+	static std::vector<std::vector<bone_index>> bones = {
+		{ Pelvis, Spine_1, Spine_2, Spine_3, Neck_0, Head },
+		{ Neck_0, Arm_Upper_L, Arm_Lower_L, Hand_L },
+		{ Neck_0, Arm_Upper_R, Arm_Lower_R, Hand_R },
+		{ Pelvis, Leg_Upper_R, Leg_Lower_R, Ankle_R },
+		{ Pelvis, Leg_Upper_L, Leg_Lower_L, Ankle_L }
+	};
+
+	Vector3D bone_start;
+	Vector3D bone_end;
+
+	Vector2D line_start;
+	Vector2D line_end;
 	
-	ImColor color = (*g_options.col_esp_player_skeleton).GetColor();
+	Color& color = *g_Options.col_esp_player_skeleton;
 
-	for (const auto& group : bones)
+	for (const auto& group : bones) {
 		for (size_t i = 0; i < group.size() - 1; i++) {
-			if ((bone_position_start = CBone::GetBonePosition(player, group[i])).is_zero())
+			if ((bone_start = CBone::GetBonePosition(m_pPawn, group[i])).IsZero())
 				return;
 
-			if ((bone_position_end = CBone::GetBonePosition(player, group[i + 1])).is_zero())
+			if ((bone_end = CBone::GetBonePosition(m_pPawn, group[i + 1])).IsZero())
 				return;
 
-			if (math::WorldToScreen(bone_position_start, line_start) && math::WorldToScreen(bone_position_end, line_end)) {
-				gui.draw_line(im_vec_2(line_start.x, line_start.y), im_vec_2(line_end.x, line_end.y), color, 0.8f);
+			if (math::WorldToScreen(bone_start, line_start) && math::WorldToScreen(bone_end, line_end)) {
+				Render::Get().RenderLine(ImVec2(line_start.x, line_start.y), ImVec2(line_end.x, line_end.y), color, 0.8f);
 				continue;
 			}
 
 			return;
 		}
+	}
 }
 
 void ESP::RenderFlags() {
-	if (!bbox.TransformCoordinates())
-		return;
-
 	std::vector<int> flags;
 
 	auto is_ready = [](const auto& schema) -> bool {
@@ -163,81 +158,82 @@ void ESP::RenderFlags() {
 }
 
 void ESP::RenderWeapon() {
-	if (!bbox.TransformCoordinates())
+	CPlayer_WeaponServices* weapon_service = m_pPawn->m_pWeaponServices;
+	if (!weapon_service)
 		return;
 
-	C_CSWeaponBase* clipping_weapon = player->m_pClippingWeapon;
-	if (!clipping_weapon)
+	C_CSWeaponBase* active_weapon = weapon_service->m_hActiveWeapon.GetEntityFromHandle();
+	if (!active_weapon)
 		return;
 
-	CCSWeaponBaseVData* weapon_data = clipping_weapon->m_pWeaponVData;
+	CCSWeaponBaseVData* weapon_data = weapon_service->m_hActiveWeapon.GetEntityFromHandle()->m_pWeaponVData;
 	if (!weapon_data)
 		return;
 
-	std::string_view name = weapon_data->m_szName ? weapon_data->m_szName : "";
-	name = name.substr(7, name.size());
-	
-	im_vec_2 text_size = gui.get_text_size(fonts.get("MuseoSans-500-12"), name);
-	vector_2d bottom_middle = bbox.GetPoints()[BoundingBox::BOTTOM_MIDDLE];
+	std::string_view weapon_name	= !weapon_data->m_szName ? "" : GetItemName(weapon_data->m_szName);
+	ImVec2 pos						= { m_bbox.GetPoints()[BoundingBox::BOTTOM_MIDDLE].x, m_bbox.GetPoints()[BoundingBox::BOTTOM_MIDDLE].y + 5.0f };
 
-	gui.draw_text(im_vec_2(bottom_middle.x - text_size.x * 0.5f, bottom_middle.y + text_size.y / 2.0f), ImColor(255, 255, 255, 255), fonts.get("MuseoSans-500-12"), true, name);
+	Render::Get().RenderText(ImVec2(pos.x, pos.y), { 255, 255, 255, 255 }, Fonts::Get().Find("MuseoSans-500-12"), Render::Center, true, weapon_name);
 }
 
 void ESP::RenderAmmo() {
-	if (!bbox.TransformCoordinates())
+	CPlayer_WeaponServices* weapon_service = m_pPawn->m_pWeaponServices;
+	if (!weapon_service)
 		return;
 
-	C_CSWeaponBase* clipping_weapon = player->m_pClippingWeapon;
-	if (!clipping_weapon)
+	C_CSWeaponBase* active_weapon = weapon_service->m_hActiveWeapon.GetEntityFromHandle();
+	if (!active_weapon)
 		return;
 
-	CCSWeaponBaseVData* weapon_data = clipping_weapon->m_pWeaponVData;
+	CCSWeaponBaseVData* weapon_data = weapon_service->m_hActiveWeapon.GetEntityFromHandle()->m_pWeaponVData;
 	if (!weapon_data)
 		return;
 
-	int ammo = std::max(0, clipping_weapon->m_iClip1);
-	int max_ammo = std::max(1, weapon_data->m_iMaxClip1);
-	float ammo_multiplier = (float)ammo / (float)max_ammo;
+	auto& points			= m_bbox.GetPoints();
 
-	std::array<vector_2d, 4> points = bbox.GetPoints();
-	float height = 4.0f, ammo_height = 1.0f, width = points[BoundingBox::BOTTOM_RIGHT].x - points[BoundingBox::TOP_LEFT].x;
+	int ammo				= std::max(0, active_weapon->m_iClip1);
+	int max_ammo			= std::max(1, weapon_data->m_iMaxClip1);
 
-	vector_2d bottom_left = vector_2d(points[BoundingBox::BOTTOM_RIGHT].x - width, points[BoundingBox::BOTTOM_RIGHT].y + 3.0f);
+	float height			= 2.0f;
+	float distance			= 3.0f;
+	float width				= points[BoundingBox::BOTTOM_RIGHT].x - points[BoundingBox::TOP_LEFT].x;
+	float ammo_offset		= width * (float)ammo / max_ammo;
 
-	auto color = (*g_options.col_esp_weapon_ammo).GetColor();
+	Color& color			= *g_Options.col_esp_weapon_ammo;
 
-	gui.draw_rect(bottom_left, im_vec_2(bottom_left.x + width, bottom_left.y + height), ImColor(34, 34, 34, 255));
-	gui.draw_rect(im_vec_2(bottom_left.x + 1.0f, bottom_left.y + 1.0f), im_vec_2(bottom_left.x - 1.0f + width * ammo_multiplier, bottom_left.y + height - 1.0f), color);
+	ImVec2 start			= { points[BoundingBox::BOTTOM_RIGHT].x - width, points[BoundingBox::BOTTOM_RIGHT].y + distance };
+	ImVec2 end				= { start.x + width, start.y + height };
+
+	Render::Get().RenderFilledBox(start, end, { 0, 0, 0, 255 }, true);
+	Render::Get().RenderFilledBox(start, ImVec2(start.x + ammo_offset, end.y), color, false);
 }
 
-void ESP::RenderDropperWeapons() {
+void ESP::RenderDroppedWeapons() {
 	if (g_WeaponsCache.empty())
 		return;
 
-	for (auto& weapon : g_WeaponsCache) {
+	for (auto weapon : g_WeaponsCache) {
 		if (weapon->m_hOwnerEntity.m_Index != -1)
 			continue;
 
 		CGameSceneNode* scene_node = weapon->m_pGameSceneNode;
-		if (scene_node == nullptr)
+		if (!scene_node)
 			continue;
 
-		vector_3d origin = scene_node->m_vecAbsOrigin;
-		if (origin.is_zero())
+		Vector3D origin = scene_node->m_vecAbsOrigin;
+		if (origin.IsZero())
 			continue;
 
 		CCSWeaponBaseVData* weapon_data = weapon->m_pWeaponVData;
-		if (weapon_data == nullptr)
+		if (!weapon_data)
 			continue;
 
-		vector_2d screen_pos;
+		Vector2D screen_pos;
 		if (!math::WorldToScreen(origin, screen_pos))
 			continue;
 
-		const char* name = weapon->m_pWeaponVData->m_szName + 7;
-		if (name == nullptr)
-			continue;
+		std::string_view weapon_name = !weapon_data->m_szName ? "" : GetItemName(weapon_data->m_szName);
 
-		gui.draw_text(screen_pos, ImColor(255, 255, 255, 255), fonts.get("MuseoSans-500-12"), true, name);
+		Render::Get().RenderText(ImVec2(screen_pos.x, screen_pos.y), {255, 255, 255, 255}, Fonts::Get().Find("MuseoSans-500-12"), Render::Center, true, weapon_name);
 	}
 }

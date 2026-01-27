@@ -6,10 +6,6 @@
 
 #include "../../utils/debug.hpp"
 
-#define RESOLVE_RIP_EX(type, addr, offset, size) reinterpret_cast<type*>(addr + *((int32_t*)(addr + offset)) + size)
-#define RESOLVE_RIP(type, addr) RESOLVE_RIP_EX(type, addr, 3, 7)
-#define DEREFERENCE(type, addr) *reinterpret_cast<type**>(RESOLVE_RIP(type, addr))
-
 namespace CInterfaceSystem {
 	template<typename T>
 	static T* Get(const std::string_view& module_name, const std::string_view& interface_name){

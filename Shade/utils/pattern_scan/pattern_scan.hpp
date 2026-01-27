@@ -3,20 +3,20 @@
 #include <string>
 #include <Windows.h>
 
-class pattern_scan {
+class PatternScan {
 public:
-	pattern_scan() {};
-	pattern_scan(HMODULE hModule);
-	pattern_scan(const std::string_view& module_name);
+	PatternScan() {};
+	PatternScan(HMODULE hModule);
+	PatternScan(const std::string_view& module_name);
 
-	uintptr_t find(const std::string_view& pattern);
+	uintptr_t Find(const std::string_view& pattern);
 
 private:
-	DWORD module_size;
-	uintptr_t base_address;
+	DWORD				m_nModuleSize;
+	uintptr_t			m_pBaseAddress;
 
-	std::vector<BYTE> bytes;
-	std::string mask;
+	std::vector<BYTE>	m_bytes;
+	std::string			m_sMask;
 
-	void parse_pattern(const std::string_view& pattern);
+	void ParsePattern(const std::string_view& pattern);
 };

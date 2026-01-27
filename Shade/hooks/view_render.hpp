@@ -19,32 +19,36 @@ private:
 
     using OnRenderStart = void*(__fastcall*)(CViewRender*);
 
-    static inline uintptr_t pOnRenderStart = modules::client.find(ON_RENDER_START);
+    static inline uintptr_t pOnRenderStart = modules::client.Find(ON_RENDER_START);
 
-    static void* __fastcall OnRenderStartHk(CViewRender* pViewRender);
+    static void* __fastcall hkOnRenderStart(CViewRender* pViewRender);
 
-    static inline OnRenderStart oOnRenderStart;
+    static inline OnRenderStart OnRenderStartOrig;
 
-    static bool is_init;
+    static bool m_bIsInit;
 
 public:
     static bool Initialize();
     static bool Shutdown();
+
+    inline bool IsInitialized() { return m_bIsInit; }
 };
 
 class OverrideViewModelHook {
 private:
     using CalcViewModel = void* (__fastcall*)(__int64, float*, float*);
 
-    static inline uintptr_t pCalcViewModel = modules::client.find(CALC_VIEWMODEL);
+    static inline uintptr_t pCalcViewModel = modules::client.Find(CALC_VIEWMODEL);
 
-    static void* __fastcall CalcViewModelHk(__int64 unk, float* offsets, float* fov);
+    static void* __fastcall hkCalcViewModel(__int64 unk, float* offsets, float* fov);
 
-    static inline CalcViewModel oCalcViewModel;
+    static inline CalcViewModel CalcViewModelOrig;
 
-    static bool is_init;
+    static bool m_bIsInit;
 
 public:
     static bool Initialize();
     static bool Shutdown();
+
+    inline bool IsInitialized() { return m_bIsInit; }
 };

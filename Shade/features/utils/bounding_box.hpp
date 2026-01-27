@@ -1,18 +1,19 @@
 #pragma once
 #include <array>
 
-#include "../sdk/math/vector.hpp"
+#include "../sdk/math/vector_2d.hpp"
+#include "../sdk/math/vector_3d.hpp"
 
 class C_CSPlayerPawn;
 
 class BoundingBox {
 private:
-	bool initialized;
+	bool m_bIsInitialized;
 
-	vector_3d min;
-	vector_3d max;
+	Vector3D m_vMin;
+	Vector3D m_vMax;
 
-	std::array<vector_2d, 4> points;
+	std::array<Vector2D, 4> m_Points;
 
 public:
 	enum POINT : int {
@@ -23,15 +24,11 @@ public:
 	};
 
 	BoundingBox() = default;
-	BoundingBox(C_CSPlayerPawn* player);
+	BoundingBox(C_CSPlayerPawn* pawn);
 	
-	bool Initialize(C_CSPlayerPawn* player);
+	bool Initialize(C_CSPlayerPawn* pawn);
 	bool TransformCoordinates();
-	inline const std::array<vector_2d, 4>& GetPoints() const {
-		return points;
-	}
+	inline const std::array<Vector2D, 4>& GetPoints() const { return m_Points; }
 
-	explicit operator bool() const {
-		return initialized;
-	}
+	inline bool IsInitialized() const { return m_bIsInitialized; }
 };

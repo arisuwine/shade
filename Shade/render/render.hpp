@@ -1,21 +1,16 @@
 #pragma once
 #include "utils/gui.hpp"
 
-extern FontMap  fonts;
-extern GUI      gui;
+#include "../utils/singleton.hpp"
 
-void setup_fonts();
 
-class RenderTarget {
+class RenderTarget : public Singleton<RenderTarget> {
+    friend class Singleton<RenderTarget>;
+
 private:
-    RenderTarget() {};
+    void SetupFonts();
 
 public:
-    static RenderTarget& Get() {
-        static RenderTarget instance;
-        return instance;
-    }
-
     void Initialize();
     void BeginScene();
 };

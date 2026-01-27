@@ -9,7 +9,7 @@ template<typename T>
 class CHandle
 {
 public:
-	CHandle() = delete;
+	CHandle(uint32_t index) : m_Index(index) {}
 
 	T* GetEntityFromHandle() const {
 		int v1;
@@ -49,6 +49,6 @@ public:
 	};
 
 	inline bool IsValid() const {
-		return m_Index != INVALID_EHANDLE_INDEX;
+		return m_Index != INVALID_EHANDLE_INDEX && m_Index != -1;
 	}
 };

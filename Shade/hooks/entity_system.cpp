@@ -16,47 +16,51 @@
 
 #include "../utils/debug.hpp"
 
-bool EntitySystemHook::is_init = false;
+std::vector<C_CSWeaponBase*> g_WeaponsCache;
+std::vector<C_CSPlayerPawn*> g_PawnsCache;
+
+vmt::Shadowing* EntitySystemHook::m_Shadowing	= nullptr;
+bool			EntitySystemHook::m_bIsInit		= FALSE;
+
 bool EntitySystemHook::Initialize() {
-	if (is_init)
+	if (m_bIsInit)
 		return TRUE;
 
-	if (MH_CreateHook((LPVOID)pOnAddEntity, &OnAddEntityHk, reinterpret_cast<void**>(&oOnAddEntity)) != MH_OK)
-		LOG_AND_RETURN("[-] OnAddEntityHk hook creation has failed.\n");
+	m_Shadowing = new vmt::Shadowing(g_CGameEntitySystem);
+	if (!m_Shadowing->IsInitialized()) {
+		LOG_AND_RETURN("[-] vmt Shadowing has failed at EntitySystemHook.\n");
+		return FALSE;
+	}
 
-	if (MH_CreateHook((LPVOID)pOnRemoveEntity, &OnRemoveEntityHk, reinterpret_cast<void**>(&oOnRemoveEntity)) != MH_OK)
-		LOG_AND_RETURN("[-] OnRemoveEntityHk hook creation has failed.\n");
+	OnAddEntityOrig = m_Shadowing->Hook<OnAddEntityFunc>(15, hkOnAddEntity);
+	if (!OnAddEntityOrig) {
+		LOG_AND_RETURN("[-] vmt Hooking has failed at EntitySystemHook.\n");
+		return FALSE;
+	}
 
-	if (MH_EnableHook((LPVOID)pOnAddEntity) != MH_OK)
-		LOG_AND_RETURN("[-] pOnAddEntity hook enabling has failed.\n");
+	OnRemoveEntityOrig = m_Shadowing->Hook<OnRemoveEntityFunc>(16, hkOnRemoveEntity);
+	if (!OnRemoveEntityOrig) {
+		LOG_AND_RETURN("[-] vmt Hooking has failed at EntitySystemHook.\n");
+		return FALSE;
+	}
 
-	if (MH_EnableHook((LPVOID)pOnRemoveEntity) != MH_OK)
-		LOG_AND_RETURN("[-] pOnRemoveEntity hook enabling has failed.\n");
-
-	is_init = TRUE;
+	m_bIsInit = TRUE;
 	return TRUE;
 }
 
 bool EntitySystemHook::Shutdown() {
-	if (!is_init)
+	if (!m_bIsInit)
 		return TRUE;
 
-	if (MH_DisableHook((LPVOID)pOnAddEntity) != MH_OK)
-		LOG_AND_RETURN("[-] pOnAddEntity hook disabling has failed.\n");
+	m_Shadowing->Shutdown();
 
-	if (MH_DisableHook((LPVOID)pOnRemoveEntity) != MH_OK)
-		LOG_AND_RETURN("[-] pOnRemoveEntity hook disabling has failed.\n");
-
-	is_init = FALSE;
+	m_bIsInit = FALSE;
 	return TRUE;
 }
 
-std::vector<C_CSWeaponBase*> g_WeaponsCache;
-std::vector<C_CSPlayerPawn*> g_PawnsCache;
-
 static long long ent_num = 0;
-void __fastcall EntitySystemHook::OnAddEntityHk(CGameEntitySystem* pCGameEntitySystem, C_BaseEntity* pEnt, CEntityHandle handle) {
-	oOnAddEntity(pCGameEntitySystem, pEnt, handle);
+void __fastcall EntitySystemHook::hkOnAddEntity(CGameEntitySystem* pCGameEntitySystem, C_BaseEntity* pEnt, CEntityHandle handle) {
+	OnAddEntityOrig(pCGameEntitySystem, pEnt, handle);
 
 	if (!pEnt)
 		return;
@@ -68,8 +72,8 @@ void __fastcall EntitySystemHook::OnAddEntityHk(CGameEntitySystem* pCGameEntityS
 		g_WeaponsCache.push_back(reinterpret_cast<C_CSWeaponBase*>(pEnt));
 }
 
-void __fastcall EntitySystemHook::OnRemoveEntityHk(CGameEntitySystem* pCGameEntitySystem, C_BaseEntity* pEnt, CEntityHandle handle) {
-	oOnRemoveEntity(pCGameEntitySystem, pEnt, handle);
+void __fastcall EntitySystemHook::hkOnRemoveEntity(CGameEntitySystem* pCGameEntitySystem, C_BaseEntity* pEnt, CEntityHandle handle) {
+	OnRemoveEntityOrig(pCGameEntitySystem, pEnt, handle);
 
 	if (!pEnt)
 		return;

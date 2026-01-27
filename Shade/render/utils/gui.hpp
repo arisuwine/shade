@@ -1,41 +1,56 @@
 #pragma once
 #include <unordered_map>
 #include <string_view>
+#include <string>
 
 #include "imgui.h"
-#include "im_vec_2.hpp"
+#include "../sdk/utils/color.hpp"
 
-using namespace render::types;
+#include "../utils/singleton.hpp"
 
-class FontMap {
+class Fonts : public Singleton<Fonts> {
+    friend class Singleton<Fonts>;
+
 private:
-    static ImGuiIO* io;
-    static std::unordered_map<std::string_view, ImFont*> map;
+    ImGuiIO* m_io;
+    std::unordered_map<std::string, ImFont*> m_FontMap;
+
+    bool m_bIsInit;
 
 public:
-    FontMap() {}
-    FontMap(const std::string_view& name, const std::string_view& path, const float& size = 0.0f);
+    void Initialize() { m_io = &(ImGui::GetIO()); m_bIsInit = true; };
+    bool IsInitialized() const { return m_bIsInit; }
 
-    static void set_io();
-
-    static ImFont* push(const std::string_view& name, const std::string_view& path, const float& size = 0.0f);
-    static void     pop(const std::string_view& name);
-    static ImFont* replace(const std::string_view& name, const std::string_view& path, const float& size = 0.0f);
-    static ImFont* get(const std::string_view& name);
+    ImFont* Add(const std::string& name, const std::string& path, float size, const ImFontConfig* config = nullptr, const ImWchar* ranges = nullptr);
+    ImFont* Find(const std::string_view name);
+    
+    void    Shutdown()  { m_io = nullptr; }
+    virtual ~Fonts()    { Shutdown(); }
 };
 
-struct GUI {
-    static ImDrawList* draw_list;
-    enum text_alignment : int {
-        left = 0,
-        center,
-        right
+class Render : public Singleton<Render> {
+    friend class Singleton<Render>;
+
+private:
+    ImDrawList* m_pDrawList;
+
+    ImVec2 GetTextSize(ImFont* font, const std::string_view& text);
+
+public:
+    enum Alignment : int {
+        Left = 0,
+        Center,
+        Right
     };
 
-    static im_vec_2 get_text_size(ImFont* font, const std::string_view& text);
+    void SetDrawList(ImDrawList* draw_list) { m_pDrawList = draw_list; }
 
-    static void     draw_text(const im_vec_2& pos, const ImColor& col, ImFont* font, bool outline, const std::string_view& text);
-    static void     draw_circle(const im_vec_2& pos, float radius, const ImColor& col, bool filled = true, int num_segments = 0, float thickness = 1.0f);
-    static void     draw_rect(const im_vec_2& pos_start, const im_vec_2& pos_end, const ImColor& col, float rounding = 0.0f, bool filled = true, float thickness = 1.0f, ImDrawFlags flags = 0);
-    static void     draw_line(const im_vec_2& pos_start, const im_vec_2& pos_end, const ImColor& col, float thickness = 1.0f);
+    void RenderText         (const ImVec2& pos, const Color& col, ImFont* font, Alignment align, bool outline, const std::string_view& text);
+    void RenderLine         (const ImVec2& start, const ImVec2& end, const Color& col, float thickness = 1.0f);
+    void RenderBox          (const ImVec2& start, const ImVec2& end, const Color& col, bool outline, float thickness = 1.0f, float rounding = 0.0f);
+    void RenderOutlineBox   (const ImVec2& start, const ImVec2& end, const Color& col = { 0, 0, 0, 255 }, float thickness = 1.0f, float rounding = 0.0f);
+    void RenderFilledBox    (const ImVec2& start, const ImVec2& end, const Color& col, bool outline, float thickness = 1.0f, float rounding = 0.0f);
+
+    void    Shutdown()      { m_pDrawList = nullptr; }
+    virtual ~Render()       { Shutdown(); }
 };

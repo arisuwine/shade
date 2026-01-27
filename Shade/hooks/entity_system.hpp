@@ -6,6 +6,8 @@
 
 #include "../sdk/entities/CEntityHandle.hpp"
 
+#include "../utils/vmt/vmt.hpp"
+
 class C_BaseEntity;
 class C_CSPlayerPawn;
 class C_CSWeaponBase;
@@ -13,23 +15,28 @@ class CGameEntitySystem;
 
 class EntitySystemHook {
 private:
-	using OnAddEntity		= void(__fastcall*)(CGameEntitySystem*, C_BaseEntity*, CEntityHandle);
-	using OnRemoveEntity	= void(__fastcall*)(CGameEntitySystem*, C_BaseEntity*, CEntityHandle);
+	using OnAddEntityFunc		= void(__fastcall*)(CGameEntitySystem*, C_BaseEntity*, CEntityHandle);
+	using OnRemoveEntityFunc	= void(__fastcall*)(CGameEntitySystem*, C_BaseEntity*, CEntityHandle);
 
-	static inline uintptr_t pOnAddEntity	= modules::client.find(ON_ADD_ENTITY);
-	static inline uintptr_t pOnRemoveEntity = modules::client.find(ON_REMOVE_ENTITY);
+	static vmt::Shadowing* m_Shadowing;
 
-	static void __fastcall OnAddEntityHk(CGameEntitySystem*, C_BaseEntity*, CEntityHandle);
-	static void __fastcall OnRemoveEntityHk(CGameEntitySystem*, C_BaseEntity*, CEntityHandle);
+	//static inline uintptr_t pOnAddEntity	= modules::client.find(ON_ADD_ENTITY); // 15
+	//static inline uintptr_t pOnRemoveEntity = modules::client.find(ON_REMOVE_ENTITY); // 16
 
-	static inline OnAddEntity		oOnAddEntity;
-	static inline OnRemoveEntity	oOnRemoveEntity;
+	static inline OnAddEntityFunc		OnAddEntityOrig;
+	static inline OnRemoveEntityFunc	OnRemoveEntityOrig;
 
-	static bool is_init;
+	static void __fastcall hkOnAddEntity(CGameEntitySystem*, C_BaseEntity*, CEntityHandle);
+	static void __fastcall hkOnRemoveEntity(CGameEntitySystem*, C_BaseEntity*, CEntityHandle);
+
+
+	static bool m_bIsInit;
 
 public:
 	static bool Initialize();
 	static bool Shutdown();
+
+	inline bool IsInitialized() { return m_bIsInit; }
 };
 
 extern std::vector<C_CSWeaponBase*>	g_WeaponsCache;

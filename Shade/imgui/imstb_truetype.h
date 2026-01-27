@@ -531,7 +531,7 @@ typedef struct
 
 typedef struct
 {
-   unsigned short x0,y0,x1,y1; // coordinates of bbox in bitmap
+   unsigned short x0,y0,x1,y1; // coordinates of m_bbox in bitmap
    float xoff,yoff,xadvance;
 } stbtt_bakedchar;
 
@@ -579,7 +579,7 @@ STBTT_DEF void stbtt_GetScaledFontVMetrics(const unsigned char *fontdata, int in
 
 typedef struct
 {
-   unsigned short x0,y0,x1,y1; // coordinates of bbox in bitmap
+   unsigned short x0,y0,x1,y1; // coordinates of m_bbox in bitmap
    float xoff,yoff,xadvance;
    float xoff2,yoff2;
 } stbtt_packedchar;
@@ -904,7 +904,7 @@ STBTT_DEF void stbtt_MakeCodepointBitmapSubpixelPrefilter(const stbtt_fontinfo *
 // is performed (see stbtt_PackSetOversampling)
 
 STBTT_DEF void stbtt_GetCodepointBitmapBox(const stbtt_fontinfo *font, int codepoint, float scale_x, float scale_y, int *ix0, int *iy0, int *ix1, int *iy1);
-// get the bbox of the bitmap centered around the glyph origin; so the
+// get the m_bbox of the bitmap centered around the glyph origin; so the
 // bitmap width is ix1-ix0, height is iy1-iy0, and location to place
 // the bitmap top left is (leftSideBearing*scale,iy0).
 // (Note that the bitmap uses y-increases-down, but the shape uses
@@ -4660,7 +4660,7 @@ STBTT_DEF unsigned char * stbtt_GetGlyphSDF(const stbtt_fontinfo *info, float sc
                   if (dist2 < min_dist*min_dist)
                      min_dist = (float) STBTT_sqrt(dist2);
 
-                  // coarse culling against bbox
+                  // coarse culling against m_bbox
                   //if (sx > STBTT_min(x0,x1)-min_dist && sx < STBTT_max(x0,x1)+min_dist &&
                   //    sy > STBTT_min(y0,y1)-min_dist && sy < STBTT_max(y0,y1)+min_dist)
                   dist = (float) STBTT_fabs((x1-x0)*(y0-sy) - (y1-y0)*(x0-sx)) * precompute[i];
@@ -4684,7 +4684,7 @@ STBTT_DEF unsigned char * stbtt_GetGlyphSDF(const stbtt_fontinfo *info, float sc
                   float box_y0 = STBTT_min(STBTT_min(y0,y1),y2);
                   float box_x1 = STBTT_max(STBTT_max(x0,x1),x2);
                   float box_y1 = STBTT_max(STBTT_max(y0,y1),y2);
-                  // coarse culling against bbox to avoid computing cubic unnecessarily
+                  // coarse culling against m_bbox to avoid computing cubic unnecessarily
                   if (sx > box_x0-min_dist && sx < box_x1+min_dist && sy > box_y0-min_dist && sy < box_y1+min_dist) {
                      int num=0;
                      float ax = x1-x0, ay = y1-y0;

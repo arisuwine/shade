@@ -21,16 +21,14 @@ public:
 	inline int		GetRegisteredIndex()	 { return m_ConVarRegisteredIndex; }
 };
 
-class ICVar { // public IAppSystem
+class ICVar /*: public IAppSystem*/  {
 public:
-	ICVar() = delete;
-
 	auto FindConVar(const char* name, bool allow_defensive = false) { // 11
 		ConVarRef result;
 
 		using fn = void(__fastcall*)(void*, ConVarRef*, const char*, bool);
 
-		auto pFunc = vmt::get_virtual<fn>(this, 11);
+		auto pFunc = vmt::GetVirtual<fn>(this, 11);
 		if (pFunc)
 			pFunc(this, &result, name, allow_defensive);
 

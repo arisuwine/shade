@@ -9,6 +9,8 @@
 #include "interfaces/IVEngineClient.hpp"
 #include "interfaces/ICVar.hpp"
 #include "interfaces/CViewRender.hpp"
+#include "interfaces/ISource2Client.hpp"
+#include "interfaces/IGameResourceService.hpp"
 
 #include "services/CGlobalVarsBase.hpp"
 #include "services/CNetworkClientService.hpp"
@@ -32,3 +34,5 @@ inline CGlobalVarsBase*			gpGlobals				= nullptr;
 inline IVEngineClient*			g_EngineClient			= nullptr;
 inline ICVar*					g_CVar					= nullptr;
 inline CViewRender*				g_CViewRender			= nullptr;
+inline ISource2Client*			g_Source2Client			= nullptr;
+inline IGameResourceService*	g_GameResourceService	= nullptr;
