@@ -1,9 +1,7 @@
 #pragma once
-#include "../math/matrix/matrix4x4.hpp"
+#include "../math/matrix4x4.hpp"
 
 class ViewMatrix {
 public:
-	ViewMatrix() = delete;
-
-	SCHEMA(matrix4x4, 0x0, m_Matrix);
+	SCHEMA(Matrix4x4, 0x0, m_Matrix);
 };

@@ -4,9 +4,9 @@
 
 #include "../debug.hpp"
 
-void pattern_scan::parse_pattern(const std::string_view& pattern) {
-	bytes.clear();
-	mask.clear();
+void PatternScan::ParsePattern(const std::string_view& pattern) {
+	m_bytes.clear();
+	m_sMask.clear();
 	size_t length = pattern.size();
 
 	for (size_t i = 0; i < length; ) {
@@ -15,8 +15,8 @@ void pattern_scan::parse_pattern(const std::string_view& pattern) {
 			continue;
 		}
 		else if (pattern[i] == '?') {
-			bytes.push_back(0);
-			mask += '?';
+			m_bytes.push_back(0);
+			m_sMask += '?';
 
 			if (i + 1 < length && pattern[i + 1] == '?')
 				++i;
@@ -32,15 +32,15 @@ void pattern_scan::parse_pattern(const std::string_view& pattern) {
 			}
 
 			++i;
-			bytes.push_back(static_cast<BYTE>(strtoul(byte_str, nullptr, 16)));
-			mask += 'x';
+			m_bytes.push_back(static_cast<BYTE>(strtoul(byte_str, nullptr, 16)));
+			m_sMask += 'x';
 		}
 		else
 			++i;
 	}
 }
 
-pattern_scan::pattern_scan(const std::string_view& module_name) {
+PatternScan::PatternScan(const std::string_view& module_name) {
 	HMODULE hModule;
 	if (!(hModule = GetModuleHandleA(module_name.data()))) {
 		LOG("[PATTERN SCAN] Module Name is invalid argument\n");
@@ -53,11 +53,11 @@ pattern_scan::pattern_scan(const std::string_view& module_name) {
 		return;
 	}
 
-	base_address = reinterpret_cast<uintptr_t>(info.lpBaseOfDll);
-	module_size = info.SizeOfImage;
+	m_pBaseAddress = reinterpret_cast<uintptr_t>(info.lpBaseOfDll);
+	m_nModuleSize = info.SizeOfImage;
 }
 
-pattern_scan::pattern_scan(HMODULE hModule) {
+PatternScan::PatternScan(HMODULE hModule) {
 	if (!hModule) {
 		LOG("[PATTERN SCAN] HMODULE is invalid argument\n");
 		return;
@@ -69,19 +69,19 @@ pattern_scan::pattern_scan(HMODULE hModule) {
 		return;
 	}
 
-	base_address = reinterpret_cast<uintptr_t>(info.lpBaseOfDll);
-	module_size = info.SizeOfImage;
+	m_pBaseAddress = reinterpret_cast<uintptr_t>(info.lpBaseOfDll);
+	m_nModuleSize = info.SizeOfImage;
 }
 
-uintptr_t pattern_scan::find(const std::string_view& pattern) {
-	parse_pattern(pattern);
+uintptr_t PatternScan::Find(const std::string_view& pattern) {
+	ParsePattern(pattern);
 
-	uint8_t* base_first_byte = reinterpret_cast<uint8_t*>(base_address);
+	uint8_t* base_first_byte = reinterpret_cast<uint8_t*>(m_pBaseAddress);
 
-	for (size_t i = 0; i < module_size - mask.size(); ++i) {
+	for (size_t i = 0; i < m_nModuleSize - m_sMask.size(); ++i) {
 		bool found = true;
-		for (size_t j = 0; j < mask.size(); ++j) {
-			if (mask[j] == 'x' && base_first_byte[i + j] != bytes[j]) {
+		for (size_t j = 0; j < m_sMask.size(); ++j) {
+			if (m_sMask[j] == 'x' && base_first_byte[i + j] != m_bytes[j]) {
 				found = false;
 				break;
 			}

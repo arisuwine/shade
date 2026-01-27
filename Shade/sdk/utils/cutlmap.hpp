@@ -14,34 +14,34 @@ template <typename Key, typename Value, typename Index = int, typename KL = std:
 class CUtlMap {
 private:
 	struct Node {
-		Index left;
-		Index right;
-		Index parent;
-		Index type;
-		Key key;
-		Value value;
+		Index m_Left;
+		Index m_Right;
+		Index m_Parent;
+		Index m_Type;
+		Key m_Key;
+		Value m_Value;
 	};
 
-	Node* memory;
-	Index root;
-	Index numElements;
+	Node* m_Memory;
+	Index m_Root;
+	Index m_numElements;
 
 	Value FindByKey(const Key& key) const
 	{
-		int current = root;
+		int current = m_Root;
 		KL less;
 
 		while (current != -1)
 		{
-			auto& element = memory[current];
-			if (element.key == nullptr)
+			auto& element = m_Memory[current];
+			if (element.m_Key == nullptr)
 				break;
-			if (less(element.key, key))
-				current = element.right;
-			else if (less(key, element.key))
-				current = element.left;
+			if (less(element.m_Key, key))
+				current = element.m_Right;
+			else if (less(key, element.m_Key))
+				current = element.m_Left;
 			else
-				return element.value;
+				return element.m_Value;
 		}
 
 		return nullptr;

@@ -1,16 +1,14 @@
 #pragma once
 
 // client.dll
-#define SOURCE2_CLIENT			"48 8D 05 ? ? ? ? 48 89 71 ? 48 8B D9 48 89 71"
-#define FRAME_STAGE_NOTIFY		"48 89 5C 24 ? 56 48 83 EC ? 48 8B F1 45 84 C0"
 #define VIEW_MATRIX				"48 8D 0D ? ? ? ? 48 89 44 24 ? 48 89 4C 24 ? 4C 8D 0D"
 #define VIEW_RENDER				"48 8D 0D ? ? ? ? E8 ? ? ? ? 48 8D 0D ? ? ? ? 48 83 C4 ? E9 ? ? ? ? 48 8D 0D ? ? ? ? E9 ? ? ? ? ? ? ? ? 4C 8B DC"
 #define ON_RENDER_START			"48 89 5C 24 ? 48 89 6C 24 ? 56 57 41 56 48 81 EC ? ? ? ? 4C 8B F1 48 8D 94 24"
 #define CALC_VIEWMODEL			"40 55 53 56 41 56 41 57 48 8B EC 48 83"
-#define GAME_ENTITY_SYSTEM		"48 8B 0D ? ? ? ?? E8 ? ? ? ? 48 8B E8"
 #define LOCAL_PLAYER_CONTROLLER "48 8B 15 ? ? ? ? 48 85 D2 74 ? 8B 92"
 #define GLOW_MANAGER			"4C 8B 05 ? ? ? ? 49 63 48 ? 85 C9 7E ? 49 8B 40 ? ? ? ? 74"
 #define GET_GLOW_COLOR			"40 53 48 83 EC ? 48 8B D9 48 83 C1 ? ? ? 74 ? ? ? E8"
+#define APPLY_GLOW				"48 89 5C 24 ? 48 89 6C 24 ? 48 89 74 24 ? 57 48 83 EC ? 48 8B F2 48 8B F9 48 8B 54 24"
 #define IS_GLOWING				"0F B6 41 ? C3 ? ? ? ? ? ? ? ? ? ? ? 48 89 5C 24 ? 48 89 74 24 ? 57 48 83 EC ? 8B F1"
 #define ON_ADD_ENTITY			"48 89 74 24 ? 57 48 83 EC ? 41 B9 ? ? ? ? 41 8B C0 41 23 C1 48 8B F2 41 83 F8 ? 48 8B F9 44 0F 45 C8 41 81 F9 ? ? ? ? 73 ? FF 81"
 #define ON_REMOVE_ENTITY		"48 89 74 24 ? 57 48 83 EC ? 41 B9 ? ? ? ? 41 8B C0 41 23 C1 48 8B F2 41 83 F8 ? 48 8B F9 44 0F 45 C8 41 81 F9 ? ? ? ? 73 ? FF 89"

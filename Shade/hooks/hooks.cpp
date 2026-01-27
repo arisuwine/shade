@@ -1,5 +1,7 @@
 #include "hooks.hpp"
 
+#include <tuple>
+
 #include "minhook.h"
 #include "imgui_impl_dx11.h"
 
@@ -7,9 +9,21 @@
 #include "glow.hpp"
 #include "entity_system.hpp"
 #include "view_render.hpp"
-#include "frame_stage_notify.hpp"
+#include "source2client.hpp"
+
+#include "../sdk/sdk.hpp"
 
 #include "../utils/debug.hpp"
+#include "../utils/vmt/vmt.hpp"
+
+auto hook_objects = std::make_tuple(
+	GameOverlayHook{},
+	GlowHook{},
+	EntitySystemHook{},
+	ViewRenderHook{},
+	OverrideViewModelHook{},
+	ISource2ClientHook{}
+);
 
 bool hooks::Initialize() {
 	LOG("\n[HOOK] Initialization of hooks.\n");
@@ -17,57 +31,44 @@ bool hooks::Initialize() {
 	if (auto status = MH_Initialize(); status != MH_OK && status != MH_ERROR_ALREADY_INITIALIZED)
 		LOG_AND_RETURN("[-] MH Initialize has failed. Status: %d\n", status);
 
-	if (!GameOverlayHook::Initialize())
-		return FALSE;
+	bool result = std::apply([](auto&&... objects) {
+		auto init = [](auto&& object) {
+			bool result = object.Initialize();
 
-	LOG("[+] GameOverlayHook has been initialized.\n");
+			if (result)
+				LOG("[+] %s initialized successfully.\n", typeid(object).name() + 6);
+			else
+				LOG("[-] %s failed to initialize hook.\n", typeid(object).name() + 6);
 
-	if (!GlowHook::Initialize())
-		return FALSE;
+			return result;
+		};
 
-	LOG("[+] GlowHook has been initialized.\n");
+		return (init(objects) && ...);
+	}, hook_objects);
 
-	if (!EntitySystemHook::Initialize())
-		return FALSE;
-
-	LOG("[+] EntitySystemHook has been initialized.\n");
-
-	if (!ViewRenderHook::Initialize())
-		return FALSE;
-
-	LOG("[+] ViewRenderHook has been initialized.\n");
-
-	if (!OverrideViewModelHook::Initialize())
-		return FALSE;
-
-	LOG("[+] OverrideViewModelHook has been initialized.\n");
-
-	if (!FrameStageNotifyHook::Initialize())
-		return FALSE;
-
-	LOG("[+] FrameStageNotifyHook has been initialized.\n");
-
-	return TRUE;
+	return result;
 }
 
 bool hooks::Shutdown() {
-	if (!GameOverlayHook::Shutdown())
-		return FALSE;
+	LOG("\n[HOOK] Hooks shutdown.\n");
+	std::apply([](auto&&... objects) {
+		auto init = [](auto&& object) {
+			if (!object.IsInitialized()) {
+				return true;
+			}
 
-	if (!GlowHook::Shutdown())
-		return FALSE;
+			bool result = object.Shutdown();
 
-	if (!EntitySystemHook::Shutdown())
-		return FALSE;
+			if (result)
+				LOG("[+] %s shutdown successfully.\n", typeid(object).name() + 6);
+			else
+				LOG("[-] %s failed to shutdown hook.\n", typeid(object).name() + 6);
 
-	if (!ViewRenderHook::Shutdown())
-		return FALSE;
+			return result;
+		};
 
-	if (!OverrideViewModelHook::Shutdown())
-		return FALSE;
-
-	if (!FrameStageNotifyHook::Shutdown())
-		return FALSE;
+		((init(objects)), ...);
+	}, hook_objects);
 
 	MH_Uninitialize();
 

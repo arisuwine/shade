@@ -30,26 +30,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -146,7 +146,7 @@
     <ClInclude Include="features\esp.hpp" />
     <ClInclude Include="features\utils\bounding_box.hpp" />
     <ClInclude Include="hooks\entity_system.hpp" />
-    <ClInclude Include="hooks\frame_stage_notify.hpp" />
+    <ClInclude Include="hooks\source2client.hpp" />
     <ClInclude Include="hooks\game_overlay.hpp" />
     <ClInclude Include="hooks\glow.hpp" />
     <ClInclude Include="hooks\hooks.hpp" />
@@ -171,9 +171,7 @@
     <ClInclude Include="minhook\minhook.h" />
     <ClInclude Include="minhook\trampoline.h" />
     <ClInclude Include="render\render.hpp" />
-    <ClInclude Include="render\utils\colors.hpp" />
     <ClInclude Include="render\utils\gui.hpp" />
-    <ClInclude Include="render\utils\im_vec_2.hpp" />
     <ClInclude Include="sdk\data\SchemaClassInfoData_t.hpp" />
     <ClInclude Include="sdk\data\SchemaMetaInfoHandle_t.hpp" />
     <ClInclude Include="sdk\entities\CConcreteEntityList.hpp" />
@@ -184,7 +182,7 @@
     <ClInclude Include="sdk\entities\CEntityIterator.hpp" />
     <ClInclude Include="sdk\entities\CGameEntitySystem.hpp" />
     <ClInclude Include="sdk\entities\CHandle.hpp" />
-    <ClInclude Include="sdk\entities\C_CSPlayerController.hpp" />
+    <ClInclude Include="sdk\entities\CCSPlayerController.hpp" />
     <ClInclude Include="sdk\entities\C_CSPlayerPawn.hpp" />
     <ClInclude Include="sdk\entities\C_CSWeaponBase.hpp" />
     <ClInclude Include="sdk\entities\C_BaseEntity.hpp" />
@@ -194,16 +192,14 @@
     <ClInclude Include="sdk\interfaces\CShemaSystem.hpp" />
     <ClInclude Include="sdk\interfaces\CViewRender.hpp" />
     <ClInclude Include="sdk\interfaces\ICVar.hpp" />
+    <ClInclude Include="sdk\interfaces\IGameResourceService.hpp" />
     <ClInclude Include="sdk\interfaces\ISource2Client.hpp" />
     <ClInclude Include="sdk\interfaces\IVEngineClient.hpp" />
     <ClInclude Include="sdk\interfaces\ViewMatrix.hpp" />
-    <ClInclude Include="sdk\math\math.hpp" />
-    <ClInclude Include="sdk\math\matrix.hpp" />
-    <ClInclude Include="sdk\math\matrix\matrix4x4.hpp" />
+    <ClInclude Include="sdk\math\matrix4x4.hpp" />
     <ClInclude Include="sdk\math\QAngle.hpp" />
-    <ClInclude Include="sdk\math\vector.hpp" />
-    <ClInclude Include="sdk\math\vector\vector_2d.hpp" />
-    <ClInclude Include="sdk\math\vector\vector_3d.hpp" />
+    <ClInclude Include="sdk\math\vector_2d.hpp" />
+    <ClInclude Include="sdk\math\vector_3d.hpp" />
     <ClInclude Include="sdk\modules.hpp" />
     <ClInclude Include="sdk\offsets.hpp" />
     <ClInclude Include="sdk\sdk.hpp" />
@@ -219,12 +215,16 @@
     <ClInclude Include="sdk\services\CPlayer_WeaponServices.hpp" />
     <ClInclude Include="sdk\signatures.hpp" />
     <ClInclude Include="sdk\utils\color.hpp" />
-    <ClInclude Include="sdk\utils\CUtlString.hpp" />
+    <ClInclude Include="sdk\utils\cutlmap.hpp" />
+    <ClInclude Include="sdk\utils\cutlmemory.hpp" />
+    <ClInclude Include="sdk\utils\cutlstring.hpp" />
+    <ClInclude Include="sdk\utils\cutlvector.hpp" />
+    <ClInclude Include="sdk\utils\item_name.hpp" />
     <ClInclude Include="utils\console.hpp" />
     <ClInclude Include="utils\debug.hpp" />
+    <ClInclude Include="utils\hash.hpp" />
     <ClInclude Include="utils\pattern_scan\pattern_scan.hpp" />
-    <ClInclude Include="utils\valve\utlmap.hpp" />
-    <ClInclude Include="utils\valve\utlvector.hpp" />
+    <ClInclude Include="utils\singleton.hpp" />
     <ClInclude Include="utils\vmt\vmt.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -235,7 +235,7 @@
     <ClCompile Include="features\esp.cpp" />
     <ClCompile Include="features\utils\bounding_box.cpp" />
     <ClCompile Include="hooks\entity_system.cpp" />
-    <ClCompile Include="hooks\frame_stage_notify.cpp" />
+    <ClCompile Include="hooks\source2client.cpp" />
     <ClCompile Include="hooks\game_overlay.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
@@ -285,10 +285,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="render\utils\colors.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="render\utils\gui.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
@@ -296,6 +292,7 @@
     <ClCompile Include="sdk\sdk.cpp" />
     <ClCompile Include="sdk\services\CBone.cpp" />
     <ClCompile Include="sdk\utils\color.cpp" />
+    <ClCompile Include="sdk\utils\cutlstring.cpp" />
     <ClCompile Include="utils\console.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
@@ -304,6 +301,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="utils\vmt\vmt.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

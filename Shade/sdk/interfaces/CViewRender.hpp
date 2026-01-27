@@ -3,7 +3,7 @@
 
 #include "../offsets.hpp"
 
-#include "../math/vector/vector_3d.hpp"
+#include "../math/vector_3d.hpp"
 #include "../math/QAngle.hpp"
 
 #define M_PI 3.14159265358979323846
@@ -28,7 +28,7 @@ public:
 	//BYTE	nSomeFlags;
 	PSCHEMA(float,			offsets::client::CViewSetup::m_flFov,			m_flFov			);
 	PSCHEMA(float,			offsets::client::CViewSetup::m_flFovViewModel,	m_flFovViewModel);
-	PSCHEMA(vector_3d,		offsets::client::CViewSetup::m_vecOrigin,		m_vecOrigin		);
+	PSCHEMA(Vector3D,		offsets::client::CViewSetup::m_vecOrigin,		m_vecOrigin		);
 	PSCHEMA(QAngle,			offsets::client::CViewSetup::m_angView,			m_angView		);
 	PSCHEMA(float,			offsets::client::CViewSetup::m_flAspectRatio,	m_flAspectRatio	);
 	PSCHEMA(BYTE,			offsets::client::CViewSetup::m_nSomeFlags,		m_nSomeFlags	);
@@ -40,8 +40,6 @@ public:
 
 class CViewRender {
 public:
-	CViewRender() = delete;
-
 	static inline float ScaleFOVByWidthRatio(float fovDegrees, float ratio) {
 		float halfAngleRadians = fovDegrees * (0.5f * M_PI / 180.0f);
 		float t = tan(halfAngleRadians);

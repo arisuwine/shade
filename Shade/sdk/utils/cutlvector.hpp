@@ -1,46 +1,5 @@
 #pragma once
-
-template< class T, class I = int >
-class CUtlMemory
-{
-public:
-    T& operator[](I i)
-    {
-        return m_pMemory[i];
-    }
-
-    T* Base()
-    {
-        return m_pMemory;
-    }
-
-    int NumAllocated() const
-    {
-        return m_nAllocationCount;
-    }
-
-    bool IsExternallyAllocated() const
-    {
-        return m_nGrowSize < 0;
-    }
-
-protected:
-    T* m_pMemory;
-    int m_nAllocationCount;
-    int m_nGrowSize;
-};
-
-template <class T>
-inline T* Construct(T* pMemory)
-{
-    return ::new(pMemory) T;
-}
-
-template <class T>
-inline void Destruct(T* pMemory)
-{
-    pMemory->~T();
-}
+#include "cutlmemory.hpp"
 
 template< class T, class A = CUtlMemory<T> >
 class CUtlVector

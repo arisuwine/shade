@@ -1,16 +1,27 @@
 #pragma once
 #include <vector>
+#include <string>
+#include <mutex>
+#include <unordered_map>
 
 #include "utils/bounding_box.hpp"
 
 #include "../sdk/services/CBone.hpp"
 
-class ESP {
-private:
-	C_CSPlayerPawn* player;
-	BoundingBox bbox;
+#include "../utils/singleton.hpp"
 
-	static inline std::vector<std::vector<bone_index>> bones = {
+class C_CSPlayerPawn;
+class CCSPlayerController;
+
+class ESP : public Singleton<ESP> {
+	friend class Singleton<ESP>;
+
+private:
+	CCSPlayerController*	m_pController;
+	C_CSPlayerPawn*			m_pPawn;
+	BoundingBox	m_bbox;
+
+	static inline std::vector<std::vector<bone_index>> m_Bones = {
 		{ Pelvis, Spine_1, Spine_2, Spine_3, Neck_0, Head },
 		{ Neck_0, Arm_Upper_L, Arm_Lower_L, Hand_L },
 		{ Neck_0, Arm_Upper_R, Arm_Lower_R, Hand_R },
@@ -19,22 +30,18 @@ private:
 	};
 
 	void RenderName();
-	void RenderBox();
+	void RenderBoundingBox();
 	void RenderHealth();
 	void RenderSkeleton();
 	void RenderFlags();
 	void RenderWeapon();
 	void RenderAmmo();
+	void RenderDroppedWeapons();
 
-	void Initalize();
+	void Initialize();
 
 	ESP() {}
-public:
 
-	static ESP& Get() {
-		static ESP instance;
-		return instance;
-	}
+public:
 	void BeginRender();
-	static void RenderDropperWeapons();
 };

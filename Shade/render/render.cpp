@@ -10,14 +10,14 @@
 
 #include "../features/esp.hpp"
 
-void SetupFonts() {
-    fonts.set_io();
-    fonts.push("MuseoSans-500",     "c:\\USERS\\ADMINISTRATOR\\APPDATA\\LOCAL\\MICROSOFT\\WINDOWS\\FONTS\\MuseoSansCyrl-500.ttf", 15.0f);
-    fonts.push("MuseoSans-500-12",  "c:\\USERS\\ADMINISTRATOR\\APPDATA\\LOCAL\\MICROSOFT\\WINDOWS\\FONTS\\MuseoSansCyrl-500.ttf", 12.0f);
-    fonts.push("MuseoSans-900",     "c:\\USERS\\ADMINISTRATOR\\APPDATA\\LOCAL\\MICROSOFT\\WINDOWS\\FONTS\\MuseoSansCyrl-900.ttf", 24.0f);
-    fonts.push("MuseoSans-900-10",  "c:\\USERS\\ADMINISTRATOR\\APPDATA\\LOCAL\\MICROSOFT\\WINDOWS\\FONTS\\MuseoSansCyrl-900.ttf", 13.0f);
-    fonts.push("Verdana-12", "C:\\WINDOWS\\FONTS\\VERDANA.TTF", 12.0f);
-    fonts.push("Verdana-13", "C:\\WINDOWS\\FONTS\\VERDANA.TTF", 13.0f);
+void RenderTarget::SetupFonts() {
+    Fonts::Get().Initialize();
+    Fonts::Get().Add("MuseoSans-500",       "c:\\USERS\\ADMINISTRATOR\\APPDATA\\LOCAL\\MICROSOFT\\WINDOWS\\FONTS\\MuseoSansCyrl-500.ttf", 15.0f);
+    Fonts::Get().Add("MuseoSans-500-12",    "c:\\USERS\\ADMINISTRATOR\\APPDATA\\LOCAL\\MICROSOFT\\WINDOWS\\FONTS\\MuseoSansCyrl-500.ttf", 12.0f);
+    Fonts::Get().Add("MuseoSans-900",       "c:\\USERS\\ADMINISTRATOR\\APPDATA\\LOCAL\\MICROSOFT\\WINDOWS\\FONTS\\MuseoSansCyrl-900.ttf", 24.0f);
+    Fonts::Get().Add("MuseoSans-900-10",    "c:\\USERS\\ADMINISTRATOR\\APPDATA\\LOCAL\\MICROSOFT\\WINDOWS\\FONTS\\MuseoSansCyrl-900.ttf", 13.0f);
+    Fonts::Get().Add("Verdana-12",          "C:\\WINDOWS\\FONTS\\VERDANA.TTF", 12.0f);
+    Fonts::Get().Add("Verdana-13",          "C:\\WINDOWS\\FONTS\\VERDANA.TTF", 13.0f);
 }
 
 void RenderTarget::Initialize() {
@@ -27,16 +27,16 @@ void RenderTarget::Initialize() {
 void RenderTarget::BeginScene() {
     ImGui_ImplDX11_NewFrame();
     ImGui_ImplWin32_NewFrame();
+
     ImGui::NewFrame();
 
     if (GetAsyncKeyState(VK_INSERT) & 1)
         Menu::Get().Toggle();
 
     Menu::Get().Render();
+    Render::Get().SetDrawList(ImGui::GetBackgroundDrawList());
 
-    gui.draw_list = ImGui::GetBackgroundDrawList();
-
-    if (g_CNetworkClientService->m_pCNetworkGameClient->IsInGame() && g_options.esp_enabled)
+    if (g_CNetworkClientService->m_pCNetworkGameClient->IsInGame() && g_Options.esp_enabled)
         ESP::Get().BeginRender();
 
     ImGui::Render();

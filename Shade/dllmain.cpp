@@ -1,6 +1,6 @@
 ﻿/*
 The Giant Penis License (GPL)
-Copyright (c) 2025
+Copyright (c) 2026
 
                 ▄▄██▄██▄▄
               ▄█    █    █▄
@@ -52,6 +52,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
+#include <stdexcept>
+#include <exception>
+
 #include "hooks/hooks.hpp"
 
 #include "sdk/sdk.hpp"
@@ -64,11 +67,11 @@ THE SOFTWARE.
 bool g_Unload = FALSE;
 
 BOOL WINAPI OnDllDetach() {
+    hooks::Shutdown();
+
 #ifdef _DEBUG
     utils::DetachConsole();
 #endif
-
-    hooks::Shutdown();
 
     return TRUE;
 }
@@ -80,7 +83,9 @@ DWORD WINAPI OnDllAttach(LPVOID lpParam) {
 
     try {
         interfaces::Initialize();
-        hooks::Initialize();
+
+        if (!hooks::Initialize())
+            throw std::runtime_error("failed to initialize hooks");
 
 		while (!g_Unload) {
             if (GetAsyncKeyState(VK_DELETE) & 0x8000)
@@ -90,9 +95,8 @@ DWORD WINAPI OnDllAttach(LPVOID lpParam) {
         }
     }
     catch (const std::exception& e) {
-        LOG("An error occured during initialization:\n");
-        LOG("%s\n", e.what());
-        LOG("Press any key to exit.\n");
+        LOG("An error occured during initialization: %s\n", e.what());
+        OnDllDetach();
 
         FreeLibraryAndExitThread(static_cast<HMODULE>(lpParam), 1);
     }

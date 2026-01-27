@@ -1,11 +1,9 @@
 #pragma once
-#include "../sdk/math/vector.hpp"
+#include "../sdk/math/vector_3d.hpp"
 #include "../sdk/offsets.hpp"
 
 class CCollisionProperty {
 public:
-	CCollisionProperty() = delete;
-
-	SCHEMA(vector_3d, offsets::client::CCollisionProperty::m_vecMaxs, m_vecMaxs);
-	SCHEMA(vector_3d, offsets::client::CCollisionProperty::m_vecMins, m_vecMins);
+	SCHEMA(Vector3D, offsets::client::CCollisionProperty::m_vecMaxs, m_vecMaxs);
+	SCHEMA(Vector3D, offsets::client::CCollisionProperty::m_vecMins, m_vecMins);
 };

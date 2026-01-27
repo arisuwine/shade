@@ -3,5 +3,6 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
+  <Project Path="Injector/Injector.vcxproj" Id="b4e8abdc-7f7a-46fd-82d4-bfc2f0fc56ef" />
   <Project Path="Shade/Shade.vcxproj" Id="c127a95c-d329-4749-a432-75c349e7e21e" />
 </Solution>

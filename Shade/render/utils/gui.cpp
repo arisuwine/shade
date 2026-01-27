@@ -1,77 +1,96 @@
 #include "gui.hpp"
 
-using namespace render;
+#include <filesystem>
 
-ImGuiIO* FontMap::io = nullptr;
-std::unordered_map<std::string_view, ImFont*> FontMap::map;
-void FontMap::set_io() {
-    io = &(ImGui::GetIO());
-}
+#include "../utils/debug.hpp"
 
-ImFont* FontMap::get(const std::string_view& name) {
-    if (map.find(name.data()) == map.end())
-        return nullptr;
-
-    return map.at(name.data());
-}
-
-FontMap::FontMap(const std::string_view& name, const std::string_view& path, const float& size) {
-    map.insert(std::make_pair(name, io->Fonts->AddFontFromFileTTF(path.data(), size)));
-}
-
-ImFont* FontMap::push(const std::string_view& name, const std::string_view& path, const float& size) {
-    if (map.find(name.data()) != map.end())
-        return map.at(name);
-
-    map.insert(std::make_pair(name, io->Fonts->AddFontFromFileTTF(path.data(), size)));
-    return map.at(name.data());
-}
-
-void FontMap::pop(const std::string_view& name) {
-    if (map.find(name.data()) == map.end())
-        return;
-
-    map.erase(name.data());
-}
-
-ImFont* FontMap::replace(const std::string_view& name, const std::string_view& path, const float& size) {
-    if (map.find(name.data()) == map.end())
-        return nullptr;
-
-    return map.at(name.data()) = io->Fonts->AddFontFromFileTTF(path.data(), size);
-}
-
-ImDrawList* GUI::draw_list = nullptr;
-im_vec_2 GUI::get_text_size(ImFont* font, const std::string_view& text) {
+ImVec2 Render::GetTextSize(ImFont* font, const std::string_view& text) {
     return font->CalcTextSizeA(font->LegacySize, FLT_MAX, 0.0f, text.data(), text.data() + text.size());
 }
 
-void GUI::draw_text(const im_vec_2& pos, const ImColor& col, ImFont* font, bool outline, const std::string_view& text) {
-    if (outline) {
-        ImGui::PushFont(font, font->LegacySize);
-        draw_list->AddText(pos + im_vec_2(1.0f, 1.0f), ImColor(0, 0, 0, 200), text.data(), text.data() + text.size());
-        ImGui::PopFont();
+ImFont* Fonts::Add(const std::string& name, const std::string& path, float size, const ImFontConfig* config, const ImWchar* ranges) {
+    if (!IsInitialized())
+        return nullptr;
+
+    auto iterator = m_FontMap.find(name);
+    if (iterator != m_FontMap.end())
+        return iterator->second;
+
+    if (!std::filesystem::exists(path)) {
+        LOG("[FONTS] Font not found: %s\n", path);
+        return nullptr;
     }
 
+    ImFont* font = m_io->Fonts->AddFontFromFileTTF(path.data(), size, config, ranges);
+    if (font)
+        m_FontMap[name] = font;
+    else {
+        LOG("[FONTS] Error loading font: %s\n", name);
+        return nullptr;
+    }
+
+    return font;
+}
+
+ImFont* Fonts::Find(const std::string_view name) {
+    if (!IsInitialized())
+        return nullptr;
+
+    auto iterator = m_FontMap.find(std::string(name));
+    if (iterator != m_FontMap.end())
+        return iterator->second;
+
+    LOG("[FONTS] Failed to find font: %s, loading default\n", name);
+    return m_io->Fonts->Fonts[0];
+}
+
+void Render::RenderText(const ImVec2& pos, const Color& col, ImFont* font, Alignment align, bool outline, const std::string_view& text) {
+    ImVec2 text_pos = pos;
+    
+    if (align == Center)
+        text_pos.x -= GetTextSize(font, text).x / 2.0f;
+    else if (align == Right)
+        text_pos.x -= GetTextSize(font, text).x;
+
     ImGui::PushFont(font, font->LegacySize);
-    draw_list->AddText(pos, col, text.data(), text.data() + text.size());
+
+    if (outline) {
+        m_pDrawList->AddText(text_pos + ImVec2( 1.0f,  1.0f), ImColor(0, 0, 0, col.a()), text.data(), text.data() + text.size());
+        m_pDrawList->AddText(text_pos + ImVec2(-1.0f, -1.0f), ImColor(0, 0, 0, col.a()), text.data(), text.data() + text.size());
+        m_pDrawList->AddText(text_pos + ImVec2( 1.0f, -1.0f), ImColor(0, 0, 0, col.a()), text.data(), text.data() + text.size());
+        m_pDrawList->AddText(text_pos + ImVec2(-1.0f,  1.0f), ImColor(0, 0, 0, col.a()), text.data(), text.data() + text.size());
+    }
+
+    m_pDrawList->AddText(text_pos, col.GetColor(), text.data(), text.data() + text.size());
+
     ImGui::PopFont();
 }
 
-void GUI::draw_rect(const im_vec_2& pos_start, const im_vec_2& pos_end, const ImColor& col, float rounding, bool filled, float thickness, ImDrawFlags flags) {
-    if (filled == false)
-        draw_list->AddRect(pos_start, pos_end, col, rounding, flags, thickness);
-    else
-        draw_list->AddRectFilled(pos_start, pos_end, col, rounding, flags);
+void Render::RenderLine(const ImVec2& start, const ImVec2& end, const Color& col, float thickness) {
+    m_pDrawList->AddLine(start, end, col.GetColor(), thickness);
 }
 
-void GUI::draw_circle(const im_vec_2& pos, float radius, const ImColor& col, bool filled, int num_segments, float thickness) {
-    if (filled = false)
-        draw_list->AddCircle(pos, radius, col, num_segments, thickness);
-    else
-        draw_list->AddCircleFilled(pos, radius, col, num_segments);
+void Render::RenderOutlineBox(const ImVec2& start, const ImVec2& end, const Color& col, float thickness, float rounding) {
+    ImVec2 out_start = start - ImVec2(1.0f, 1.0f);
+    ImVec2 out_end = end + ImVec2(1.0f, 1.0f);
+
+    ImVec2 in_start = start + ImVec2(1.0f, 1.0f);
+    ImVec2 in_end = end - ImVec2(1.0f, 1.0f);
+
+    m_pDrawList->AddRect(out_start, out_end, col.GetColor(), rounding, 0, thickness);
+    m_pDrawList->AddRect(in_start, in_end, col.GetColor(), rounding, 0, thickness);
 }
 
-void GUI::draw_line(const im_vec_2& pos_start, const im_vec_2& pos_end, const ImColor& col, float thickness) {
-    draw_list->AddLine(pos_start, pos_end, col, thickness);
+void Render::RenderBox(const ImVec2& start, const ImVec2& end, const Color& col, bool outline, float thickness, float rounding) {
+    if (outline)
+        RenderOutlineBox(start, end, {0, 0, 0, 255}, thickness, rounding);
+    
+    m_pDrawList->AddRect(start, end, col.GetColor(), rounding, 0, thickness);
+}
+
+void Render::RenderFilledBox(const ImVec2& start, const ImVec2& end, const Color& col, bool outline, float thickness, float rounding) {
+    if (outline)
+        RenderOutlineBox(start, end, { 0, 0, 0, 255 }, thickness, rounding);
+
+    m_pDrawList->AddRectFilled(start, end, col.GetColor(), rounding);
 }

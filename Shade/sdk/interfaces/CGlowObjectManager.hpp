@@ -1,19 +1,17 @@
 #pragma
 #include "../offsets.hpp"
 
-#include "../math/vector/vector_3d.hpp"
+#include "../math/vector_3d.hpp"
 
-#include "../../utils/valve/utlvector.hpp"
+#include "../utils/cutlvector.hpp"
 
 class CEntityInstance;
 
 class CGlowObjectManager {
 public:
-	CGlowObjectManager() = delete;
-
 	struct GlowObjectDefinition_t {
 		CEntityInstance* m_pEntity;
-		vector_3d m_vGlowColor;
+		Vector3D m_vGlowColor;
 		float m_flGlowAlpha;
 
 		bool m_bRenderWhenOccluded;

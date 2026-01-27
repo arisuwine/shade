@@ -29,8 +29,6 @@ class CEntityClass;
 
 class CEntityIdentity {
 public:
-	CEntityIdentity() = delete;
-
 	template <typename T>
 	T* m_pInstance() const {
 		return *reinterpret_cast<T**>(THIS_ADDR);

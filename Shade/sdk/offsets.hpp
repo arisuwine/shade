@@ -2,6 +2,10 @@
 #include <Windows.h>
 #include <cstring>
 
+#define RESOLVE_RIP_EX(type, addr, offset, size) reinterpret_cast<type*>(addr + *((int32_t*)(addr + offset)) + size)
+#define RESOLVE_RIP(type, addr) RESOLVE_RIP_EX(type, addr, 3, 7)
+#define RESOLVE_RELATIVE(type, addr) *reinterpret_cast<type**>(RESOLVE_RIP(type, addr))
+
 #define THIS_ADDR reinterpret_cast<uintptr_t>(this)
 
 #define GET_PSCHEMA(NAME, TYPE, OFFSET)									\
@@ -38,19 +42,22 @@
 
 namespace offsets {
 	namespace client {
-		namespace C_CSPlayerController {
-			CONST_OFFSET m_hPawn							= 0x6B4;
-			CONST_OFFSET m_iszPlayerName					= 0x6e8;
-			CONST_OFFSET m_sSanitizedPlayerName				= 0x850;
-			CONST_OFFSET m_pEntity							= 0x10;
+		namespace CCSPlayerController {
+			CONST_OFFSET m_hPawn							= 0x6C4;
+			CONST_OFFSET m_iszPlayerName					= 0x6F8;
+			CONST_OFFSET m_sSanitizedPlayerName				= 0x860;
+		}
+
+		namespace IGameResourceService {
+			CONST_OFFSET m_pCGameEntitySystem				= 0x58;
 		}
 
 		namespace C_BaseEntity {
-			CONST_OFFSET m_iHealth							= 0x34c;
-			CONST_OFFSET m_iTeamNum							= 0x3eb;
-			CONST_OFFSET m_pCollision						= 0x340;
-			CONST_OFFSET m_pGameSceneNode					= 0x330;
-			CONST_OFFSET m_hOwnerEntity						= 0x520;
+			CONST_OFFSET m_iHealth							= 0x354;
+			CONST_OFFSET m_iTeamNum							= 0x3F3;
+			CONST_OFFSET m_pCollision						= 0x348;
+			CONST_OFFSET m_pGameSceneNode					= 0x338;
+			CONST_OFFSET m_hOwnerEntity						= 0x528;
 		}
 
 		namespace CConcreteEntityList {
@@ -64,26 +71,26 @@ namespace offsets {
 		}
 
 		namespace C_BasePlayerPawn {
-			CONST_OFFSET m_vOldOrigin						= 0x15a0;
-			CONST_OFFSET m_pMovementServices				= 0x1430;
-			CONST_OFFSET m_pWeaponServices					= 0x13F0;
-			CONST_OFFSET m_hController						= 0x15B8;
+			CONST_OFFSET m_vOldOrigin						= 0x1588;
+			CONST_OFFSET m_pMovementServices				= 0x1418;
+			CONST_OFFSET m_pWeaponServices					= 0x13D8;
+			CONST_OFFSET m_hController						= 0x15A0;
 		}
 
 		namespace C_CSPlayerPawn {
-			CONST_OFFSET m_bIsScoped						= 0x2718;
-			CONST_OFFSET m_bIsDefusing						= 0x271A;
-			CONST_OFFSET m_ArmorValue						= 0x274c;
-			CONST_OFFSET m_pClippingWeapon					= 0x3de0;
+			CONST_OFFSET m_bIsScoped						= 0x26F8;
+			CONST_OFFSET m_bIsDefusing						= 0x26FA;
+			CONST_OFFSET m_ArmorValue						= 0x272C;
+			CONST_OFFSET m_pClippingWeapon					= 0x3DC0;
 		}
 
 		namespace CCollisionProperty {
 			CONST_OFFSET m_vecMins							= 0x40;
-			CONST_OFFSET m_vecMaxs							= 0x4c;
+			CONST_OFFSET m_vecMaxs							= 0x4C;
 		}
 
 		namespace CGameSceneNode {
-			CONST_OFFSET m_modelState						= 0x190;
+			CONST_OFFSET m_modelState						= 0x160;
 			CONST_OFFSET m_vecAbsOrigin						= 0xD0;
 		}
 
@@ -92,14 +99,14 @@ namespace offsets {
 		}
 
 		namespace CPlayer_MovementServices {
-			CONST_OFFSET m_flDuckAmount						= 0x288;
+			CONST_OFFSET m_flDuckAmount						= 0x284;
 		}
 
 		namespace CEntityIdentity {
 			CONST_OFFSET m_pClass							= 0x8;	// CEntityClass*
 			CONST_OFFSET m_EHandle							= 0x10;
-			CONST_OFFSET m_name								= 0x20;
-			CONST_OFFSET m_designerName						= 0x28;
+			CONST_OFFSET m_name								= 0x18; // 0x20
+			CONST_OFFSET m_designerName						= 0x20; // 0x20
 			CONST_OFFSET m_flags							= 0x30;
 			CONST_OFFSET m_pPrev							= 0x50;
 			CONST_OFFSET m_pNext							= 0x58;
@@ -108,7 +115,7 @@ namespace offsets {
 		}
 
 		namespace CEntityClass {
-			CONST_OFFSET m_pFirstEntity						= 0x108;
+			CONST_OFFSET m_pFirstEntity						= 0x150;
 		}
 
 		namespace CEntityInstance {
@@ -121,23 +128,23 @@ namespace offsets {
 		}
 
 		namespace CPlayer_WeaponServices {
-			CONST_OFFSET m_hMyWeapons						= 0x40;
-			CONST_OFFSET m_hActiveWeapon					= 0x58;
-			CONST_OFFSET m_iAmmo							= 0x60;
+			CONST_OFFSET m_hMyWeapons						= 0x48;
+			CONST_OFFSET m_hActiveWeapon					= 0x60;
+			CONST_OFFSET m_iAmmo							= 0x68;
 		}
 
 		namespace C_BasePlayerWeapon {
-			CONST_OFFSET m_iClip1							= 0x18f0;
+			CONST_OFFSET m_iClip1							= 0x18D0;
 		}
 
 		namespace C_CSWeaponBase {
-			CONST_OFFSET m_pWeaponVData						= 0x388;
+			CONST_OFFSET m_pWeaponVData						= 0x390;
 		}
 
 		namespace CCSWeaponBaseVData {
-			CONST_OFFSET m_szName							= 0x720;
-			CONST_OFFSET m_iMaxClip1						= 0x3e8;
-			CONST_OFFSET m_iMaxClip2						= 0x3ec;
+			CONST_OFFSET m_szName							= 0x640;
+			CONST_OFFSET m_iMaxClip1						= 0x3F0;
+			CONST_OFFSET m_iMaxClip2						= 0x3F4;
 		}
 
 		namespace CGlowObjectManager {
@@ -191,7 +198,7 @@ namespace offsets {
 
 	namespace engine2 {
 		namespace CNetworkClientService {
-			CONST_OFFSET m_pCNetworkGameClient				= 0x98;
+			CONST_OFFSET m_pCNetworkGameClient				= 0xA0;
 		}
 	}
 

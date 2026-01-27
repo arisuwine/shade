@@ -9,8 +9,6 @@ enum GlobalVarsUsageWarning_t
 
 class CGlobalVarsBase {
 public:
-	CGlobalVarsBase() = delete;
-
 	using FnGlobalVarsWarningFunc = void(*)(GlobalVarsUsageWarning_t);
 
 	SCHEMA(float,					offsets::client::CGlobalVarsBase::m_flRealTime,						m_flRealTime					);

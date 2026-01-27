@@ -9,9 +9,7 @@
 class CEntityIdentity;
 
 class CEntityInstance {
-public:
-	CEntityInstance() = delete;
-	
+public:	
 	SCHEMA(CEntityIdentity*, offsets::client::CEntityInstance::m_pEntity, m_pEntity);
 
 	auto Schema_DynamicBinding() {
@@ -19,7 +17,7 @@ public:
 
 		using fn = void(__fastcall*)(void*, SchemaMetaInfoHandle_t<CSchemaClassInfo>*);
 
-		auto pFunc = vmt::get_virtual<fn>(this, 42);
+		auto pFunc = vmt::GetVirtual<fn>(this, 44);
 
 		if (pFunc)
 			pFunc(this, &result);

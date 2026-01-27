@@ -49,11 +49,11 @@ public:
 	OPTION(Color, col_esp_dropped_items,	DEFAULT_COLOR);
 
 	// MISC
-	OPTION(float, misc_aspect_ratio,		1.0f);
+	OPTION(float, misc_aspect_ratio,		100.0f);
 	OPTION(float, misc_viewmodel_fov,		68.0f);
 	OPTION(float, misc_fov,					80.0f);
 
 
 };
 
-inline options g_options;
+inline options g_Options;

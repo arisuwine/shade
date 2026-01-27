@@ -1,17 +1,20 @@
 #pragma once
+#include <string_view>
+
 #include "../offsets.hpp"
 
 #include "CConcreteEntityList.hpp"
+#include "CEntityClass.hpp"
 
-#include "../utils/valve/utlmap.hpp"
+#include "../utils/cutlmap.hpp"
+
+#include "../utils/debug.hpp"
 
 class CConcreteEntityList;
 class CEntityClass;
 
 class CGameEntitySystem {
 public:
-	CGameEntitySystem() = delete;
-
 	using EntityMap = CUtlMap<const char*, CEntityClass*, std::uint16_t, CDefCaselessStringLess>;
 
 	SCHEMA(CConcreteEntityList,		offsets::client::CGameEntitySystem::m_entityList,		m_entityList	);
@@ -19,6 +22,24 @@ public:
 
 	template <typename T>
 	T* GetEntityByIndex(int idx);
+
+	template <typename T>
+	CEntityIterator<T, true> GetAll() {
+		const char* class_name = typeid(T).name();
+		if (!class_name)
+			return nullptr;
+
+		class_name += 6;
+		auto class_by_name = m_ClassesByName[class_name];
+		if (!class_by_name)
+			return nullptr;
+
+		auto first_entity = class_by_name->m_pFirstEntity;
+		if (!first_entity)
+			return nullptr;
+
+		return first_entity;
+	}
 };
 
 template <typename T>

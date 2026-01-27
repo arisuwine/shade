@@ -4,8 +4,6 @@
 
 class CNetworkGameClient {
 public:
-	CNetworkGameClient() = delete;
-
 	auto IsConnected() {
 		return CALL_VIRTUAL(this, bool, 14);
 	}

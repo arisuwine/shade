@@ -10,50 +10,50 @@
 
 #include "../math/world_to_screen.hpp"
 
-bool BoundingBox::Initialize(C_CSPlayerPawn* player) {
-	CCollisionProperty* collision = player->m_pCollision;
+bool BoundingBox::Initialize(C_CSPlayerPawn* pawn) {
+	CCollisionProperty* collision = pawn->m_pCollision;
 	if (!collision) {
-		initialized = false;
+		m_bIsInitialized = false;
 		return FALSE;
 	}
 
-	CGameSceneNode* game_scene_node = player->m_pGameSceneNode;
+	CGameSceneNode* game_scene_node = pawn->m_pGameSceneNode;
 	if (!game_scene_node) {
-		initialized = false;
+		m_bIsInitialized = false;
 		return FALSE;
 	}
 
-	vector_3d origin = game_scene_node->m_vecAbsOrigin;
-	vector_3d m_vecMaxs = collision->m_vecMaxs;
-	m_vecMaxs.z -= player->m_pMovementServices->m_flDuckAmount * 18.0f;
+	Vector3D origin = game_scene_node->m_vecAbsOrigin;
+	Vector3D m_vecMaxs = collision->m_vecMaxs;
+	m_vecMaxs.z -= pawn->m_pMovementServices->m_flDuckAmount * 18.0f;
 
-	max = m_vecMaxs + origin;
-	min = collision->m_vecMins + origin;
-	initialized = true;
+	m_vMax = m_vecMaxs + origin;
+	m_vMin = collision->m_vecMins + origin;
+	m_bIsInitialized = true;
 	return TRUE;
 }
 
-BoundingBox::BoundingBox(C_CSPlayerPawn* player) {
-	Initialize(player);
+BoundingBox::BoundingBox(C_CSPlayerPawn* pawn) {
+	Initialize(pawn);
 }
 
 bool BoundingBox::TransformCoordinates() {
-	points[TOP_LEFT].y = points[TOP_LEFT].x = FLT_MAX;
-	points[BOTTOM_RIGHT].y = points[BOTTOM_RIGHT].x = -FLT_MAX;
+	m_Points[TOP_LEFT].y = m_Points[TOP_LEFT].x = FLT_MAX;
+	m_Points[BOTTOM_RIGHT].y = m_Points[BOTTOM_RIGHT].x = -FLT_MAX;
 
 	for (size_t i = 0; i < 8; ++i) {
-		vector_3d point(i & 1 ? max.x : this->min.x, i & 2 ? max.y : min.y, i & 4 ? max.z : min.z);
+		Vector3D point(i & 1 ? m_vMax.x : this->m_vMin.x, i & 2 ? m_vMax.y : m_vMin.y, i & 4 ? m_vMax.z : m_vMin.z);
 
-		vector_2d screen_pos;
+		Vector2D screen_pos;
 		if (!math::WorldToScreen(point, screen_pos))
 			return 0;
 
-		points[TOP_LEFT] = vector_2d(std::min(points[TOP_LEFT].x, screen_pos.x), std::min(points[TOP_LEFT].y, screen_pos.y));
-		points[BOTTOM_RIGHT] = vector_2d(std::max(points[BOTTOM_RIGHT].x, screen_pos.x), std::max(points[BOTTOM_RIGHT].y, screen_pos.y));
+		m_Points[TOP_LEFT] = Vector2D(std::min(m_Points[TOP_LEFT].x, screen_pos.x), std::min(m_Points[TOP_LEFT].y, screen_pos.y));
+		m_Points[BOTTOM_RIGHT] = Vector2D(std::max(m_Points[BOTTOM_RIGHT].x, screen_pos.x), std::max(m_Points[BOTTOM_RIGHT].y, screen_pos.y));
 	}
 
-	points[TOP_MIDDLE] = points[TOP_LEFT] + vector_2d((points[BOTTOM_RIGHT].x - points[TOP_LEFT].x) * 0.5f, 0.0f);
-	points[BOTTOM_MIDDLE] = vector_2d(points[TOP_MIDDLE].x, points[TOP_MIDDLE].y + points[BOTTOM_RIGHT].y - points[TOP_LEFT].y);
+	m_Points[TOP_MIDDLE] = m_Points[TOP_LEFT] + Vector2D((m_Points[BOTTOM_RIGHT].x - m_Points[TOP_LEFT].x) * 0.5f, 0.0f);
+	m_Points[BOTTOM_MIDDLE] = Vector2D(m_Points[TOP_MIDDLE].x, m_Points[TOP_MIDDLE].y + m_Points[BOTTOM_RIGHT].y - m_Points[TOP_LEFT].y);
 
 	return TRUE;
 }
