@@ -5,6 +5,7 @@
 #define RESOLVE_RIP_EX(type, addr, offset, size) reinterpret_cast<type*>(addr + *((int32_t*)(addr + offset)) + size)
 #define RESOLVE_RIP(type, addr) RESOLVE_RIP_EX(type, addr, 3, 7)
 #define RESOLVE_RELATIVE(type, addr) *reinterpret_cast<type**>(RESOLVE_RIP(type, addr))
+#define RESOLVE_RELATIVE_EX(type, addr, offset, size) *reinterpret_cast<type**>(RESOLVE_RIP_EX(type, addr, offset, size))
 
 #define THIS_ADDR reinterpret_cast<uintptr_t>(this)
 
@@ -206,6 +207,12 @@ namespace offsets {
 		namespace ConVarRef {
 			CONST_OFFSET m_ConVarAccessIndex				= 0x0;
 			CONST_OFFSET m_ConVarRegisteredIndex			= 0x4;
+		}
+	}
+
+	namespace rendersystemdx11 {
+		namespace CSwapChainDx11 {
+			CONST_OFFSET m_pDXGISwapChain					= 0x170;
 		}
 	}
 }

@@ -53,11 +53,11 @@ THE SOFTWARE.
 */
 
 #include <stdexcept>
-#include <exception>
 
 #include "hooks/hooks.hpp"
 
 #include "sdk/sdk.hpp"
+#include "sdk/modules.hpp"
 
 #include "menu/menu.hpp"
 
@@ -65,6 +65,33 @@ THE SOFTWARE.
 #include "utils/debug.hpp"
 
 bool g_Unload = FALSE;
+
+DWORD WINAPI OnDllAttach(LPVOID lpParam) {
+#ifdef _DEBUG
+    utils::AttachConsole();
+#endif
+
+    try {
+        interfaces::Initialize();
+        hooks::Initialize();
+
+		while (!g_Unload) {
+            if (GetAsyncKeyState(VK_DELETE) & 0x8000)
+                g_Unload = true;
+
+			Sleep(100);
+        }
+
+        FreeLibraryAndExitThread(static_cast<HMODULE>(lpParam), 1);
+    }
+    catch (const std::exception& e) {
+		lg::Error("", "An error occured during initialization: %s\n", e.what());
+
+        FreeLibraryAndExitThread(static_cast<HMODULE>(lpParam), 1);
+    }
+
+    return TRUE;
+}
 
 BOOL WINAPI OnDllDetach() {
     hooks::Shutdown();
@@ -76,36 +103,6 @@ BOOL WINAPI OnDllDetach() {
     return TRUE;
 }
 
-DWORD WINAPI OnDllAttach(LPVOID lpParam) {
-#ifdef _DEBUG
-    utils::AttachConsole();
-#endif
-
-    try {
-        interfaces::Initialize();
-
-        if (!hooks::Initialize())
-            throw std::runtime_error("failed to initialize hooks");
-
-		while (!g_Unload) {
-            if (GetAsyncKeyState(VK_DELETE) & 0x8000)
-                g_Unload = TRUE;
-
-			Sleep(100);
-        }
-    }
-    catch (const std::exception& e) {
-        LOG("An error occured during initialization: %s\n", e.what());
-        OnDllDetach();
-
-        FreeLibraryAndExitThread(static_cast<HMODULE>(lpParam), 1);
-    }
-
-    OnDllDetach();
-    FreeLibraryAndExitThread((HMODULE)lpParam, 0);
-
-    return TRUE;
-}
 
 BOOL APIENTRY DllMain(
     HMODULE hModule,
@@ -116,7 +113,11 @@ BOOL APIENTRY DllMain(
     switch(ul_reason_for_call) {
         case DLL_PROCESS_ATTACH:
             DisableThreadLibraryCalls(hModule);
-            CreateThread(nullptr, 0, OnDllAttach, hModule, 0, 0);
+            CreateThread(nullptr, 0, OnDllAttach, hModule, 0, nullptr);
+            return TRUE;
+        case DLL_PROCESS_DETACH:
+            if (lpReserved == nullptr)
+                return OnDllDetach();
             return TRUE;
         default:
             return TRUE;

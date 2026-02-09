@@ -108,13 +108,16 @@
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;DLL3_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS;NOMINMAX</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <ConformanceMode>false</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>C:\Users\Administrator\source\repos\Shade\Shade\minhook;C:\Program Files\Microsoft Research\Detours\include;C:\Users\Administrator\source\repos\Shade\Shade\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)\minhook;$(ProjectDir)\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp23</LanguageStandard>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <BuildStlModules>false</BuildStlModules>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <AdditionalOptions>/Zc:twoPhase %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -146,11 +149,14 @@
     <ClInclude Include="features\esp.hpp" />
     <ClInclude Include="features\utils\bounding_box.hpp" />
     <ClInclude Include="hooks\entity_system.hpp" />
+    <ClInclude Include="hooks\idxgiswapchain.hpp" />
+    <ClInclude Include="hooks\ihook.hpp" />
     <ClInclude Include="hooks\source2client.hpp" />
     <ClInclude Include="hooks\game_overlay.hpp" />
     <ClInclude Include="hooks\glow.hpp" />
     <ClInclude Include="hooks\hooks.hpp" />
     <ClInclude Include="hooks\view_render.hpp" />
+    <ClInclude Include="hooks\wndproc.hpp" />
     <ClInclude Include="math\world_to_screen.hpp" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
@@ -172,6 +178,7 @@
     <ClInclude Include="minhook\trampoline.h" />
     <ClInclude Include="render\render.hpp" />
     <ClInclude Include="render\utils\gui.hpp" />
+    <ClInclude Include="sdk\data\CSwapChainDx11.hpp" />
     <ClInclude Include="sdk\data\SchemaClassInfoData_t.hpp" />
     <ClInclude Include="sdk\data\SchemaMetaInfoHandle_t.hpp" />
     <ClInclude Include="sdk\entities\CConcreteEntityList.hpp" />
@@ -192,6 +199,7 @@
     <ClInclude Include="sdk\interfaces\CShemaSystem.hpp" />
     <ClInclude Include="sdk\interfaces\CViewRender.hpp" />
     <ClInclude Include="sdk\interfaces\ICVar.hpp" />
+    <ClInclude Include="sdk\interfaces\IEngineServiceMgr.hpp" />
     <ClInclude Include="sdk\interfaces\IGameResourceService.hpp" />
     <ClInclude Include="sdk\interfaces\ISource2Client.hpp" />
     <ClInclude Include="sdk\interfaces\IVEngineClient.hpp" />
@@ -208,6 +216,7 @@
     <ClInclude Include="sdk\services\CCSWeaponBaseVData.hpp" />
     <ClInclude Include="sdk\services\CGameSceneNode.hpp" />
     <ClInclude Include="sdk\services\CGlobalVarsBase.hpp" />
+    <ClInclude Include="sdk\services\CGlowObject.hpp" />
     <ClInclude Include="sdk\services\CGlowProperty.hpp" />
     <ClInclude Include="sdk\services\CModelState.hpp" />
     <ClInclude Include="sdk\services\CNetworkClientService.hpp" />
@@ -235,6 +244,8 @@
     <ClCompile Include="features\esp.cpp" />
     <ClCompile Include="features\utils\bounding_box.cpp" />
     <ClCompile Include="hooks\entity_system.cpp" />
+    <ClCompile Include="hooks\idxgiswapchain.cpp" />
+    <ClCompile Include="hooks\ihook.cpp" />
     <ClCompile Include="hooks\source2client.cpp" />
     <ClCompile Include="hooks\game_overlay.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
@@ -243,6 +254,7 @@
     <ClCompile Include="hooks\glow.cpp" />
     <ClCompile Include="hooks\hooks.cpp" />
     <ClCompile Include="hooks\view_render.cpp" />
+    <ClCompile Include="hooks\wndproc.cpp" />
     <ClCompile Include="imgui\imgui.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>

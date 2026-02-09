@@ -43,12 +43,12 @@ namespace CInterfaceSystem {
 		{
 			if (!strcmp(it->name, interface_name.data()))
 			{
-				LOG("[+] Successfully found %s at %p\n", interface_name.data(), it->callback());
+				lg::Success("[+]", "Successfully found %s at %p\n", interface_name.data(), it->callback());
 				return reinterpret_cast<T*>(it->callback());
 			}
 		}
 
-		LOG("[-] Failed to initialize %s in %s\n", interface_name.data(), module_name.data());
+		lg::Error("", "Failed to initialize %s in %s\n", interface_name.data(), module_name.data());
 		return nullptr;
 	}
 }

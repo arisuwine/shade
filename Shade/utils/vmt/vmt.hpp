@@ -68,6 +68,9 @@ namespace vmt {
 		template <typename T>
 		T			Hook(size_t index, void* hook_func);
 
+		template <typename T>
+		T			Get(size_t index) const;
+
 		bool		UnHook(size_t index);
 		bool		UnHookAll();
 		bool		Shutdown();
@@ -79,7 +82,7 @@ namespace vmt {
 template <typename T>
 T vmt::Shadowing::Hook(size_t index, void* hook_func) {
 	if (!hook_func) {
-		LOG("[VMT SHADOWING] Hook Function is invalid: %p\n", hook_func);
+		lg::Warn("[VMT]", "Hook failed: Hook function pointer is null.\n");
 		return nullptr;
 	}
 
@@ -87,7 +90,7 @@ T vmt::Shadowing::Hook(size_t index, void* hook_func) {
 		return nullptr;
 
 	if (index >= m_iVftSize) {
-		LOG("[VMT SHADOWING] Index is greater than VTable Size. Max Size: %zu, Current Index: %zu\n", m_iVftSize, index);
+		lg::Warn("[VMT]", "Hook failed: Index %zu out of bounds (Size: %zu)\n", index, m_iVftSize);
 		return nullptr;
 	}
 
@@ -97,4 +100,14 @@ T vmt::Shadowing::Hook(size_t index, void* hook_func) {
 	m_pUserVft[index] = reinterpret_cast<uintptr_t>(hook_func);
 
 	return reinterpret_cast<T>(m_OriginalFuncs[index]);
+}
+
+template <typename T>
+T vmt::Shadowing::Get(size_t index) const {
+	if (!m_bIsInit)
+		return nullptr;
+
+	auto it = m_OriginalFuncs.find(index);
+	if (it != m_OriginalFuncs.end())
+		return reinterpret_cast<T>(it->second);
 }

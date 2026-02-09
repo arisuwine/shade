@@ -1,9 +1,12 @@
 #pragma once
 #include "../utils/pattern_scan/pattern_scan.hpp"
+#include "../utils/singleton.hpp"
+
+#include "../utils/debug.hpp"
 
 namespace modules {
-	inline PatternScan overlay_renderer			= GetModuleHandleA("GameOverlayRenderer64.dll");
-	inline PatternScan client					= GetModuleHandleA("client.dll");
-	inline PatternScan engine2					= GetModuleHandleA("engine2.dll");
-	inline PatternScan schemasystem				= GetModuleHandleA("schemasystem.dll");
+	inline PatternScan overlay_renderer = { "GameOverlayRenderer64.dll" };
+	inline PatternScan client = { "client.dll" };
+	inline PatternScan engine2 = { "engine2.dll" };
+	inline PatternScan schemasystem = { "schemasystem.dll" };
 }

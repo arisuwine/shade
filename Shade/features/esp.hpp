@@ -1,8 +1,5 @@
 #pragma once
 #include <vector>
-#include <string>
-#include <mutex>
-#include <unordered_map>
 
 #include "utils/bounding_box.hpp"
 
@@ -21,7 +18,7 @@ private:
 	C_CSPlayerPawn*			m_pPawn;
 	BoundingBox	m_bbox;
 
-	static inline std::vector<std::vector<bone_index>> m_Bones = {
+	static inline std::vector<std::vector<BoneIndex>> m_Bones = {
 		{ Pelvis, Spine_1, Spine_2, Spine_3, Neck_0, Head },
 		{ Neck_0, Arm_Upper_L, Arm_Lower_L, Hand_L },
 		{ Neck_0, Arm_Upper_R, Arm_Lower_R, Hand_R },

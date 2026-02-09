@@ -11,6 +11,7 @@
 #include "interfaces/CViewRender.hpp"
 #include "interfaces/ISource2Client.hpp"
 #include "interfaces/IGameResourceService.hpp"
+#include "interfaces/IEngineServiceMgr.hpp"
 
 #include "services/CGlobalVarsBase.hpp"
 #include "services/CNetworkClientService.hpp"
@@ -20,6 +21,7 @@ namespace interfaces {
 }
 
 // D3D11
+inline IDXGISwapChain*			g_SwapChain				= nullptr;
 inline ID3D11Device*			g_Device				= nullptr;
 inline ID3D11DeviceContext*		g_DeviceContext			= nullptr;
 inline ID3D11RenderTargetView*	g_TargetView			= nullptr;
@@ -36,3 +38,4 @@ inline ICVar*					g_CVar					= nullptr;
 inline CViewRender*				g_CViewRender			= nullptr;
 inline ISource2Client*			g_Source2Client			= nullptr;
 inline IGameResourceService*	g_GameResourceService	= nullptr;
+inline IEngineServiceMgr*		g_EngineServiceMgr		= nullptr;

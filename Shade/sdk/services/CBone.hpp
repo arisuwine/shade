@@ -5,7 +5,7 @@
 
 class C_CSPlayerPawn;
 
-enum bone_index : DWORD {
+enum BoneIndex : DWORD {
     Pelvis = 0,
     Spine_1 = 2,
     Spine_2 = 3,
@@ -32,5 +32,5 @@ enum bone_index : DWORD {
 
 class CBone {
 public:
-    static Vector3D GetBonePosition(C_CSPlayerPawn* m_pPawn, bone_index index);
+    static Vector3D GetBonePosition(C_CSPlayerPawn* m_pPawn, BoneIndex index);
 };

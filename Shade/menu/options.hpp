@@ -26,7 +26,7 @@ public:
 	operator T() const { return *value; }
 };
 
-class options {
+class COptions {
 public:
 	// ESP
 	OPTION(bool, esp_enabled,				true);
@@ -52,8 +52,6 @@ public:
 	OPTION(float, misc_aspect_ratio,		100.0f);
 	OPTION(float, misc_viewmodel_fov,		68.0f);
 	OPTION(float, misc_fov,					80.0f);
-
-
 };
 
-inline options g_Options;
+inline std::unique_ptr<COptions> g_Options = std::make_unique<COptions>();

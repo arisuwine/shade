@@ -104,44 +104,44 @@ void Menu::Render() {
         }
 
         if (ImGui::BeginTabItem("Visuals")) {
-            ImGui::Checkbox("Enable", g_Options.esp_enabled);
-            ImGui::Checkbox("Enemies Only", g_Options.esp_enemies_only);
+            ImGui::Checkbox("Enable", g_Options->esp_enabled);
+            ImGui::Checkbox("Enemies Only", g_Options->esp_enemies_only);
 
-            ImGui::Checkbox("Bounding Boxes", g_Options.esp_bounding_boxes);
+            ImGui::Checkbox("Bounding Boxes", g_Options->esp_bounding_boxes);
             ImGui::SameLine();
-            ImGuiEx::ColorEdit3("Bounding Boxes", g_Options.col_esp_bounding_boxes);
+            ImGuiEx::ColorEdit3("Bounding Boxes", g_Options->col_esp_bounding_boxes);
 
-            ImGui::Checkbox("Player Names", g_Options.esp_player_names);
+            ImGui::Checkbox("Player Names", g_Options->esp_player_names);
 
-            ImGui::Checkbox("Health", g_Options.esp_player_health);
+            ImGui::Checkbox("Health", g_Options->esp_player_health);
 
-            ImGui::Checkbox("Skeleton", g_Options.esp_player_skeleton);
+            ImGui::Checkbox("Skeleton", g_Options->esp_player_skeleton);
             ImGui::SameLine();
-            ImGuiEx::ColorEdit3("Skeleton", g_Options.col_esp_player_skeleton);
+            ImGuiEx::ColorEdit3("Skeleton", g_Options->col_esp_player_skeleton);
 
-            ImGui::Checkbox("Ammo", g_Options.esp_weapon_ammo);
+            ImGui::Checkbox("Ammo", g_Options->esp_weapon_ammo);
             ImGui::SameLine();
-            ImGuiEx::ColorEdit3("Ammo", g_Options.col_esp_weapon_ammo);
+            ImGuiEx::ColorEdit3("Ammo", g_Options->col_esp_weapon_ammo);
 
-            ImGui::Checkbox("Glow", g_Options.esp_glow);
+            ImGui::Checkbox("Glow", g_Options->esp_glow);
             ImGui::SameLine();
-            ImGuiEx::ColorEdit3("Glow", g_Options.col_esp_glow);
+            ImGuiEx::ColorEdit3("Glow", g_Options->col_esp_glow);
 
-            ImGui::Checkbox("Dropped Weapon", g_Options.esp_dropped_items);
+            ImGui::Checkbox("Dropped Weapon", g_Options->esp_dropped_items);
             ImGui::SameLine();
-            ImGuiEx::ColorEdit3("Dropped Weapon", g_Options.col_esp_dropped_items);
+            ImGuiEx::ColorEdit3("Dropped Weapon", g_Options->col_esp_dropped_items);
 
-            ImGui::Checkbox("Attachments", g_Options.esp_attachments);
-            ImGui::Checkbox("Projectiles", g_Options.esp_projectiles);
+            ImGui::Checkbox("Attachments", g_Options->esp_attachments);
+            ImGui::Checkbox("Projectiles", g_Options->esp_projectiles);
 
             ImGui::EndTabItem();
         }
 
         if (ImGui::BeginTabItem("Misc")) {
-            ImGui::DragFloat("Aspect Ratio", g_Options.misc_aspect_ratio, 1.0f, 1.0f, 200.0f);
+            ImGui::DragFloat("Aspect Ratio", g_Options->misc_aspect_ratio, 1.0f, 1.0f, 200.0f);
 
-            ImGui::DragFloat("View Model FOV", g_Options.misc_viewmodel_fov, 1.0f, 38.0f, 120.0f);
-            ImGui::DragFloat("FOV", g_Options.misc_fov, 1.0f, 58.0f, 150.0f);
+            ImGui::DragFloat("View Model FOV", g_Options->misc_viewmodel_fov, 1.0f, 38.0f, 120.0f);
+            ImGui::DragFloat("FOV", g_Options->misc_fov, 1.0f, 58.0f, 150.0f);
 
             ImGui::EndTabItem();
         }
