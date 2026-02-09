@@ -1,54 +1,37 @@
-#pragma once
-#include "../sdk/modules.hpp"
-#include "../sdk/signatures.hpp"
-
-#include "../sdk/math/QAngle.hpp"
+﻿#pragma once
+#include "ihook.hpp"
 
 class CViewRender;
 
-static struct CViewSetupCache {
-    float m_flFov;
-    float m_flFovViewModel;
-    QAngle m_angView;
-    float m_flAspectRatio;
-    BYTE m_nSomeFlags;
-};
-
-class ViewRenderHook {
+class CViewRenderHook {
 private:
-
-    using OnRenderStart = void*(__fastcall*)(CViewRender*);
-
-    static inline uintptr_t pOnRenderStart = modules::client.Find(ON_RENDER_START);
+    using OnRenderStartFunc = void*(__fastcall*)(CViewRender*);
+    static inline OnRenderStartFunc m_pOnRenderStartOrig;
 
     static void* __fastcall hkOnRenderStart(CViewRender* pViewRender);
 
-    static inline OnRenderStart OnRenderStartOrig;
-
-    static bool m_bIsInit;
-
 public:
-    static bool Initialize();
-    static bool Shutdown();
-
-    inline bool IsInitialized() { return m_bIsInit; }
+    static void Register();
 };
 
-class OverrideViewModelHook {
+class COverrideFovHook {
 private:
-    using CalcViewModel = void* (__fastcall*)(__int64, float*, float*);
+    using OverrideFovFunc = float (*__fastcall)(__int64, __int64);
+    static inline OverrideFovFunc m_pOverrideFovOrig;
 
-    static inline uintptr_t pCalcViewModel = modules::client.Find(CALC_VIEWMODEL);
-
-    static void* __fastcall hkCalcViewModel(__int64 unk, float* offsets, float* fov);
-
-    static inline CalcViewModel CalcViewModelOrig;
-
-    static bool m_bIsInit;
+    static float __fastcall hkOverrideFov(__int64 a1, __int64 a2);
 
 public:
-    static bool Initialize();
-    static bool Shutdown();
+    static void Register();
+};
 
-    inline bool IsInitialized() { return m_bIsInit; }
+class CSetupViewModelHook {
+private:
+    using SetupViewModelFunc = void* (__fastcall*)(__int64, float*, float*);
+    static inline SetupViewModelFunc m_pSetupViewModelOrig;
+
+    static void* __fastcall hkSetupViewModel(__int64 unk, float* offsets, float* fov);
+
+public:
+    static void Register();
 };

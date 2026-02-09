@@ -2,7 +2,7 @@
 
 vmt::Shadowing::Shadowing(void* object) : m_pObject(nullptr), m_pVftOrig(nullptr), m_pUserVft(nullptr), m_iVftSize(0), m_bIsInit(FALSE) {
 	if (!object) {
-		LOG("[VMT SHADOWING] Object Pointer is nullptr.\n");
+		lg::Warn("[VMT]", "Target object is nullptr\n");
 		return;
 	}
 	
@@ -11,7 +11,7 @@ vmt::Shadowing::Shadowing(void* object) : m_pObject(nullptr), m_pVftOrig(nullptr
 
 	m_iVftSize = GetFunctionCount();
 	if (m_iVftSize == 0) {
-		LOG("[VMT SHADOWING] Failed to calculate VTable size of size os 0: %p.\n", m_pVftOrig);
+		lg::Warn("[VMT]", "Failed to calculate VTable size (count is 0) at address: 0x%p.\n", m_pVftOrig);
 		return;
 	}
 
@@ -21,7 +21,7 @@ vmt::Shadowing::Shadowing(void* object) : m_pObject(nullptr), m_pVftOrig(nullptr
 	m_pUserVft = m_pShadowAlloc + 1;
 	*reinterpret_cast<void**>(object) = m_pUserVft;
 
-	m_bIsInit = TRUE;
+	m_bIsInit = true;
 }
 
 size_t vmt::Shadowing::GetFunctionCount() {
@@ -55,23 +55,24 @@ bool vmt::Shadowing::UnHook(size_t index) {
 		return FALSE;
 
 	if (index >= m_iVftSize) {
-		LOG("[VMT SHADOWING] Unable to unhook. Index is greater than Virtual Function Table Size. Max Size: %zu\n", m_iVftSize);
-		return FALSE;
+		lg::Warn("[VMT]", "Unhook failed: Index out of bounds (Max: %zu)\n", m_iVftSize);
+		return false;
 	}
 
+
 	if (m_OriginalFuncs.find(index) == m_OriginalFuncs.end()) {
-		LOG("[VMT SHADOWING] Unable to find original function.\n");
-		return FALSE;
+		lg::Warn("[VMT]", "Unhook failed: No original function found for this index.\n");
+		return false;
 	}
 	
 	m_pUserVft[index] = m_OriginalFuncs[index];
 	m_OriginalFuncs.erase(index);
-	return TRUE;
+	return false;
 }
 
 bool vmt::Shadowing::UnHookAll() {
 	if (!m_bIsInit)
-		return FALSE;
+		return false;
 
 	for (auto& [index, func] : m_OriginalFuncs)
 		m_pUserVft[index] = func;
@@ -82,8 +83,8 @@ bool vmt::Shadowing::UnHookAll() {
 
 bool vmt::Shadowing::Shutdown() {
 	if (!m_bIsInit) {
-		LOG("[VMT SHADOWING] VMT is not hooked.\n");
-		return TRUE;
+		lg::Info("[VMT]", "Shadowing not initialized.\n");
+		return true;
 	}
 	
 	*reinterpret_cast<uintptr_t**>(m_pObject) = m_pVftOrig;
@@ -96,8 +97,8 @@ bool vmt::Shadowing::Shutdown() {
 	m_pUserVft = nullptr;
 
 	m_OriginalFuncs.clear();
-	m_bIsInit = FALSE;
-	return TRUE;
+	m_bIsInit = false;
+	return true;
 }
 
 vmt::Shadowing::~Shadowing() {

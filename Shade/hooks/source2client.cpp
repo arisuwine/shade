@@ -1,44 +1,21 @@
 #include "source2client.hpp"
 
-#include "minhook.h"
+#include <stdexcept>
 
-#include "../utils/debug.hpp"
-
-#include "../render/render.hpp"
-
-#include "../features/esp.hpp"
+#include "hooks.hpp"
 
 #include "../sdk/sdk.hpp"
 
-vmt::Shadowing* ISource2ClientHook::m_Shadowing = nullptr;
-bool			ISource2ClientHook::m_bIsInit	= FALSE;
+void CISource2ClientHook::Register() {
+	std::unique_ptr<CVMTHook> hook = std::make_unique<CVMTHook>("CISource2ClientHook", g_Source2Client);
 
-bool ISource2ClientHook::Initialize() {
-	if (m_bIsInit)
-		return TRUE;
+	m_pFrameStageNotifyOrig = hook->Enable<FrameStageNotifyFunc>(36, hkFrameStageNotify);
+	if (!m_pFrameStageNotifyOrig)
+		throw std::runtime_error("failed to enable FrameStageNotify hook");
 
-	m_Shadowing = new vmt::Shadowing(g_Source2Client);
-	if (!m_Shadowing->IsInitialized())
-		LOG_AND_RETURN("[-] vmt Shadowing has failed at ISource2ClientHook.\n");
-
-	FrameStageNotifyOrig = m_Shadowing->Hook<FrameStageNotifyFunc>(36, hkFrameStageNotify);
-	if (!FrameStageNotifyOrig)
-		LOG_AND_RETURN("[-] vmt Hooking has failed at ISource2ClientHook.\n");
-
-	m_bIsInit = TRUE;
-	return TRUE;
+	hooks::g_pHooks.push_back(std::move(hook));
 }
 
-bool ISource2ClientHook::Shutdown() {
-	if (!m_bIsInit)
-		return TRUE;
-
-	m_Shadowing->Shutdown();
-
-	m_bIsInit = FALSE;
-	return TRUE;
-}
-
-void __fastcall ISource2ClientHook::hkFrameStageNotify(ISource2Client* client, ClientFrameStage_t curStage) {
-	FrameStageNotifyOrig(client, curStage);
+void __fastcall CISource2ClientHook::hkFrameStageNotify(ISource2Client* client, ClientFrameStage_t curStage) {
+	m_pFrameStageNotifyOrig(client, curStage);
 }

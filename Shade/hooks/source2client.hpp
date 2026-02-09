@@ -1,8 +1,5 @@
 #pragma once
-#include "../sdk/modules.hpp"
-#include "../sdk/signatures.hpp"
-
-#include "../utils/vmt/vmt.hpp"
+#include "ihook.hpp"
 
 class CGlowProperty;
 class ISource2Client;
@@ -20,21 +17,14 @@ enum ClientFrameStage_t : int
 	FRAME_SIMULATE_END
 };
 
-class ISource2ClientHook {
+class CISource2ClientHook {
 private:
 	using FrameStageNotifyFunc = void(__fastcall*)(ISource2Client*, ClientFrameStage_t);
+	static inline FrameStageNotifyFunc m_pFrameStageNotifyOrig;
 
-	static vmt::Shadowing* m_Shadowing;
-
-	static inline FrameStageNotifyFunc FrameStageNotifyOrig;
 	static void __fastcall hkFrameStageNotify(ISource2Client* client, ClientFrameStage_t curStage);
 
-	static bool m_bIsInit;
-
 public:
-	static bool Initialize();
-	static bool Shutdown();
-
-	inline bool IsInitialized() { return m_bIsInit; }
+	static void Register();
 };
 

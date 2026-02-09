@@ -41,7 +41,7 @@ int main()
 
     std::cout << "[+] Found target process." << std::endl;
 
-    const wchar_t* sDllPath = L"C:\\Users\\Administrator\\source\\repos\\Shade\\x64\\Debug\\Shade.dll";
+    const wchar_t* sDllPath = L"C:\\Users\\Wine\\source\\repos\\shade\\x64\\Debug\\Shade.dll";
     size_t nPathLength = (wcslen(sDllPath) + 1) * sizeof(wchar_t);
 
     void* pRemoteMemory = VirtualAllocEx(

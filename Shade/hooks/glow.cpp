@@ -1,86 +1,58 @@
 #include "glow.hpp"
 
-#include "minhook.h"
+#include "hooks.hpp"
 
-#include "entity_system.hpp"
+#include "../sdk/modules.hpp"
+#include "../sdk/signatures.hpp"
 
 #include "../sdk/entities/C_CSPlayerPawn.hpp"
 
 #include "../sdk/services/CGlowProperty.hpp"
+#include "../sdk/services/CGlowObject.hpp"
 
 #include "../sdk/utils/color.hpp"
 
 #include "../menu/options.hpp"
 
-#include "../utils/debug.hpp"
-
-bool GlowHook::m_bIsInit = false;
-
-bool GlowHook::Initialize() {
-	if (m_bIsInit)
-		return TRUE;
-
-	if (MH_CreateHook((LPVOID)pApplyGlow, &hkApplyGlow, reinterpret_cast<void**>(&ApplyGlowOrig)) != MH_OK)
-		LOG_AND_RETURN("[-] hkApplyGlow hook creation has failed.\n");
-
-	if (MH_CreateHook((LPVOID)pIsGlowing, &hkIsGlowing, reinterpret_cast<void**>(&IsGlowingOrig)) != MH_OK)
-		LOG_AND_RETURN("[-] hkIsGlowing hook creation has failed.\n");
-
-	if (MH_EnableHook((LPVOID)pApplyGlow) != MH_OK)
-		LOG_AND_RETURN("[-] pApplyGlow hook enabling has failed.\n");
-
-	if (MH_EnableHook((LPVOID)pIsGlowing) != MH_OK)
-		LOG_AND_RETURN("[-] pIsGlowing hook enabling has failed.\n");
-
-	m_bIsInit = TRUE;
-	return TRUE;
+void CIsGlowingHook::Register() {
+	hooks::AddDetour<IsGlowingFunc>("CIsGlowingHook", RESOLVE_RIP_EX(void, modules::client.Find(IS_GLOWING), 1, 5), hkIsGlowing, &m_pIsGlowingOrig);
 }
 
-bool GlowHook::Shutdown() {
-	if (!m_bIsInit)
-		return TRUE;
-
-	if (MH_DisableHook((LPVOID)pApplyGlow) != MH_OK)
-		LOG_AND_RETURN("[-] pApplyGlow hook disabling has failed.\n");
-
-	if (MH_DisableHook((LPVOID)pIsGlowing) != MH_OK)
-		LOG_AND_RETURN("[-] pIsGlowing hook disabling has failed.\n");
-
-	m_bIsInit = FALSE;
-	return TRUE;
+void CApplyGlowHook::Register() {
+	hooks::AddDetour<ApplyGlowFunc>("CApplyGlowHook", RESOLVE_RIP_EX(void, modules::client.Find(APPLY_GLOW), 1, 5), hkApplyGlow, &m_pApplyGlowOrig);
 }
 
-bool __fastcall GlowHook::hkIsGlowing(CGlowProperty* property) {
+bool __fastcall CIsGlowingHook::hkIsGlowing(CGlowProperty* property) {
 	if (!(g_CNetworkClientService->m_pCNetworkGameClient->IsInGame()))
-		return IsGlowingOrig(property);
+		return m_pIsGlowingOrig(property);
 
 	C_BaseEntity* entity = property->m_pParent;
-	if (entity == nullptr)
-		return IsGlowingOrig(property);
+	if (!entity)
+		return m_pIsGlowingOrig(property);
 
 	if (entity->IsWeapon() && !entity->m_hOwnerEntity.IsValid())
 		return true;
 
 	if (entity->Schema_DynamicBinding() != g_CSchemaSystem->FindClassByScopedName("client.dll!C_CSPlayerPawn"))
-		return IsGlowingOrig(property);
+		return m_pIsGlowingOrig(property);
 
 	return true;
 }
 
-void __fastcall GlowHook::hkApplyGlow(CGlowProperty* property, CGlowObject* object) {
-	ApplyGlowOrig(property, object);
+void __fastcall CApplyGlowHook::hkApplyGlow(CGlowProperty* property, CGlowObject* object) {
+	m_pApplyGlowOrig(property, object);
 
 	if (!g_CNetworkClientService->m_pCNetworkGameClient->IsInGame())
 		return;
 
-	if (!g_Options.esp_enabled || !g_Options.esp_glow)
+	if (!g_Options->esp_enabled || !g_Options->esp_glow)
 		return;
 
 	C_BaseEntity* entity = property->m_pParent;
 	if (!entity)
 		return;
 
-	Color& color = (*g_Options.col_esp_glow);
+	Color& color = (*g_Options->col_esp_glow);
 	if (entity->IsWeapon() && !entity->m_hOwnerEntity.IsValid()) {
 		object->SetColor(color.r(), color.g(), color.b(), color.a() / 100.0f);
 		return;
@@ -97,7 +69,7 @@ void __fastcall GlowHook::hkApplyGlow(CGlowProperty* property, CGlowObject* obje
 	if (entity == local_player)
 		return;
 
-	if (g_Options.esp_enemies_only && (local_player->m_iTeamNum == entity->m_iTeamNum))
+	if (g_Options->esp_enemies_only && (local_player->m_iTeamNum == entity->m_iTeamNum))
 		return;
 
 	object->SetColor(color.r(), color.g(), color.b(), color.a() / 100.0f);

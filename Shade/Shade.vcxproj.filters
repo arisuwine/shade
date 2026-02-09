@@ -91,6 +91,12 @@
     <Filter Include="hooks\source2client">
       <UniqueIdentifier>{f089cb17-64e3-4da5-94f5-9a9b311298fd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="hooks\idxgiswapchain">
+      <UniqueIdentifier>{55b8c4d0-77da-431c-ad19-221c91cdea90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hooks\wndproc">
+      <UniqueIdentifier>{1877bbe5-5346-47c1-aa08-7ed834a861a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -112,9 +118,6 @@
       <Filter>imgui</Filter>
     </ClInclude>
     <ClInclude Include="sdk\offsets.hpp">
-      <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\modules.hpp">
       <Filter>sdk</Filter>
     </ClInclude>
     <ClInclude Include="sdk\signatures.hpp">
@@ -342,6 +345,27 @@
     <ClInclude Include="sdk\math\matrix4x4.hpp">
       <Filter>sdk\math</Filter>
     </ClInclude>
+    <ClInclude Include="hooks\ihook.hpp">
+      <Filter>hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\services\CGlowObject.hpp">
+      <Filter>sdk\services</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\modules.hpp">
+      <Filter>sdk</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\IEngineServiceMgr.hpp">
+      <Filter>sdk\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\data\CSwapChainDx11.hpp">
+      <Filter>sdk\data</Filter>
+    </ClInclude>
+    <ClInclude Include="hooks\idxgiswapchain.hpp">
+      <Filter>hooks\idxgiswapchain</Filter>
+    </ClInclude>
+    <ClInclude Include="hooks\wndproc.hpp">
+      <Filter>hooks\wndproc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui\imgui.cpp">
@@ -437,6 +461,15 @@
     </ClCompile>
     <ClCompile Include="render\utils\gui.cpp">
       <Filter>render\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="hooks\ihook.cpp">
+      <Filter>hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="hooks\idxgiswapchain.cpp">
+      <Filter>hooks\idxgiswapchain</Filter>
+    </ClCompile>
+    <ClCompile Include="hooks\wndproc.cpp">
+      <Filter>hooks\wndproc</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,39 +1,26 @@
 #pragma once
-#include "../sdk/modules.hpp"
-#include "../sdk/signatures.hpp"
 
 class CGlowProperty;
+class CGlowObject;
 
-class CGlowObject {
+class CIsGlowingHook {
+private:
+	using IsGlowingFunc = bool(__fastcall*)(CGlowProperty*);
+	static inline IsGlowingFunc m_pIsGlowingOrig;
+
+	static bool __fastcall hkIsGlowing(CGlowProperty* property);
+
 public:
-	float red, green, blue, alpha;
-	void SetColor(int r, int g, int b, float a) {
-		red = r / 255.f;
-		green = g / 255.f;
-		blue = b / 255.f;
-		alpha = a;
-	}
+	static void Register();
 };
 
-class GlowHook {
+class CApplyGlowHook {
 private:
-	using ApplyGlow	= void (__fastcall*)(CGlowProperty*, CGlowObject*);
-	using IsGlowing = bool(__fastcall*)(CGlowProperty*);
+	using ApplyGlowFunc	= void (__fastcall*)(CGlowProperty*, CGlowObject*);
+	static inline ApplyGlowFunc m_pApplyGlowOrig;
 
-	static inline uintptr_t pApplyGlow	= modules::client.Find(APPLY_GLOW);
-	static inline uintptr_t pIsGlowing	= modules::client.Find(IS_GLOWING);
-
-	static inline ApplyGlow	ApplyGlowOrig;
-	static inline IsGlowing IsGlowingOrig;
-
-	static void __fastcall hkApplyGlow	(CGlowProperty* property, CGlowObject* object);
-	static bool __fastcall hkIsGlowing	(CGlowProperty*);
-
-	static bool m_bIsInit;
+	static void __fastcall hkApplyGlow(CGlowProperty* property, CGlowObject* object);
 
 public:
-	static bool Initialize();
-	static bool Shutdown();
-
-	inline bool IsInitialized() { return m_bIsInit; }
+	static void Register();
 };

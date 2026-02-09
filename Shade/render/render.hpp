@@ -3,7 +3,6 @@
 
 #include "../utils/singleton.hpp"
 
-
 class RenderTarget : public Singleton<RenderTarget> {
     friend class Singleton<RenderTarget>;
 

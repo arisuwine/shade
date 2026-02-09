@@ -5,7 +5,8 @@
 #include "../hooks/entity_system.hpp"
 
 #include "../menu/options.hpp"
-#include "../render/render.hpp"
+
+#include "../render/utils/gui.hpp"
 
 #include "../sdk/entities/C_CSPlayerPawn.hpp"
 #include "../sdk/entities/CCSPlayerController.hpp"
@@ -23,25 +24,25 @@
 #include "../utils/debug.hpp"
 
 void ESP::Initialize() {
-	if (g_Options.esp_player_skeleton)
+	if (g_Options->esp_player_skeleton)
 		RenderSkeleton();
 
 	if (!m_bbox.TransformCoordinates())
 		return;
 
-	if (g_Options.esp_bounding_boxes)
+	if (g_Options->esp_bounding_boxes)
 		RenderBoundingBox();
 
-	if (g_Options.esp_player_health)
+	if (g_Options->esp_player_health)
 		RenderHealth();
 
-	if (g_Options.esp_player_names)
+	if (g_Options->esp_player_names)
 		RenderName();
 
-	if (g_Options.esp_player_weapon)
+	if (g_Options->esp_player_weapon)
 		RenderWeapon();
 
-	if (g_Options.esp_weapon_ammo)
+	if (g_Options->esp_weapon_ammo)
 		RenderAmmo();
 }
 
@@ -60,7 +61,7 @@ void ESP::BeginRender() {
 		if (!m_pPawn || m_pPawn == LocalPlayer::Get().GetPawn())
 			continue;
 
-		if (g_Options.esp_enemies_only && (LocalPlayer::Get().GetPawn()->m_iTeamNum == m_pPawn->m_iTeamNum))
+		if (g_Options->esp_enemies_only && (LocalPlayer::Get().GetPawn()->m_iTeamNum == m_pPawn->m_iTeamNum))
 			continue;
 
 		if (!m_pPawn->IsAlive())
@@ -77,7 +78,7 @@ void ESP::BeginRender() {
 
 void ESP::RenderName() {
 	Vector2D pos = m_bbox.GetPoints()[BoundingBox::TOP_MIDDLE];
-	Render::Get().RenderText(ImVec2(pos.x, pos.y - 15.0f), Color(255, 255, 255, 255), Fonts::Get().Find("MuseoSans-500-12"), Render::Center, true, m_pController->m_sSanitizedPlayerName);
+	Render::RenderText(ImVec2(pos.x, pos.y - 15.0f), Color(255, 255, 255, 255), Fonts::Find("MuseoSans-500-12"), Render::Center, true, m_pController->m_sSanitizedPlayerName);
 } 
 
 void ESP::RenderBoundingBox() {
@@ -86,9 +87,9 @@ void ESP::RenderBoundingBox() {
 	ImVec2 start	= ImVec2(points[BoundingBox::TOP_LEFT].x,		points[BoundingBox::TOP_LEFT].y);
 	ImVec2 end		= ImVec2(points[BoundingBox::BOTTOM_RIGHT].x,	points[BoundingBox::BOTTOM_RIGHT].y);
 
-	Color& color	= *g_Options.col_esp_bounding_boxes;
+	Color& color	= *g_Options->col_esp_bounding_boxes;
 
-	Render::Get().RenderBox(start, end, color, true);
+	Render::RenderBox(start, end, color, true);
 }
 
 void ESP::RenderHealth() {
@@ -104,15 +105,15 @@ void ESP::RenderHealth() {
 	
 	Color health_color	= { 1.0f - (float)m_pPawn->m_iHealth / 100.0f, (float)m_pPawn->m_iHealth / 100.0f, 0.0f, 1.0f };
 
-	Render::Get().RenderFilledBox(start, end, {0, 0, 0, 255}, true);
-	Render::Get().RenderFilledBox(ImVec2(start.x, start.y + health_offset), end, health_color, false);
+	Render::RenderFilledBox(start, end, {0, 0, 0, 255}, true);
+	Render::RenderFilledBox(ImVec2(start.x, start.y + health_offset), end, health_color, false);
 
 	if (m_pPawn->m_iHealth < 93)
-		Render::Get().RenderText(ImVec2(start.x, start.y + health_offset - 5.0f), Color(255, 255, 255, 255), Fonts::Get().Find("MuseoSans-500-12"), Render::Center, true, std::to_string(m_pPawn->m_iHealth));
+		Render::RenderText(ImVec2(start.x, start.y + health_offset - 5.0f), Color(255, 255, 255, 255), Fonts::Find("MuseoSans-500-12"), Render::Center, true, std::to_string(m_pPawn->m_iHealth));
 }
 
 void ESP::RenderSkeleton() {
-	static std::vector<std::vector<bone_index>> bones = {
+	static std::vector<std::vector<BoneIndex>> bones = {
 		{ Pelvis, Spine_1, Spine_2, Spine_3, Neck_0, Head },
 		{ Neck_0, Arm_Upper_L, Arm_Lower_L, Hand_L },
 		{ Neck_0, Arm_Upper_R, Arm_Lower_R, Hand_R },
@@ -126,7 +127,7 @@ void ESP::RenderSkeleton() {
 	Vector2D line_start;
 	Vector2D line_end;
 	
-	Color& color = *g_Options.col_esp_player_skeleton;
+	Color& color = *g_Options->col_esp_player_skeleton;
 
 	for (const auto& group : bones) {
 		for (size_t i = 0; i < group.size() - 1; i++) {
@@ -137,7 +138,7 @@ void ESP::RenderSkeleton() {
 				return;
 
 			if (math::WorldToScreen(bone_start, line_start) && math::WorldToScreen(bone_end, line_end)) {
-				Render::Get().RenderLine(ImVec2(line_start.x, line_start.y), ImVec2(line_end.x, line_end.y), color, 0.8f);
+				Render::RenderLine(ImVec2(line_start.x, line_start.y), ImVec2(line_end.x, line_end.y), color, 0.8f);
 				continue;
 			}
 
@@ -173,7 +174,7 @@ void ESP::RenderWeapon() {
 	std::string_view weapon_name	= !weapon_data->m_szName ? "" : GetItemName(weapon_data->m_szName);
 	ImVec2 pos						= { m_bbox.GetPoints()[BoundingBox::BOTTOM_MIDDLE].x, m_bbox.GetPoints()[BoundingBox::BOTTOM_MIDDLE].y + 5.0f };
 
-	Render::Get().RenderText(ImVec2(pos.x, pos.y), { 255, 255, 255, 255 }, Fonts::Get().Find("MuseoSans-500-12"), Render::Center, true, weapon_name);
+	Render::RenderText(ImVec2(pos.x, pos.y), { 255, 255, 255, 255 }, Fonts::Find("MuseoSans-500-12"), Render::Center, true, weapon_name);
 }
 
 void ESP::RenderAmmo() {
@@ -199,13 +200,13 @@ void ESP::RenderAmmo() {
 	float width				= points[BoundingBox::BOTTOM_RIGHT].x - points[BoundingBox::TOP_LEFT].x;
 	float ammo_offset		= width * (float)ammo / max_ammo;
 
-	Color& color			= *g_Options.col_esp_weapon_ammo;
+	Color& color			= *g_Options->col_esp_weapon_ammo;
 
 	ImVec2 start			= { points[BoundingBox::BOTTOM_RIGHT].x - width, points[BoundingBox::BOTTOM_RIGHT].y + distance };
 	ImVec2 end				= { start.x + width, start.y + height };
 
-	Render::Get().RenderFilledBox(start, end, { 0, 0, 0, 255 }, true);
-	Render::Get().RenderFilledBox(start, ImVec2(start.x + ammo_offset, end.y), color, false);
+	Render::RenderFilledBox(start, end, { 0, 0, 0, 255 }, true);
+	Render::RenderFilledBox(start, ImVec2(start.x + ammo_offset, end.y), color, false);
 }
 
 void ESP::RenderDroppedWeapons() {
@@ -234,6 +235,6 @@ void ESP::RenderDroppedWeapons() {
 
 		std::string_view weapon_name = !weapon_data->m_szName ? "" : GetItemName(weapon_data->m_szName);
 
-		Render::Get().RenderText(ImVec2(screen_pos.x, screen_pos.y), {255, 255, 255, 255}, Fonts::Get().Find("MuseoSans-500-12"), Render::Center, true, weapon_name);
+		Render::RenderText(ImVec2(screen_pos.x, screen_pos.y), {255, 255, 255, 255}, Fonts::Find("MuseoSans-500-12"), Render::Center, true, weapon_name);
 	}
 }

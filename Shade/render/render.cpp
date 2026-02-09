@@ -11,13 +11,12 @@
 #include "../features/esp.hpp"
 
 void RenderTarget::SetupFonts() {
-    Fonts::Get().Initialize();
-    Fonts::Get().Add("MuseoSans-500",       "c:\\USERS\\ADMINISTRATOR\\APPDATA\\LOCAL\\MICROSOFT\\WINDOWS\\FONTS\\MuseoSansCyrl-500.ttf", 15.0f);
-    Fonts::Get().Add("MuseoSans-500-12",    "c:\\USERS\\ADMINISTRATOR\\APPDATA\\LOCAL\\MICROSOFT\\WINDOWS\\FONTS\\MuseoSansCyrl-500.ttf", 12.0f);
-    Fonts::Get().Add("MuseoSans-900",       "c:\\USERS\\ADMINISTRATOR\\APPDATA\\LOCAL\\MICROSOFT\\WINDOWS\\FONTS\\MuseoSansCyrl-900.ttf", 24.0f);
-    Fonts::Get().Add("MuseoSans-900-10",    "c:\\USERS\\ADMINISTRATOR\\APPDATA\\LOCAL\\MICROSOFT\\WINDOWS\\FONTS\\MuseoSansCyrl-900.ttf", 13.0f);
-    Fonts::Get().Add("Verdana-12",          "C:\\WINDOWS\\FONTS\\VERDANA.TTF", 12.0f);
-    Fonts::Get().Add("Verdana-13",          "C:\\WINDOWS\\FONTS\\VERDANA.TTF", 13.0f);
+    Fonts::Add("MuseoSans-500",       "C:\\USERS\\WINE\\APPDATA\\LOCAL\\MICROSOFT\\WINDOWS\\FONTS\\MuseoSansCyrl-500.ttf", 15.0f);
+    Fonts::Add("MuseoSans-500-12",    "C:\\USERS\\WINE\\APPDATA\\LOCAL\\MICROSOFT\\WINDOWS\\FONTS\\MuseoSansCyrl-500.ttf", 12.0f);
+    Fonts::Add("MuseoSans-900",       "C:\\USERS\\WINE\\APPDATA\\LOCAL\\MICROSOFT\\WINDOWS\\FONTS\\MuseoSansCyrl-900.ttf", 24.0f);
+    Fonts::Add("MuseoSans-900-10",    "C:\\USERS\\WINE\\APPDATA\\LOCAL\\MICROSOFT\\WINDOWS\\FONTS\\MuseoSansCyrl-900.ttf", 13.0f);
+    Fonts::Add("Verdana-12",          "C:\\WINDOWS\\FONTS\\VERDANA.TTF", 12.0f);
+    Fonts::Add("Verdana-13",          "C:\\WINDOWS\\FONTS\\VERDANA.TTF", 13.0f);
 }
 
 void RenderTarget::Initialize() {
@@ -34,9 +33,10 @@ void RenderTarget::BeginScene() {
         Menu::Get().Toggle();
 
     Menu::Get().Render();
-    Render::Get().SetDrawList(ImGui::GetBackgroundDrawList());
+    auto a = ImGui::GetBackgroundDrawList();
+    Render::SetDrawList(a);
 
-    if (g_CNetworkClientService->m_pCNetworkGameClient->IsInGame() && g_Options.esp_enabled)
+    if (g_CNetworkClientService->m_pCNetworkGameClient->IsInGame() && g_Options->esp_enabled)
         ESP::Get().BeginRender();
 
     ImGui::Render();

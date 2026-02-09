@@ -2,49 +2,46 @@
 
 #include <filesystem>
 
+#include "imgui.h"
+
 #include "../utils/debug.hpp"
 
-ImVec2 Render::GetTextSize(ImFont* font, const std::string_view& text) {
+ImVec2 Render::GetTextSize(ImFont* font, std::string_view text) {
     return font->CalcTextSizeA(font->LegacySize, FLT_MAX, 0.0f, text.data(), text.data() + text.size());
 }
 
 ImFont* Fonts::Add(const std::string& name, const std::string& path, float size, const ImFontConfig* config, const ImWchar* ranges) {
-    if (!IsInitialized())
-        return nullptr;
-
     auto iterator = m_FontMap.find(name);
     if (iterator != m_FontMap.end())
         return iterator->second;
 
     if (!std::filesystem::exists(path)) {
-        LOG("[FONTS] Font not found: %s\n", path);
+		lg::Error("[FONTS]", "Font not found: % s\n", path);
         return nullptr;
     }
 
-    ImFont* font = m_io->Fonts->AddFontFromFileTTF(path.data(), size, config, ranges);
+    ImFont* font = ImGui::GetIO().Fonts->AddFontFromFileTTF(path.data(), size, config, ranges);
     if (font)
         m_FontMap[name] = font;
     else {
-        LOG("[FONTS] Error loading font: %s\n", name);
+        lg::Error("[FONTS]", "Error loading font: %s\n", name);
         return nullptr;
     }
 
     return font;
 }
 
-ImFont* Fonts::Find(const std::string_view name) {
-    if (!IsInitialized())
-        return nullptr;
-
+ImFont* Fonts::Find(std::string_view name) {
     auto iterator = m_FontMap.find(std::string(name));
     if (iterator != m_FontMap.end())
         return iterator->second;
 
-    LOG("[FONTS] Failed to find font: %s, loading default\n", name);
-    return m_io->Fonts->Fonts[0];
+    lg::Error("[FONTS]", "Failed to find font: %s, loading default\n", name);
+
+    return ImGui::GetIO().Fonts->Fonts[0];
 }
 
-void Render::RenderText(const ImVec2& pos, const Color& col, ImFont* font, Alignment align, bool outline, const std::string_view& text) {
+void Render::RenderText(const ImVec2& pos, const Color& col, ImFont* font, Alignment align, bool outline, std::string_view text) {
     ImVec2 text_pos = pos;
     
     if (align == Center)
