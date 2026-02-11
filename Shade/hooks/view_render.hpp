@@ -2,6 +2,7 @@
 #include "ihook.hpp"
 
 class CViewRender;
+class Vector3D;
 
 class CViewRenderHook {
 private:
@@ -14,12 +15,12 @@ public:
     static void Register();
 };
 
-class COverrideFovHook {
+class CSetupFovHook {
 private:
-    using OverrideFovFunc = float (*__fastcall)(__int64, __int64);
-    static inline OverrideFovFunc m_pOverrideFovOrig;
+    using SetupFovFunc = float (*__fastcall)(__int64);
+    static inline SetupFovFunc m_pOverrideFovOrig;
 
-    static float __fastcall hkOverrideFov(__int64 a1, __int64 a2);
+    static float __fastcall hkSetupFov(__int64 a1);
 
 public:
     static void Register();
@@ -27,10 +28,10 @@ public:
 
 class CSetupViewModelHook {
 private:
-    using SetupViewModelFunc = void* (__fastcall*)(__int64, float*, float*);
+    using SetupViewModelFunc = void* (__fastcall*)(__int64, Vector3D*, float*);
     static inline SetupViewModelFunc m_pSetupViewModelOrig;
 
-    static void* __fastcall hkSetupViewModel(__int64 unk, float* offsets, float* fov);
+    static void* __fastcall hkSetupViewModel(__int64 unk, Vector3D* viewmodel_offsets, float* viewmodel_fov);
 
 public:
     static void Register();

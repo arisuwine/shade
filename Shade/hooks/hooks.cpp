@@ -1,7 +1,6 @@
 ﻿#include "hooks.hpp"
 
 #include "entity_system.hpp"
-#include "game_overlay.hpp"
 #include "glow.hpp"
 #include "source2client.hpp"
 #include "view_render.hpp"
@@ -19,7 +18,7 @@ void hooks::Initialize() {
 	CIsGlowingHook::Register();
 	CApplyGlowHook::Register();
 	CViewRenderHook::Register();
-	COverrideFovHook::Register();
+	CSetupFovHook::Register();
 	CSetupViewModelHook::Register();
 	CIDXGISwapChainHook::Register();
 }

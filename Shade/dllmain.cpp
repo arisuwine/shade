@@ -60,11 +60,12 @@ THE SOFTWARE.
 #include "sdk/modules.hpp"
 
 #include "menu/menu.hpp"
+#include "menu/options.hpp"
 
 #include "utils/console.hpp"
 #include "utils/debug.hpp"
 
-bool g_Unload = FALSE;
+//bool g_Unload = FALSE;
 
 DWORD WINAPI OnDllAttach(LPVOID lpParam) {
 #ifdef _DEBUG
@@ -93,9 +94,13 @@ DWORD WINAPI OnDllAttach(LPVOID lpParam) {
     return TRUE;
 }
 
+#define _CRTDBG_MAP_ALLOC
+#include <crtdbg.h>
+
 BOOL WINAPI OnDllDetach() {
     hooks::Shutdown();
 
+    _CrtDumpMemoryLeaks();
 #ifdef _DEBUG
     utils::DetachConsole();
 #endif

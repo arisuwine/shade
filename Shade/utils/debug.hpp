@@ -1,17 +1,7 @@
 #pragma once
 #include <Windows.h>
 
-//#ifdef _DEBUG
-//#include <stdio.h>
-//#define LOG(...) printf(__VA_ARGS__)
-//#define LOG_AND_RETURN(...) do { LOG(__VA_ARGS__); return false; } while(0)
-//#else
-//#define LOG(...)
-//#define LOG_AND_RETURN(...) return false
-//#endif
-
 namespace lg {
-
         inline void _log_base(WORD color, const char* level_name, const char* tag, const char* fmt, va_list args) {
             HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 

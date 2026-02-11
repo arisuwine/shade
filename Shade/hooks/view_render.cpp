@@ -26,21 +26,38 @@ void CViewRenderHook::Register() {
 void* __fastcall CViewRenderHook::hkOnRenderStart(CViewRender* pViewRender) {
 	void* result = m_pOnRenderStartOrig(pViewRender);
 
-	pViewRender->m_CurrentView.m_flAspectRatio	= 1600.0f / 900.0f * (g_Options->misc_aspect_ratio / 100.0f);
-	pViewRender->m_CurrentView.m_nSomeFlags	|= 0x2;
-	//pViewRender->m_CurrentView.m_flFov			= CViewRender::ScaleFOVByWidthRatio(g_Options->misc_fov, pViewRender->m_CurrentView.m_flAspectRatio * 0.75f);
-	//pViewRender->m_CurrentView.m_flFovViewModel = CViewRender::ScaleFOVByWidthRatio(g_Options->misc_viewmodel_fov, pViewRender->m_CurrentView.m_flAspectRatio * 0.75f);
+	if (g_Unload) {
+		pViewRender->m_CurrentView.m_nSomeFlags &= ~2;
+		return result;
+	}
+
+	if (g_Options->misc_aspect_ratio) {
+		pViewRender->m_CurrentView.m_flAspectRatio = (1600.0f / 900.0f) * (g_Options->misc_aspect_ratio_value / 100.0f);
+		pViewRender->m_CurrentView.m_nSomeFlags |= 2;
+	}
+	else
+		pViewRender->m_CurrentView.m_nSomeFlags &= ~2;
 
 	return result;
 }
 
-// COverrideFovHook
-void COverrideFovHook::Register() {
-	hooks::AddDetour<OverrideFovFunc>("COverrideFovHook", reinterpret_cast<void*>(modules::client.Find(FOV_CS_DEBUG)), hkOverrideFov, &m_pOverrideFovOrig);
+// CSetupFovHook
+void CSetupFovHook::Register() {
+	hooks::AddDetour<SetupFovFunc>("CSetupFovHook", reinterpret_cast<void*>(modules::client.Find(FOV_CS_DEBUG)), hkSetupFov, &m_pOverrideFovOrig);
 }
 
-float __fastcall COverrideFovHook::hkOverrideFov(__int64 a1, __int64 a2) {
-	return m_pOverrideFovOrig(a1, a2);
+float __fastcall CSetupFovHook::hkSetupFov(__int64 a1) {
+	if (g_Unload)
+		return m_pOverrideFovOrig(a1);
+
+	if (g_Options->misc_aspect_ratio && !g_Options->misc_aspect_ratio_vertical) {
+		float fov = g_Options->misc_fov ? g_Options->misc_fov_value : m_pOverrideFovOrig(a1);
+		return CViewRender::ScaleFOVByWidthRatio(fov, (1600.0f / 900.0f) * (g_Options->misc_aspect_ratio_value / 100.0f) * 0.75f);
+	}
+	else if (g_Options->misc_fov)
+		return g_Options->misc_fov_value;
+
+	return m_pOverrideFovOrig(a1);
 }
 
 // CSetupViewModelHook
@@ -48,20 +65,26 @@ void CSetupViewModelHook::Register() {
 	hooks::AddDetour<SetupViewModelFunc>("CSetupViewModelHook", reinterpret_cast<void*>(modules::client.Find(SETUP_VIEWMODEL)), hkSetupViewModel, &m_pSetupViewModelOrig);
 }
 
-void* __fastcall CSetupViewModelHook::hkSetupViewModel(__int64 unk, float* offsets, float* fov) {
-	//if (!is_init) {
-	//	view_setup_cache.m_flFov = pViewRender->m_CurrentView.m_flFov;
-	//	view_setup_cache.m_flFovViewModel = pViewRender->m_CurrentView.m_flFovViewModel;
-	//	view_setup_cache.m_angView = pViewRender->m_CurrentView.m_angView;
-	//	view_setup_cache.m_flAspectRatio = pViewRender->m_CurrentView.m_flAspectRatio;
-	//	view_setup_cache.m_nSomeFlags = pViewRender->m_CurrentView.m_nSomeFlags;
+void* __fastcall CSetupViewModelHook::hkSetupViewModel(__int64 unk, Vector3D* viewmodel_offsets, float* viewmodel_fov) {
+	void* result = m_pSetupViewModelOrig(unk, viewmodel_offsets, viewmodel_fov);
 
-	//	is_init = TRUE;
-	//}
+	if (g_Unload)
+		return result;
 
-	void* result = m_pSetupViewModelOrig(unk, offsets, fov);
+	if (g_Options->misc_aspect_ratio && !g_Options->misc_aspect_ratio_vertical) {
+		float fov = g_Options->misc_viewmodel_fov ? g_Options->misc_viewmodel_fov_value : *viewmodel_fov;
+		*viewmodel_fov = CViewRender::ScaleFOVByWidthRatio(fov, (1600.0f / 900.0f) * (g_Options->misc_aspect_ratio_value / 100.0f) * 0.75f);
+	}
+	else if (g_Options->misc_viewmodel_fov)
+		*viewmodel_fov = g_Options->misc_viewmodel_fov_value;
 
-	//*fov = CViewRender::ScaleFOVByWidthRatio(g_Options->misc_viewmodel_fov, g_CViewRender->m_CurrentView.m_flAspectRatio);
+	if (g_Options->misc_viewmodel_fov) {
+		viewmodel_offsets->x = g_Options->misc_viewmodel_fov_x;
+		viewmodel_offsets->y = g_Options->misc_viewmodel_fov_y;
+		viewmodel_offsets->z = g_Options->misc_viewmodel_fov_z;
+	}
+
+	//Vector3D* rotations = reinterpret_cast<Vector3D*>(viewmodel_offsets + 16);
 
 	return result;
 }

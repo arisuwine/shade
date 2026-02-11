@@ -138,10 +138,21 @@ void Menu::Render() {
         }
 
         if (ImGui::BeginTabItem("Misc")) {
-            ImGui::DragFloat("Aspect Ratio", g_Options->misc_aspect_ratio, 1.0f, 1.0f, 200.0f);
+            ImGui::Checkbox("Aspect Ratio", g_Options->misc_aspect_ratio);
+            ImGui::Checkbox("Aspect Ratio Vertical", g_Options->misc_aspect_ratio_vertical);
 
-            ImGui::DragFloat("View Model FOV", g_Options->misc_viewmodel_fov, 1.0f, 38.0f, 120.0f);
-            ImGui::DragFloat("FOV", g_Options->misc_fov, 1.0f, 58.0f, 150.0f);
+            ImGui::DragFloat("Aspect Ratio Value", g_Options->misc_aspect_ratio_value, 1.0f, 1.0f, 200.0f);
+
+            ImGui::Checkbox("View Model Override", g_Options->misc_viewmodel_fov);
+
+            ImGui::DragFloat("View Model FOV", g_Options->misc_viewmodel_fov_value, 1.0f, 38.0f, 120.0f);
+            ImGui::DragFloat("View Model X", g_Options->misc_viewmodel_fov_x, 0.1f, -10.0f, 10.0f);
+            ImGui::DragFloat("View Model Y", g_Options->misc_viewmodel_fov_y, 0.1f, -10.0f, 10.0f);
+            ImGui::DragFloat("View Model Z", g_Options->misc_viewmodel_fov_z, 0.1f, -10.0f, 10.0f);
+
+            ImGui::Checkbox("FOV Override", g_Options->misc_fov);
+
+            ImGui::DragFloat("Value", g_Options->misc_fov_value, 1.0f, 58.0f, 150.0f);
 
             ImGui::EndTabItem();
         }
