@@ -45,23 +45,24 @@ HRESULT __stdcall CIDXGISwapChainHook::hkPresent(IDXGISwapChain* pSwapChain, UIN
 		ImGui_ImplWin32_Init(CWndProcHook::m_hwnd);
 		ImGui_ImplDX11_Init(g_Device, g_DeviceContext);
 
-		RenderTarget::Get().Initialize();
+		RenderTarget::Initialize();
 		Menu::Get().Initialize();
 
 		bIsInit = true;
 	}
 
-	RenderTarget::Get().BeginScene();
+	RenderTarget::BeginScene();
 
 	return m_pPresentOrig(pSwapChain, SyncInterval, Flags);
 }
 
 void CIDXGISwapChainHook::Destroy() {
-	CWndProcHook::Destroy();
 
 	ImGui_ImplDX11_Shutdown();
 	ImGui_ImplWin32_Shutdown();
 	ImGui::DestroyContext();
+
+	CWndProcHook::Destroy();
 
 	g_Device->Release();
 	g_Device = nullptr;

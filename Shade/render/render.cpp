@@ -18,7 +18,7 @@ void RenderTarget::SetupFonts() {
     Fonts::Add("Verdana-12",          "C:\\WINDOWS\\FONTS\\VERDANA.TTF", 12.0f);
     Fonts::Add("Verdana-13",          "C:\\WINDOWS\\FONTS\\VERDANA.TTF", 13.0f);
 }
-
+ 
 void RenderTarget::Initialize() {
     SetupFonts();
 }
@@ -33,8 +33,7 @@ void RenderTarget::BeginScene() {
         Menu::Get().Toggle();
 
     Menu::Get().Render();
-    auto a = ImGui::GetBackgroundDrawList();
-    Render::SetDrawList(a);
+    Render::SetDrawList(ImGui::GetBackgroundDrawList());
 
     if (g_CNetworkClientService->m_pCNetworkGameClient->IsInGame() && g_Options->esp_enabled)
         ESP::Get().BeginRender();

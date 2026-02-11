@@ -49,9 +49,19 @@ public:
 	OPTION(Color, col_esp_dropped_items,	DEFAULT_COLOR);
 
 	// MISC
-	OPTION(float, misc_aspect_ratio,		100.0f);
-	OPTION(float, misc_viewmodel_fov,		68.0f);
-	OPTION(float, misc_fov,					80.0f);
+	OPTION(bool,	misc_aspect_ratio,			false);
+	OPTION(bool,	misc_aspect_ratio_vertical,	false);
+	OPTION(float,	misc_aspect_ratio_value,	100.0f);
+
+	OPTION(bool,	misc_viewmodel_fov,			true);
+	OPTION(float,	misc_viewmodel_fov_value,	68.0f);
+	OPTION(float,	misc_viewmodel_fov_x,		0.0f);
+	OPTION(float,	misc_viewmodel_fov_y,		0.0f);
+	OPTION(float,	misc_viewmodel_fov_z,		0.0f);
+
+	OPTION(bool,	misc_fov,					true);
+	OPTION(float,	misc_fov_value,				80.0f);
 };
 
 inline std::unique_ptr<COptions> g_Options = std::make_unique<COptions>();
+inline bool g_Unload = false;

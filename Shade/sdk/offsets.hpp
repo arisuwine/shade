@@ -184,12 +184,12 @@ namespace offsets {
 		}
 
 		namespace CViewSetup {
-			CONST_OFFSET m_flFov							= 0x4d8;
-			CONST_OFFSET m_flFovViewModel					= 0x4dc;
+			CONST_OFFSET m_flFov							= 0x498;
+			CONST_OFFSET m_flFovViewModel					= 0x49C;
 			CONST_OFFSET m_vecOrigin						= 0x4e0;
-			CONST_OFFSET m_angView							= 0x4fc;
-			CONST_OFFSET m_flAspectRatio					= 0x518;
-			CONST_OFFSET m_nSomeFlags						= 0x595;
+			CONST_OFFSET m_angView							= 0x4B8;
+			CONST_OFFSET m_flAspectRatio					= 0x4d8;
+			CONST_OFFSET m_nSomeFlags						= 0x555;
 		}
 
 		namespace CViewRender {

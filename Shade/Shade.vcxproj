@@ -152,7 +152,6 @@
     <ClInclude Include="hooks\idxgiswapchain.hpp" />
     <ClInclude Include="hooks\ihook.hpp" />
     <ClInclude Include="hooks\source2client.hpp" />
-    <ClInclude Include="hooks\game_overlay.hpp" />
     <ClInclude Include="hooks\glow.hpp" />
     <ClInclude Include="hooks\hooks.hpp" />
     <ClInclude Include="hooks\view_render.hpp" />
@@ -247,10 +246,6 @@
     <ClCompile Include="hooks\idxgiswapchain.cpp" />
     <ClCompile Include="hooks\ihook.cpp" />
     <ClCompile Include="hooks\source2client.cpp" />
-    <ClCompile Include="hooks\game_overlay.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="hooks\glow.cpp" />
     <ClCompile Include="hooks\hooks.cpp" />
     <ClCompile Include="hooks\view_render.cpp" />

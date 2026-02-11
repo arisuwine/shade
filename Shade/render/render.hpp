@@ -3,13 +3,11 @@
 
 #include "../utils/singleton.hpp"
 
-class RenderTarget : public Singleton<RenderTarget> {
-    friend class Singleton<RenderTarget>;
-
+class RenderTarget {
 private:
-    void SetupFonts();
+    static void SetupFonts();
 
 public:
-    void Initialize();
-    void BeginScene();
+    static void Initialize();
+    static void BeginScene();
 };

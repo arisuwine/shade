@@ -16,7 +16,7 @@ ImFont* Fonts::Add(const std::string& name, const std::string& path, float size,
         return iterator->second;
 
     if (!std::filesystem::exists(path)) {
-		lg::Error("[FONTS]", "Font not found: % s\n", path);
+		lg::Error("[FONTS]", "Font not found: % s\n", path.data());
         return nullptr;
     }
 
@@ -24,7 +24,7 @@ ImFont* Fonts::Add(const std::string& name, const std::string& path, float size,
     if (font)
         m_FontMap[name] = font;
     else {
-        lg::Error("[FONTS]", "Error loading font: %s\n", name);
+        lg::Error("[FONTS]", "Error loading font: %s\n", name.data());
         return nullptr;
     }
 
@@ -36,7 +36,7 @@ ImFont* Fonts::Find(std::string_view name) {
     if (iterator != m_FontMap.end())
         return iterator->second;
 
-    lg::Error("[FONTS]", "Failed to find font: %s, loading default\n", name);
+    lg::Error("[FONTS]", "Failed to find font: %s, loading default\n", name.data());
 
     return ImGui::GetIO().Fonts->Fonts[0];
 }

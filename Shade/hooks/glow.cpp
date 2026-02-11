@@ -15,11 +15,13 @@
 #include "../menu/options.hpp"
 
 void CIsGlowingHook::Register() {
-	hooks::AddDetour<IsGlowingFunc>("CIsGlowingHook", RESOLVE_RIP_EX(void, modules::client.Find(IS_GLOWING), 1, 5), hkIsGlowing, &m_pIsGlowingOrig);
+	uintptr_t pIsGlowing = modules::client.Find(IS_GLOWING);
+	hooks::AddDetour<IsGlowingFunc>("CIsGlowingHook", RESOLVE_RIP_EX(void, pIsGlowing, 1, 5), hkIsGlowing, &m_pIsGlowingOrig);
 }
 
 void CApplyGlowHook::Register() {
-	hooks::AddDetour<ApplyGlowFunc>("CApplyGlowHook", RESOLVE_RIP_EX(void, modules::client.Find(APPLY_GLOW), 1, 5), hkApplyGlow, &m_pApplyGlowOrig);
+	uintptr_t pApplyGlow = modules::client.Find(APPLY_GLOW);
+	hooks::AddDetour<ApplyGlowFunc>("CApplyGlowHook", RESOLVE_RIP_EX(void, pApplyGlow, 1, 5), hkApplyGlow, &m_pApplyGlowOrig);
 }
 
 bool __fastcall CIsGlowingHook::hkIsGlowing(CGlowProperty* property) {
