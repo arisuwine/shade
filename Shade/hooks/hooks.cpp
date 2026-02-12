@@ -5,6 +5,7 @@
 #include "source2client.hpp"
 #include "view_render.hpp"
 #include "idxgiswapchain.hpp"
+#include "ccsgoinput.hpp"
 
 #include "../utils/debug.hpp"
 
@@ -14,13 +15,14 @@ void hooks::Initialize() {
 
 	CDetourHook::Initialize();
 
+	CIDXGISwapChainHook::Register();
 	CEntitySystemHook::Register();
 	CIsGlowingHook::Register();
 	CApplyGlowHook::Register();
 	CViewRenderHook::Register();
 	CSetupFovHook::Register();
 	CSetupViewModelHook::Register();
-	CIDXGISwapChainHook::Register();
+	CCSGOInputHook::Register();
 }
 
 void hooks::Shutdown() {

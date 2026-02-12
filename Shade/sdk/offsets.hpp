@@ -58,6 +58,7 @@ namespace offsets {
 			CONST_OFFSET m_iTeamNum							= 0x3F3;
 			CONST_OFFSET m_pCollision						= 0x348;
 			CONST_OFFSET m_pGameSceneNode					= 0x338;
+			CONST_OFFSET m_fFlags							= 0x400;
 			CONST_OFFSET m_hOwnerEntity						= 0x528;
 		}
 
@@ -194,6 +195,16 @@ namespace offsets {
 
 		namespace CViewRender {
 			CONST_OFFSET m_CurrentView						= 0x10;
+		}
+
+		namespace CUserCmd {
+			CONST_OFFSET m_nButtons							= 0x58;
+		}
+
+		namespace CInButtonState {
+			CONST_OFFSET m_nValue							= 0x8;
+			CONST_OFFSET m_nValueChanged					= 0x10;
+			CONST_OFFSET m_nValueScroll						= 0x18;
 		}
 	}
 

@@ -14,6 +14,7 @@
 #define ON_ADD_ENTITY			"48 89 74 24 ? 57 48 83 EC ? 41 B9 ? ? ? ? 41 8B C0 41 23 C1 48 8B F2 41 83 F8 ? 48 8B F9 44 0F 45 C8 41 81 F9 ? ? ? ? 73 ? FF 81"
 #define ON_REMOVE_ENTITY		"48 89 74 24 ? 57 48 83 EC ? 41 B9 ? ? ? ? 41 8B C0 41 23 C1 48 8B F2 41 83 F8 ? 48 8B F9 44 0F 45 C8 41 81 F9 ? ? ? ? 73 ? FF 89"
 #define GP_GLOBALS				"48 8B 05 ? ? ? ? 8B 48 ? FF C1"
+#define CSGO_INPUT				"48 8D 0D ? ? ? ? E8 ? ? ? ? 33 C9 C7 05"
 
 // GameOverlayRenderer64.dll
 #define CREATE_HOOK				"48 89 5C 24 ? 57 48 83 EC ? 33 C0"

@@ -11,13 +11,15 @@ void utils::AttachConsole() {
     freopen("CONIN$", "r", stdin);
 }
 
-void utils::DetachConsole() {
+void utils::WaitForPress() {
     std::printf("\nPress any key to exit...\n");
-    
+
     while (_kbhit()) _getch();
 
     _getch();
+}
 
+void utils::DetachConsole() {
     fclose(stdout);
     fclose(stderr);
     fclose(stdin);

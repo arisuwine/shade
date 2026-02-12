@@ -15,6 +15,7 @@
 
 #include "services/CGlobalVarsBase.hpp"
 #include "services/CNetworkClientService.hpp"
+#include "services/CCSGOInput.hpp"
 
 namespace interfaces {
 	void Initialize();
@@ -39,3 +40,4 @@ inline CViewRender*				g_CViewRender			= nullptr;
 inline ISource2Client*			g_Source2Client			= nullptr;
 inline IGameResourceService*	g_GameResourceService	= nullptr;
 inline IEngineServiceMgr*		g_EngineServiceMgr		= nullptr;
+inline CCSGOInput*				g_CCSGOInput			= nullptr;

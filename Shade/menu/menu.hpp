@@ -15,4 +15,5 @@ public:
     void Initialize();
     void Toggle();
     void Render();
+    bool IsShowing() const { return m_bShow; }
 };

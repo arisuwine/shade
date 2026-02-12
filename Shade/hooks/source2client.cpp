@@ -9,9 +9,7 @@
 void CISource2ClientHook::Register() {
 	std::unique_ptr<CVMTHook> hook = std::make_unique<CVMTHook>("CISource2ClientHook", g_Source2Client);
 
-	m_pFrameStageNotifyOrig = hook->Enable<FrameStageNotifyFunc>(36, hkFrameStageNotify);
-	if (!m_pFrameStageNotifyOrig)
-		throw std::runtime_error("failed to enable FrameStageNotify hook");
+	hooks::AddVMTHook<FrameStageNotifyFunc>(hook.get(), 36, hkFrameStageNotify, &m_pFrameStageNotifyOrig);
 
 	hooks::g_pHooks.push_back(std::move(hook));
 }

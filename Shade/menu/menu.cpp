@@ -154,6 +154,9 @@ void Menu::Render() {
 
             ImGui::DragFloat("Value", g_Options->misc_fov_value, 1.0f, 58.0f, 150.0f);
 
+            ImGui::Checkbox("Bhop", g_Options->misc_bhop);
+            ImGui::Checkbox("AutoStrafe", g_Options->misc_autostrafe);
+
             ImGui::EndTabItem();
         }
 

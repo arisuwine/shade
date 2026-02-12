@@ -1,6 +1,10 @@
 #pragma once
 #include <Windows.h>
 
+class IDXGISwapChain;
+class ID3D11DeviceContext;
+class ID3D11Device;
+
 class CWndProcHook {
 	friend class CIDXGISwapChainHook;
 

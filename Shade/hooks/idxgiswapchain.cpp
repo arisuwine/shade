@@ -4,16 +4,12 @@
 
 #include "hooks.hpp"
 
-#include "imgui_impl_win32.h"
-#include "imgui_impl_dx11.h"
-
 #include "../sdk/sdk.hpp"
 #include "../render/render.hpp"
-#include "../menu/menu.hpp"
 
 // CIDXGISwapChainHook
 void CIDXGISwapChainHook::Register() {
-	std::unique_ptr<CVMTHook> hook = std::make_unique<CVMTHook>("CIDXGISwapChainHook", g_SwapChain, nullptr, &Destroy);
+	std::unique_ptr<CVMTHook> hook = std::make_unique<CVMTHook>("CIDXGISwapChainHook", g_SwapChain, &Initialize, &Destroy);
 
 	m_pPresentOrig = hook->Enable<PresentFunc>(8, hkPresent);
 	if (!m_pPresentOrig)
@@ -24,44 +20,20 @@ void CIDXGISwapChainHook::Register() {
 	hooks::g_pHooks.push_back(std::move(hook));
 }
 
-HRESULT __stdcall CIDXGISwapChainHook::hkPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags) {
-	static bool bIsInit = false;
-	if (!g_Device) {
-		ID3D11Texture2D* renderTarget = nullptr;
+void CIDXGISwapChainHook::Initialize() {
+	ID3D11Texture2D* renderTarget = nullptr;
 
-		pSwapChain->GetDevice(__uuidof(g_Device), reinterpret_cast<void**>(&g_Device));
-		g_Device->GetImmediateContext(&g_DeviceContext);
+	g_SwapChain->GetDevice(__uuidof(g_Device), reinterpret_cast<void**>(&g_Device));
+	g_Device->GetImmediateContext(&g_DeviceContext);
 
-		pSwapChain->GetBuffer(0, __uuidof(renderTarget), reinterpret_cast<void**>(&renderTarget));
-		g_Device->CreateRenderTargetView(renderTarget, nullptr, &g_TargetView);
-		renderTarget->Release();
-	}
+	g_SwapChain->GetBuffer(0, __uuidof(renderTarget), reinterpret_cast<void**>(&renderTarget));
+	g_Device->CreateRenderTargetView(renderTarget, nullptr, &g_TargetView);
+	renderTarget->Release();
 
-	if (!bIsInit) {
-		CWndProcHook::Initialize();
-
-		ImGui::CreateContext();
-
-		ImGui_ImplWin32_Init(CWndProcHook::m_hwnd);
-		ImGui_ImplDX11_Init(g_Device, g_DeviceContext);
-
-		RenderTarget::Initialize();
-		Menu::Get().Initialize();
-
-		bIsInit = true;
-	}
-
-	RenderTarget::BeginScene();
-
-	return m_pPresentOrig(pSwapChain, SyncInterval, Flags);
+	CWndProcHook::Initialize();
 }
 
 void CIDXGISwapChainHook::Destroy() {
-
-	ImGui_ImplDX11_Shutdown();
-	ImGui_ImplWin32_Shutdown();
-	ImGui::DestroyContext();
-
 	CWndProcHook::Destroy();
 
 	g_Device->Release();
@@ -72,4 +44,10 @@ void CIDXGISwapChainHook::Destroy() {
 
 	g_TargetView->Release();
 	g_TargetView = nullptr;
+}
+
+HRESULT __stdcall CIDXGISwapChainHook::hkPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags) {
+	RenderTarget::BeginScene();
+
+	return m_pPresentOrig(pSwapChain, SyncInterval, Flags);
 }

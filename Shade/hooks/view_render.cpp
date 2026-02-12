@@ -16,9 +16,7 @@
 void CViewRenderHook::Register() {
 	std::unique_ptr<CVMTHook> hook = std::make_unique<CVMTHook>("CViewRenderHook", g_CViewRender);
 
-	m_pOnRenderStartOrig = hook->Enable<OnRenderStartFunc>(4, hkOnRenderStart);
-	if (!m_pOnRenderStartOrig)
-		throw std::runtime_error("failed to enable OnRenderStart hook");
+	hooks::AddVMTHook<OnRenderStartFunc>(hook.get(), 4, hkOnRenderStart, &m_pOnRenderStartOrig);
 
 	hooks::g_pHooks.push_back(std::move(hook));
 }

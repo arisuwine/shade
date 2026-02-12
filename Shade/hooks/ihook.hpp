@@ -28,18 +28,23 @@ public:
 	virtual ~IHookBase() = default;
 };
 
+class CVMTHook;
+
 namespace hooks {
 	template <typename Func>
 	void AddDetour(std::string_view szName, void* pTarget, void* pDetour, Func* ppOriginal, std::function<void()> onCreate = nullptr, std::function<void()> onDestroy = nullptr);
+
+	template <typename Func>
+	void AddVMTHook(CVMTHook* hook, size_t iFuncIndex, Func pDetour, Func* ppOriginal);
 }
 
 class CDetourHook : public IHookBase {
 private:
-	void* m_pTarget;
-	void* m_pOriginal;
-
 	template <typename Func>
 	friend void hooks::AddDetour(std::string_view szName, void* pTarget, void* pDetour, Func* ppOriginal, std::function<void()> onCreate, std::function<void()> onDestroy);
+	
+	void* m_pTarget;
+	void* m_pOriginal;
 
 public:
 	static bool Initialize();
@@ -58,6 +63,9 @@ public:
 
 class CVMTHook : public IHookBase {
 private:
+	template <typename Func>
+	friend void hooks::AddVMTHook(CVMTHook* hook, size_t iFuncIndex, Func pDetour, Func* ppOriginal);
+
 	vmt::Shadowing m_Shadowing;
 
 public:
@@ -77,6 +85,8 @@ public:
 	bool Disable(size_t iFuncIndex);
 
 	virtual ~CVMTHook() {
+		m_Shadowing.Shutdown();
+
 		if (IsEnabled() && m_onDestroy)
 			m_onDestroy();
 

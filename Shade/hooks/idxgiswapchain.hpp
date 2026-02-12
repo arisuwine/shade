@@ -11,7 +11,8 @@ private:
 
 	static HRESULT __stdcall hkPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags);
 
+	static void Initialize();
+	static void Destroy();
 public:
 	static void Register();
-	static void Destroy();
 };

@@ -58,9 +58,6 @@
     <Filter Include="hooks">
       <UniqueIdentifier>{ce229b91-c80d-4470-9886-9b5470fc6318}</UniqueIdentifier>
     </Filter>
-    <Filter Include="hooks\game_overlay">
-      <UniqueIdentifier>{8a872087-07d5-4466-9f45-6edab7c725af}</UniqueIdentifier>
-    </Filter>
     <Filter Include="minhook">
       <UniqueIdentifier>{459d3361-e948-4548-b5c7-0ca2d15f8354}</UniqueIdentifier>
     </Filter>
@@ -97,6 +94,12 @@
     <Filter Include="hooks\wndproc">
       <UniqueIdentifier>{1877bbe5-5346-47c1-aa08-7ed834a861a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="hooks\ccsgoinput">
+      <UniqueIdentifier>{2d8a3105-baf6-4d06-a6e7-10c8efe7f984}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="features\misc">
+      <UniqueIdentifier>{4429a50c-971f-4cdd-8da2-e382fc0c45f1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h">
@@ -128,9 +131,6 @@
     </ClInclude>
     <ClInclude Include="utils\pattern_scan\pattern_scan.hpp">
       <Filter>utils\pattern_scan</Filter>
-    </ClInclude>
-    <ClInclude Include="hooks\game_overlay.hpp">
-      <Filter>hooks\game_overlay</Filter>
     </ClInclude>
     <ClInclude Include="imgui\imgui_impl_dx11.h">
       <Filter>imgui\impl</Filter>
@@ -366,6 +366,18 @@
     <ClInclude Include="hooks\wndproc.hpp">
       <Filter>hooks\wndproc</Filter>
     </ClInclude>
+    <ClInclude Include="hooks\ccsgoinput.hpp">
+      <Filter>hooks\ccsgoinput</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\services\CCSGOInput.hpp">
+      <Filter>sdk\services</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\data\CUserCmd.hpp">
+      <Filter>sdk\data</Filter>
+    </ClInclude>
+    <ClInclude Include="features\movement.hpp">
+      <Filter>features\misc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui\imgui.cpp">
@@ -388,9 +400,6 @@
     </ClCompile>
     <ClCompile Include="math\world_to_screen.cpp">
       <Filter>math\world_to_screen</Filter>
-    </ClCompile>
-    <ClCompile Include="hooks\game_overlay.cpp">
-      <Filter>hooks\game_overlay</Filter>
     </ClCompile>
     <ClCompile Include="imgui\imgui_impl_dx11.cpp">
       <Filter>imgui\impl</Filter>
@@ -470,6 +479,12 @@
     </ClCompile>
     <ClCompile Include="hooks\wndproc.cpp">
       <Filter>hooks\wndproc</Filter>
+    </ClCompile>
+    <ClCompile Include="hooks\ccsgoinput.cpp">
+      <Filter>hooks\ccsgoinput</Filter>
+    </ClCompile>
+    <ClCompile Include="features\movement.cpp">
+      <Filter>features\misc</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
