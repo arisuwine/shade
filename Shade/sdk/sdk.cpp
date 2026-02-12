@@ -17,6 +17,7 @@ void interfaces::Initialize() {
 	g_ViewMatrix			= RESOLVE_RIP		(ViewMatrix,						modules::client.Find(VIEW_MATRIX		));
 	g_CGlowObjectManager	= RESOLVE_RIP		(CGlowObjectManager,				modules::client.Find(GLOW_MANAGER		));
 	gpGlobals				= RESOLVE_RIP		(CGlobalVarsBase,					modules::client.Find(GP_GLOBALS			));
+	g_CCSGOInput			= RESOLVE_RIP		(CCSGOInput,						modules::client.Find(CSGO_INPUT			));
 
 	g_CNetworkClientService = CInterfaceSystem::Get<CNetworkClientService>	("engine2.dll",			"NetworkClientService_001"		);
 	g_EngineClient			= CInterfaceSystem::Get<IVEngineClient>			("engine2.dll",			"Source2EngineToClient001"		);
@@ -27,5 +28,7 @@ void interfaces::Initialize() {
 	g_EngineServiceMgr		= CInterfaceSystem::Get<IEngineServiceMgr>		("engine2.dll",			"EngineServiceMgr001"			);
 
 	g_CGameEntitySystem		= g_GameResourceService->m_pCGameEntitySystem;
-	g_SwapChain = g_EngineServiceMgr->GetEngineSwapChain()->m_pDXGISwapChain;
+	g_SwapChain				= g_EngineServiceMgr->GetEngineSwapChain()->m_pDXGISwapChain;
+
+	lg::Info("[CCSGOInput]", "%p\n", g_CCSGOInput);
 }

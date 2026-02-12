@@ -147,7 +147,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="features\esp.hpp" />
+    <ClInclude Include="features\movement.hpp" />
     <ClInclude Include="features\utils\bounding_box.hpp" />
+    <ClInclude Include="hooks\ccsgoinput.hpp" />
     <ClInclude Include="hooks\entity_system.hpp" />
     <ClInclude Include="hooks\idxgiswapchain.hpp" />
     <ClInclude Include="hooks\ihook.hpp" />
@@ -178,6 +180,7 @@
     <ClInclude Include="render\render.hpp" />
     <ClInclude Include="render\utils\gui.hpp" />
     <ClInclude Include="sdk\data\CSwapChainDx11.hpp" />
+    <ClInclude Include="sdk\data\CUserCmd.hpp" />
     <ClInclude Include="sdk\data\SchemaClassInfoData_t.hpp" />
     <ClInclude Include="sdk\data\SchemaMetaInfoHandle_t.hpp" />
     <ClInclude Include="sdk\entities\CConcreteEntityList.hpp" />
@@ -212,6 +215,7 @@
     <ClInclude Include="sdk\sdk.hpp" />
     <ClInclude Include="sdk\services\CBone.hpp" />
     <ClInclude Include="sdk\services\CCollisionProperty.hpp" />
+    <ClInclude Include="sdk\services\CCSGOInput.hpp" />
     <ClInclude Include="sdk\services\CCSWeaponBaseVData.hpp" />
     <ClInclude Include="sdk\services\CGameSceneNode.hpp" />
     <ClInclude Include="sdk\services\CGlobalVarsBase.hpp" />
@@ -241,7 +245,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="features\esp.cpp" />
+    <ClCompile Include="features\movement.cpp" />
     <ClCompile Include="features\utils\bounding_box.cpp" />
+    <ClCompile Include="hooks\ccsgoinput.cpp" />
     <ClCompile Include="hooks\entity_system.cpp" />
     <ClCompile Include="hooks\idxgiswapchain.cpp" />
     <ClCompile Include="hooks\ihook.cpp" />

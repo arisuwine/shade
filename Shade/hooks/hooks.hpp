@@ -26,4 +26,11 @@ namespace hooks {
 
 		g_pHooks.push_back(std::move(hook));
 	}
+
+	template <typename Func>
+	void AddVMTHook(CVMTHook* hook, size_t iFuncIndex, Func pDetour, Func* ppOriginal) {
+		*ppOriginal = hook->Enable<Func>(iFuncIndex, pDetour);
+		if (!(*ppOriginal))
+			throw std::runtime_error(std::format("failed to enable hook in {}", hook->m_szName.data()));
+	}
 }

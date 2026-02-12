@@ -1,6 +1,5 @@
 #include "entity_system.hpp"
 
-#include <cstring>
 #include <stdexcept>
 
 #include "hooks.hpp"
@@ -18,13 +17,8 @@ std::vector<C_CSPlayerPawn*> g_PawnsCache;
 void CEntitySystemHook::Register() {
 	std::unique_ptr<CVMTHook> hook = std::make_unique<CVMTHook>("CEntitySystemHook", g_CGameEntitySystem);
 
-	m_pOnAddEntityOrig = hook->Enable<OnAddEntityFunc>(15, hkOnAddEntity);
-	if (!m_pOnAddEntityOrig)
-		throw std::runtime_error("failed to enable OnAddEntity hook");
-
-	m_pOnRemoveEntityOrig = hook->Enable<OnRemoveEntityFunc>(16, hkOnRemoveEntity);
-	if (!m_pOnRemoveEntityOrig)
-		throw std::runtime_error("failed to enable OnRemoveEntit hook");
+	hooks::AddVMTHook<OnAddEntityFunc>(hook.get(), 15, hkOnAddEntity, &m_pOnAddEntityOrig);
+	hooks::AddVMTHook<OnRemoveEntityFunc>(hook.get(), 16, hkOnRemoveEntity, &m_pOnRemoveEntityOrig);
 
 	lg::Success("[+]", "Hook %s initialized successfully.\n", hook->GetName().data());
 

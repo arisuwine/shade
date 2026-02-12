@@ -61,6 +61,10 @@ public:
 
 	OPTION(bool,	misc_fov,					true);
 	OPTION(float,	misc_fov_value,				80.0f);
+
+	OPTION(bool,	misc_bhop,					true);
+	OPTION(bool,	misc_autostrafe,			true);
+
 };
 
 inline std::unique_ptr<COptions> g_Options = std::make_unique<COptions>();

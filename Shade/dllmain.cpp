@@ -88,6 +88,8 @@ DWORD WINAPI OnDllAttach(LPVOID lpParam) {
     catch (const std::exception& e) {
 		lg::Error("", "An error occured during initialization: %s\n", e.what());
 
+        utils::WaitForPress();
+
         FreeLibraryAndExitThread(static_cast<HMODULE>(lpParam), 1);
     }
 
