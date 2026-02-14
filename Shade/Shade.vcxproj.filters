@@ -213,7 +213,7 @@
     <ClInclude Include="sdk\interfaces\CNetworkGameClient.hpp">
       <Filter>sdk\interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\interfaces\CShemaSystem.hpp">
+    <ClInclude Include="sdk\interfaces\CSchemaSystem.hpp">
       <Filter>sdk\interfaces</Filter>
     </ClInclude>
     <ClInclude Include="hooks\hooks.hpp">
@@ -378,6 +378,9 @@
     <ClInclude Include="features\movement.hpp">
       <Filter>features\misc</Filter>
     </ClInclude>
+    <ClInclude Include="hooks\idxgifactory.hpp">
+      <Filter>hooks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="imgui\imgui.cpp">
@@ -485,6 +488,9 @@
     </ClCompile>
     <ClCompile Include="features\movement.cpp">
       <Filter>features\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="hooks\idxgifactory.cpp">
+      <Filter>hooks</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

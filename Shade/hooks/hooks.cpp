@@ -6,6 +6,7 @@
 #include "view_render.hpp"
 #include "idxgiswapchain.hpp"
 #include "ccsgoinput.hpp"
+#include "idxgifactory.hpp"
 
 #include "../utils/debug.hpp"
 
@@ -16,6 +17,7 @@ void hooks::Initialize() {
 	CDetourHook::Initialize();
 
 	CIDXGISwapChainHook::Register();
+	CIDXGIFactoryHook::Register();
 	CEntitySystemHook::Register();
 	CIsGlowingHook::Register();
 	CApplyGlowHook::Register();

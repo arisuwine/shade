@@ -29,8 +29,10 @@ void* __fastcall CViewRenderHook::hkOnRenderStart(CViewRender* pViewRender) {
 		return result;
 	}
 
+	ImVec2 ScreenSize = ImGui::GetIO().DisplaySize;
+
 	if (g_Options->misc_aspect_ratio) {
-		pViewRender->m_CurrentView.m_flAspectRatio = (1600.0f / 900.0f) * (g_Options->misc_aspect_ratio_value / 100.0f);
+		pViewRender->m_CurrentView.m_flAspectRatio = (ScreenSize.x / ScreenSize.y) * (g_Options->misc_aspect_ratio_value / 100.0f);
 		pViewRender->m_CurrentView.m_nSomeFlags |= 2;
 	}
 	else
@@ -48,9 +50,11 @@ float __fastcall CSetupFovHook::hkSetupFov(__int64 a1) {
 	if (g_Unload)
 		return m_pOverrideFovOrig(a1);
 
+	ImVec2 ScreenSize = ImGui::GetIO().DisplaySize;
+
 	if (g_Options->misc_aspect_ratio && !g_Options->misc_aspect_ratio_vertical) {
 		float fov = g_Options->misc_fov ? g_Options->misc_fov_value : m_pOverrideFovOrig(a1);
-		return CViewRender::ScaleFOVByWidthRatio(fov, (1600.0f / 900.0f) * (g_Options->misc_aspect_ratio_value / 100.0f) * 0.75f);
+		return CViewRender::ScaleFOVByWidthRatio(fov, (ScreenSize.x / ScreenSize.y) * (g_Options->misc_aspect_ratio_value / 100.0f) * 0.75f);
 	}
 	else if (g_Options->misc_fov)
 		return g_Options->misc_fov_value;
@@ -69,9 +73,11 @@ void* __fastcall CSetupViewModelHook::hkSetupViewModel(__int64 unk, Vector3D* vi
 	if (g_Unload)
 		return result;
 
+	ImVec2 ScreenSize = ImGui::GetIO().DisplaySize;
+
 	if (g_Options->misc_aspect_ratio && !g_Options->misc_aspect_ratio_vertical) {
 		float fov = g_Options->misc_viewmodel_fov ? g_Options->misc_viewmodel_fov_value : *viewmodel_fov;
-		*viewmodel_fov = CViewRender::ScaleFOVByWidthRatio(fov, (1600.0f / 900.0f) * (g_Options->misc_aspect_ratio_value / 100.0f) * 0.75f);
+		*viewmodel_fov = CViewRender::ScaleFOVByWidthRatio(fov, (ScreenSize.x / ScreenSize.y) * (g_Options->misc_aspect_ratio_value / 100.0f) * 0.75f);
 	}
 	else if (g_Options->misc_viewmodel_fov)
 		*viewmodel_fov = g_Options->misc_viewmodel_fov_value;

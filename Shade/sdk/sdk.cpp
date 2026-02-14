@@ -22,7 +22,7 @@ void interfaces::Initialize() {
 	g_CNetworkClientService = CInterfaceSystem::Get<CNetworkClientService>	("engine2.dll",			"NetworkClientService_001"		);
 	g_EngineClient			= CInterfaceSystem::Get<IVEngineClient>			("engine2.dll",			"Source2EngineToClient001"		);
 	g_CVar					= CInterfaceSystem::Get<ICVar>					("tier0.dll",			"VEngineCvar007"				);
-	g_CSchemaSystem			= CInterfaceSystem::Get<CShemaSystem>			("schemasystem.dll",	"SchemaSystem_001"				);
+	g_CSchemaSystem			= CInterfaceSystem::Get<CSchemaSystem>			("schemasystem.dll",	"SchemaSystem_001"				);
 	g_Source2Client			= CInterfaceSystem::Get<ISource2Client>			("client.dll",			"Source2Client002"				);
 	g_GameResourceService	= CInterfaceSystem::Get<IGameResourceService>	("engine2.dll",			"GameResourceServiceClientV001"	);
 	g_EngineServiceMgr		= CInterfaceSystem::Get<IEngineServiceMgr>		("engine2.dll",			"EngineServiceMgr001"			);
@@ -30,5 +30,5 @@ void interfaces::Initialize() {
 	g_CGameEntitySystem		= g_GameResourceService->m_pCGameEntitySystem;
 	g_SwapChain				= g_EngineServiceMgr->GetEngineSwapChain()->m_pDXGISwapChain;
 
-	lg::Info("[CCSGOInput]", "%p\n", g_CCSGOInput);
+	lg::Info("[SWAPCHAIN]", "%p\n", g_SwapChain);
 }

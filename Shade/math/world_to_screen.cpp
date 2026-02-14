@@ -1,5 +1,7 @@
 #include "world_to_screen.hpp"
 
+#include "imgui.h"
+
 #include "../sdk/sdk.hpp"
 #include "../sdk/math/matrix4x4.hpp"
 
@@ -21,11 +23,13 @@ bool math::WorldToScreen(const Vector3D& in, Vector2D& out) {
     out.x *= inv_w;
     out.y *= inv_w;
 
-    float x = 1600.0f * 0.5f;
-    float y = 900.0f * 0.5f;
+    ImVec2 ScreenSize = ImGui::GetIO().DisplaySize;
 
-    x += 0.5f * out.x * 1600.0f + 0.5f;
-    y -= 0.5f * out.y * 900.0f + 0.5f;
+    float x = ScreenSize.x * 0.5f;
+    float y = ScreenSize.y * 0.5f;
+
+    x += 0.5f * out.x * ScreenSize.x + 0.5f;
+    y -= 0.5f * out.y * ScreenSize.y + 0.5f;
 
     out.x = x;
     out.y = y;

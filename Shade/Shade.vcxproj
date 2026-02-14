@@ -150,6 +150,7 @@
     <ClInclude Include="features\movement.hpp" />
     <ClInclude Include="features\utils\bounding_box.hpp" />
     <ClInclude Include="hooks\ccsgoinput.hpp" />
+    <ClInclude Include="hooks\idxgifactory.hpp" />
     <ClInclude Include="hooks\entity_system.hpp" />
     <ClInclude Include="hooks\idxgiswapchain.hpp" />
     <ClInclude Include="hooks\ihook.hpp" />
@@ -198,7 +199,7 @@
     <ClInclude Include="sdk\interfaces\CGlowObjectManager.hpp" />
     <ClInclude Include="sdk\interfaces\CInterfaceSystem.hpp" />
     <ClInclude Include="sdk\interfaces\CNetworkGameClient.hpp" />
-    <ClInclude Include="sdk\interfaces\CShemaSystem.hpp" />
+    <ClInclude Include="sdk\interfaces\CSchemaSystem.hpp" />
     <ClInclude Include="sdk\interfaces\CViewRender.hpp" />
     <ClInclude Include="sdk\interfaces\ICVar.hpp" />
     <ClInclude Include="sdk\interfaces\IEngineServiceMgr.hpp" />
@@ -248,6 +249,7 @@
     <ClCompile Include="features\movement.cpp" />
     <ClCompile Include="features\utils\bounding_box.cpp" />
     <ClCompile Include="hooks\ccsgoinput.cpp" />
+    <ClCompile Include="hooks\idxgifactory.cpp" />
     <ClCompile Include="hooks\entity_system.cpp" />
     <ClCompile Include="hooks\idxgiswapchain.cpp" />
     <ClCompile Include="hooks\ihook.cpp" />

@@ -42,6 +42,9 @@ bool __fastcall CIsGlowingHook::hkIsGlowing(CGlowProperty* property) {
 }
 
 void __fastcall CApplyGlowHook::hkApplyGlow(CGlowProperty* property, CGlowObject* object) {
+	//lg::Info("[SWAPCHAIN]", "%p\n", g_SwapChain);
+	//lg::Info("[SWAPCHAIN]", "%p\n", g_EngineServiceMgr->GetEngineSwapChain());
+
 	m_pApplyGlowOrig(property, object);
 
 	if (!g_CNetworkClientService->m_pCNetworkGameClient->IsInGame())

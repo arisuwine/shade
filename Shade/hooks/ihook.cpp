@@ -17,7 +17,7 @@ bool CDetourHook::Uninitialize() {
 	return true;
 }
 
-CDetourHook::CDetourHook(std::string_view szName, void* pTarget, void* pDetour, std::function<void()> onCreate, std::function<void()> onDestroy) : m_pOriginal(nullptr), m_pTarget(nullptr) {
+CDetourHook::CDetourHook(std::string_view szName, void* pTarget, void* pDetour, std::function<void()> onCreate, std::function<void()> onDestroy) : m_pDetour(nullptr), m_pOriginal(nullptr), m_pTarget(nullptr) {
 	if (MH_CreateHook(pTarget, pDetour, &m_pOriginal) != MH_OK)
 		throw std::runtime_error(std::format("failed to create hook {}", szName));
 
@@ -70,6 +70,13 @@ CVMTHook::CVMTHook(std::string_view szName, void* pObject, std::function<void()>
 
 	if (m_onCreate)
 		m_onCreate();
+}
+
+bool CVMTHook::Rebase(void* pObject, bool RestoreOld) {
+	if (!m_Shadowing.Rebase(pObject, RestoreOld))
+		return false;
+
+	return true;
 }
 
 bool CVMTHook::Disable(size_t iFuncIndex) {
