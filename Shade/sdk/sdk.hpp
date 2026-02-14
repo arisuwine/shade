@@ -5,7 +5,7 @@
 
 #include "interfaces/ViewMatrix.hpp"
 #include "interfaces/CGlowObjectManager.hpp"
-#include "interfaces/CShemaSystem.hpp"
+#include "interfaces/CSchemaSystem.hpp"
 #include "interfaces/IVEngineClient.hpp"
 #include "interfaces/ICVar.hpp"
 #include "interfaces/CViewRender.hpp"
@@ -32,7 +32,7 @@ inline CGlowObjectManager*		g_CGlowObjectManager	= nullptr;
 inline CGameEntitySystem*		g_CGameEntitySystem		= nullptr;
 inline ViewMatrix*				g_ViewMatrix			= nullptr;
 inline CNetworkClientService*	g_CNetworkClientService = nullptr;
-inline CShemaSystem*			g_CSchemaSystem			= nullptr;
+inline CSchemaSystem*			g_CSchemaSystem			= nullptr;
 inline CGlobalVarsBase*			gpGlobals				= nullptr;
 inline IVEngineClient*			g_EngineClient			= nullptr;
 inline ICVar*					g_CVar					= nullptr;

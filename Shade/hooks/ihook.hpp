@@ -11,8 +11,6 @@
 
 class IHookBase {
 protected:
-	void*		m_pDetour;
-
 	bool		m_bIsEnabled;
 	std::string m_szName;
 
@@ -20,7 +18,7 @@ protected:
 	std::function<void()> m_onDestroy;
 
 public:
-	IHookBase() : m_pDetour(nullptr), m_bIsEnabled(false), m_szName(""), m_onCreate(nullptr), m_onDestroy(nullptr) {};
+	IHookBase() : m_bIsEnabled(false), m_szName(""), m_onCreate(nullptr), m_onDestroy(nullptr) {};
 
 	bool IsEnabled() const { return m_bIsEnabled; }
 	std::string_view GetName() const { return m_szName.data(); }
@@ -43,6 +41,7 @@ private:
 	template <typename Func>
 	friend void hooks::AddDetour(std::string_view szName, void* pTarget, void* pDetour, Func* ppOriginal, std::function<void()> onCreate, std::function<void()> onDestroy);
 	
+	void* m_pDetour;
 	void* m_pTarget;
 	void* m_pOriginal;
 
@@ -78,6 +77,8 @@ public:
 
 		return m_Shadowing.Hook<Func>(iFuncIndex, pDetour);
 	}
+
+	bool Rebase(void* pObject, bool RestoreOld = false);
 
 	template <typename Func>
 	Func GetOriginal(size_t iFuncIndex) { return m_Shadowing.Get<Func>(iFuncIndex); }

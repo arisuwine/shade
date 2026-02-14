@@ -10,7 +10,7 @@ class IAppSystem {};
 
 class ISchemaSystem : public IAppSystem {};
 
-class CShemaSystem : public ISchemaSystem {
+class CSchemaSystem : public ISchemaSystem {
 public:
 	auto FindClassByScopedName(const char* pszScopedName) {
 		SchemaMetaInfoHandle_t<CSchemaClassInfo> result{};

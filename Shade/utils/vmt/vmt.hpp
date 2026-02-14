@@ -71,6 +71,8 @@ namespace vmt {
 		template <typename T>
 		T			Get(size_t index) const;
 
+		bool		Rebase(void* object, bool RestoreOld = false);
+
 		bool		UnHook(size_t index);
 		bool		UnHookAll();
 		bool		Shutdown();

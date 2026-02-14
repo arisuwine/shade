@@ -40,6 +40,5 @@ void RenderTarget::BeginScene() {
 
     ImGui::Render();
 
-    g_DeviceContext->OMSetRenderTargets(1, &g_TargetView, nullptr);
     ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 }

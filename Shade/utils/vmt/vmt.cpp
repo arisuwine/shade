@@ -24,6 +24,49 @@ vmt::Shadowing::Shadowing(void* object) : m_pObject(nullptr), m_pVftOrig(nullptr
 	m_bIsInit = true;
 }
 
+bool vmt::Shadowing::Rebase(void* pObject, bool RestoreOld) {
+	if (!m_bIsInit) {
+		lg::Info("[VMT]", "Shadowing not initialized.\n");
+		return false;
+	}
+
+	if (!pObject) {
+		lg::Warn("[VMT]", "Target object is nullptr\n");
+		return false;
+	}
+
+	if (RestoreOld && m_pObject)
+		*reinterpret_cast<uintptr_t**>(m_pObject) = m_pVftOrig;
+
+	std::unordered_map<size_t, uintptr_t> Detours;
+	for (auto& [index, func] : m_OriginalFuncs)
+		Detours[index] = m_pUserVft[index];
+
+	uintptr_t* pVftOrig = *reinterpret_cast<uintptr_t**>(pObject);
+	uintptr_t* pShadowAlloc = new uintptr_t[m_iVftSize + 1];
+	memcpy(pShadowAlloc, pVftOrig - 1, (m_iVftSize + 1) * sizeof(void*));
+
+	uintptr_t* pUserVft = pShadowAlloc + 1;
+
+	std::unordered_map<size_t, uintptr_t> OriginalFuncs;
+	for (auto& [index, func] : Detours) {
+		OriginalFuncs[index] = pUserVft[index];
+		pUserVft[index] = func;
+	}
+
+	*reinterpret_cast<void**>(pObject) = pUserVft;
+
+	delete[] m_pShadowAlloc;
+
+	m_pObject = pObject;
+	m_pVftOrig = pVftOrig;
+	m_pShadowAlloc = pShadowAlloc;
+	m_pUserVft = pUserVft;
+	m_OriginalFuncs = OriginalFuncs;
+
+	return true;
+}
+
 size_t vmt::Shadowing::GetFunctionCount() {
 	if (!m_pVftOrig)
 		return 0;
