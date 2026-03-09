@@ -3,5 +3,5 @@
 
 class CModelState {
 public:
-	SCHEMA(uintptr_t, offsets::client::CModelState::BoneArray, m_BoneArray);
+	SCHEMA(uintptr_t, 0x80, m_BoneArray);
 };

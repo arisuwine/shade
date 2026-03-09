@@ -15,7 +15,7 @@ std::vector<C_CSWeaponBase*> g_WeaponsCache;
 std::vector<C_CSPlayerPawn*> g_PawnsCache;
 
 void CEntitySystemHook::Register() {
-	std::unique_ptr<CVMTHook> hook = std::make_unique<CVMTHook>("CEntitySystemHook", g_CGameEntitySystem);
+	std::unique_ptr<CVMTHook> hook = std::make_unique<CVMTHook>("CEntitySystemHook", g_pGameEntitySystem);
 
 	hooks::AddVMTHook<OnAddEntityFunc>(hook.get(), 15, hkOnAddEntity, &m_pOnAddEntityOrig);
 	hooks::AddVMTHook<OnRemoveEntityFunc>(hook.get(), 16, hkOnRemoveEntity, &m_pOnRemoveEntityOrig);

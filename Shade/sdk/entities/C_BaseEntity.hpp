@@ -119,11 +119,11 @@ public:
 	}
 
 	inline bool IsPawn() {
-		return Schema_DynamicBinding() == g_CSchemaSystem->FindClassByScopedName("client.dll!C_CSPlayerPawn");
+		return Schema_DynamicBinding() == g_pSchemaSystem->FindClassByScopedName("client.dll!C_CSPlayerPawn");
 	}
 
 	inline bool IsPlayerController() {
-		return Schema_DynamicBinding() == g_CSchemaSystem->FindClassByScopedName("client.dll!CCSPlayerController");
+		return Schema_DynamicBinding() == g_pSchemaSystem->FindClassByScopedName("client.dll!CCSPlayerController");
 	}
 
 	inline bool IsAlive() {

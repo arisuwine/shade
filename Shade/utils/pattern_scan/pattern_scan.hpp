@@ -10,21 +10,22 @@ private:
 		std::string m_szMask;
 	};
 
-	uint8_t*				m_pTextSection;
-	DWORD					m_nSectionSize;
+	uint8_t*	m_pTextSection;
+	DWORD		m_nSectionSize;
 
-	bool					m_bIsInit;
+	bool		m_bIsInit;
 
 	static PatternData PatternToBytes(std::string_view pattern);
 	bool FindTextSection(HMODULE hModule);
 
 public:
-	PatternScan() {};
+	PatternScan() : m_pTextSection(nullptr), m_nSectionSize(0), m_bIsInit(false) {};
 	PatternScan(HMODULE hModule);
 	PatternScan(const std::string& module_name);
 
 	PatternScan(const PatternScan&) = delete;
 	PatternScan& operator=(const PatternScan&) = delete;
+
 	PatternScan(PatternScan&&) = default;
 	PatternScan& operator=(PatternScan&&) = default;
 

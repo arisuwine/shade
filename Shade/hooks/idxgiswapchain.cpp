@@ -9,7 +9,7 @@
 
 // CIDXGISwapChainHook
 void CIDXGISwapChainHook::Register() {
-	std::unique_ptr<CVMTHook> hook = std::make_unique<CVMTHook>("CIDXGISwapChainHook", g_SwapChain, &Initialize, &Destroy);
+	std::unique_ptr<CVMTHook> hook = std::make_unique<CVMTHook>("CIDXGISwapChainHook", g_pSwapChain, &Initialize, &Destroy);
 
 	hooks::AddVMTHook<PresentFunc>		(hook.get(), 8,		hkPresent,			&m_pPresentOrig);
 	hooks::AddVMTHook<ResizeBuffersFunc>(hook.get(), 13,	hkResizeBuffers,	&m_pResizeBuffersOrig);
@@ -22,14 +22,14 @@ void CIDXGISwapChainHook::Register() {
 void CIDXGISwapChainHook::CreateRenderTargetView() {
 	ID3D11Texture2D* renderTarget = nullptr;
 
-	g_SwapChain->GetBuffer(0, __uuidof(renderTarget), reinterpret_cast<void**>(&renderTarget));
-	g_Device->CreateRenderTargetView(renderTarget, nullptr, &g_TargetView);
+	g_pSwapChain->GetBuffer(0, __uuidof(renderTarget), reinterpret_cast<void**>(&renderTarget));
+	g_pDevice->CreateRenderTargetView(renderTarget, nullptr, &g_pTargetView);
 	renderTarget->Release();
 }
 
 void CIDXGISwapChainHook::Initialize() {
-	g_SwapChain->GetDevice(__uuidof(g_Device), reinterpret_cast<void**>(&g_Device));
-	g_Device->GetImmediateContext(&g_DeviceContext);
+	g_pSwapChain->GetDevice(__uuidof(g_pDevice), reinterpret_cast<void**>(&g_pDevice));
+	g_pDevice->GetImmediateContext(&g_pDeviceContext);
 
 	CreateRenderTargetView();
 
@@ -39,22 +39,22 @@ void CIDXGISwapChainHook::Initialize() {
 void CIDXGISwapChainHook::Destroy() {
 	CWndProcHook::Destroy();
 
-	g_Device->Release();
-	g_Device = nullptr;
+	g_pDevice->Release();
+	g_pDevice = nullptr;
 
-	g_DeviceContext->Release();
-	g_DeviceContext = nullptr;
+	g_pDeviceContext->Release();
+	g_pDeviceContext = nullptr;
 
-	g_TargetView->Release();
-	g_TargetView = nullptr;
+	g_pTargetView->Release();
+	g_pTargetView = nullptr;
 }
 
 HRESULT __stdcall CIDXGISwapChainHook::hkPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags) {
-	if (!g_TargetView)
+	if (!g_pTargetView)
 		CreateRenderTargetView();
 
-	if (g_TargetView)
-		g_DeviceContext->OMSetRenderTargets(1, &g_TargetView, nullptr);
+	if (g_pTargetView)
+		g_pDeviceContext->OMSetRenderTargets(1, &g_pTargetView, nullptr);
 
 	RenderTarget::BeginScene();
 
@@ -62,9 +62,9 @@ HRESULT __stdcall CIDXGISwapChainHook::hkPresent(IDXGISwapChain* pSwapChain, UIN
 }
 
 HRESULT __stdcall CIDXGISwapChainHook::hkResizeBuffers(IDXGISwapChain* pSwapChain, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags) {
-	if (g_TargetView) {
-		g_TargetView->Release();
-		g_TargetView = nullptr;
+	if (g_pTargetView) {
+		g_pTargetView->Release();
+		g_pTargetView = nullptr;
 	}
 
 	HRESULT result = m_pResizeBuffersOrig(pSwapChain, BufferCount, Width, Height, NewFormat, SwapChainFlags);

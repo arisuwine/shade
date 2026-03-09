@@ -12,7 +12,7 @@ namespace hash {
 		return *str ? Set(str + 1, (last_hash ^ static_cast<hash_t>(*str)) * prime) : last_hash;
 	}
 
-	inline hash_t Get(const std::string_view& str) {
+	inline hash_t Get(std::string_view str) {
 		hash_t hash = basis;
 
 		for (char c : str) {

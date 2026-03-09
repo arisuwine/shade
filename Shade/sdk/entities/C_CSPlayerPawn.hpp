@@ -7,19 +7,19 @@
 #include "C_BaseEntity.hpp"
 #include "CCSPlayerController.hpp"
 
-#include "../math/vector_3d.hpp"
-#include "../math/vector_2d.hpp"
+#include "../math/Vector3D.hpp"
+#include "../math/Vector2D.hpp"
 
 #include "../utils/singleton.hpp"
 
-class CPlayer_MovementServices;
+class CCSPlayer_MovementServices;
 class CPlayer_WeaponServices;
 class C_CSWeaponBase;
 
 class C_BasePlayerPawn : public C_BaseCombatCharacter {
 public:
 	SCHEMA	(Vector3D,							offsets::client::C_BasePlayerPawn::m_vOldOrigin,		m_vOldOrigin		);
-	SCHEMA	(CPlayer_MovementServices*,			offsets::client::C_BasePlayerPawn::m_pMovementServices, m_pMovementServices	);
+	SCHEMA	(CCSPlayer_MovementServices*,		offsets::client::C_BasePlayerPawn::m_pMovementServices, m_pMovementServices	);
 	SCHEMA	(CPlayer_WeaponServices*,			offsets::client::C_BasePlayerPawn::m_pWeaponServices,	m_pWeaponServices	);
 	PSCHEMA	(CHandle<CCSPlayerController>,		offsets::client::C_BasePlayerPawn::m_hController,		m_hController		);
 };

@@ -70,9 +70,6 @@
     <Filter Include="sdk\services">
       <UniqueIdentifier>{cc7ef5bc-2c6c-4f64-853b-00999f5fa7e0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="sdk\data">
-      <UniqueIdentifier>{0485c2a9-bf45-4e03-9c3e-156b6e4b1e36}</UniqueIdentifier>
-    </Filter>
     <Filter Include="sdk\entities">
       <UniqueIdentifier>{8ccd2983-81e0-4058-81bc-19132025e6c3}</UniqueIdentifier>
     </Filter>
@@ -99,6 +96,21 @@
     </Filter>
     <Filter Include="features\misc">
       <UniqueIdentifier>{4429a50c-971f-4cdd-8da2-e382fc0c45f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hooks\idxgifactory">
+      <UniqueIdentifier>{df2599ba-f614-44c3-adb8-167e717343bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk\interfaces\schemasystem">
+      <UniqueIdentifier>{559db715-db81-4870-96aa-d3fb0141c129}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="schemadumper">
+      <UniqueIdentifier>{31d440b6-6b7d-4edc-af95-168754025378}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk\tier1">
+      <UniqueIdentifier>{915c8730-f17b-488e-8245-4934747b6da1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sdk\tier0">
+      <UniqueIdentifier>{3bcf087a-fc5d-41fc-9d57-c5ff38a94745}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -144,9 +156,6 @@
     <ClInclude Include="render\render.hpp">
       <Filter>render</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\utils\cutlstring.hpp">
-      <Filter>sdk\utils</Filter>
-    </ClInclude>
     <ClInclude Include="features\esp.hpp">
       <Filter>features\esp</Filter>
     </ClInclude>
@@ -158,9 +167,6 @@
     </ClInclude>
     <ClInclude Include="sdk\sdk.hpp">
       <Filter>sdk</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\utils\color.hpp">
-      <Filter>sdk\utils</Filter>
     </ClInclude>
     <ClInclude Include="utils\vmt\vmt.hpp">
       <Filter>utils\vmt</Filter>
@@ -210,20 +216,8 @@
     <ClInclude Include="sdk\interfaces\ViewMatrix.hpp">
       <Filter>sdk\interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\interfaces\CNetworkGameClient.hpp">
-      <Filter>sdk\interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\interfaces\CSchemaSystem.hpp">
-      <Filter>sdk\interfaces</Filter>
-    </ClInclude>
     <ClInclude Include="hooks\hooks.hpp">
       <Filter>hooks</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\data\SchemaMetaInfoHandle_t.hpp">
-      <Filter>sdk\data</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\data\SchemaClassInfoData_t.hpp">
-      <Filter>sdk\data</Filter>
     </ClInclude>
     <ClInclude Include="sdk\entities\CConcreteEntityList.hpp">
       <Filter>sdk\entities\system</Filter>
@@ -249,9 +243,6 @@
     <ClInclude Include="sdk\entities\CEntityClass.hpp">
       <Filter>sdk\entities</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\interfaces\CGlowObjectManager.hpp">
-      <Filter>sdk\interfaces</Filter>
-    </ClInclude>
     <ClInclude Include="sdk\services\CPlayer_WeaponServices.hpp">
       <Filter>sdk\services</Filter>
     </ClInclude>
@@ -273,10 +264,7 @@
     <ClInclude Include="sdk\services\CModelState.hpp">
       <Filter>sdk\services</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\services\CNetworkClientService.hpp">
-      <Filter>sdk\services</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\services\CPlayer_MovementServices.hpp">
+    <ClInclude Include="sdk\services\CCSPlayer_MovementServices.hpp">
       <Filter>sdk\services</Filter>
     </ClInclude>
     <ClInclude Include="utils\debug.hpp">
@@ -288,16 +276,10 @@
     <ClInclude Include="sdk\services\CGlobalVarsBase.hpp">
       <Filter>sdk\services</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\interfaces\CInterfaceSystem.hpp">
-      <Filter>sdk\interfaces</Filter>
-    </ClInclude>
     <ClInclude Include="sdk\interfaces\IVEngineClient.hpp">
       <Filter>sdk\interfaces</Filter>
     </ClInclude>
     <ClInclude Include="sdk\interfaces\ICVar.hpp">
-      <Filter>sdk\interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\interfaces\CViewRender.hpp">
       <Filter>sdk\interfaces</Filter>
     </ClInclude>
     <ClInclude Include="hooks\view_render.hpp">
@@ -312,15 +294,6 @@
     <ClInclude Include="hooks\source2client.hpp">
       <Filter>hooks\source2client</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\utils\cutlmemory.hpp">
-      <Filter>sdk\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\utils\cutlmap.hpp">
-      <Filter>sdk\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\utils\cutlvector.hpp">
-      <Filter>sdk\utils</Filter>
-    </ClInclude>
     <ClInclude Include="sdk\interfaces\IGameResourceService.hpp">
       <Filter>sdk\interfaces</Filter>
     </ClInclude>
@@ -330,20 +303,8 @@
     <ClInclude Include="utils\hash.hpp">
       <Filter>utils</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\utils\item_name.hpp">
-      <Filter>sdk\utils</Filter>
-    </ClInclude>
     <ClInclude Include="render\utils\gui.hpp">
       <Filter>render\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\math\vector_2d.hpp">
-      <Filter>sdk\math</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\math\vector_3d.hpp">
-      <Filter>sdk\math</Filter>
-    </ClInclude>
-    <ClInclude Include="sdk\math\matrix4x4.hpp">
-      <Filter>sdk\math</Filter>
     </ClInclude>
     <ClInclude Include="hooks\ihook.hpp">
       <Filter>hooks</Filter>
@@ -357,9 +318,6 @@
     <ClInclude Include="sdk\interfaces\IEngineServiceMgr.hpp">
       <Filter>sdk\interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\data\CSwapChainDx11.hpp">
-      <Filter>sdk\data</Filter>
-    </ClInclude>
     <ClInclude Include="hooks\idxgiswapchain.hpp">
       <Filter>hooks\idxgiswapchain</Filter>
     </ClInclude>
@@ -372,14 +330,152 @@
     <ClInclude Include="sdk\services\CCSGOInput.hpp">
       <Filter>sdk\services</Filter>
     </ClInclude>
-    <ClInclude Include="sdk\data\CUserCmd.hpp">
-      <Filter>sdk\data</Filter>
-    </ClInclude>
     <ClInclude Include="features\movement.hpp">
       <Filter>features\misc</Filter>
     </ClInclude>
     <ClInclude Include="hooks\idxgifactory.hpp">
-      <Filter>hooks</Filter>
+      <Filter>hooks\idxgifactory</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\CSchemaSystem.hpp">
+      <Filter>sdk\interfaces\schemasystem</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\CSchemaSystemTypeScope.hpp">
+      <Filter>sdk\interfaces\schemasystem</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\CSchemaType.hpp">
+      <Filter>sdk\interfaces\schemasystem</Filter>
+    </ClInclude>
+    <ClInclude Include="schemadumper\schemadumper.hpp">
+      <Filter>schemadumper</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\INetworkClientService.hpp">
+      <Filter>sdk\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\services\CNetworkGameClient.hpp">
+      <Filter>sdk\services</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\services\CViewRender.hpp">
+      <Filter>sdk\services</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\services\CGlowObjectManager.hpp">
+      <Filter>sdk\services</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\services\CSwapChainDx11.hpp">
+      <Filter>sdk\services</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\services\CUserCmd.hpp">
+      <Filter>sdk\services</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\utils\item_name.hpp">
+      <Filter>sdk\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\math\Matrix4x4.hpp">
+      <Filter>sdk\math</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\math\Vector2D.hpp">
+      <Filter>sdk\math</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\math\Vector3D.hpp">
+      <Filter>sdk\math</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\interfaces\CInterfaceSystem.hpp">
+      <Filter>sdk\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\utils\SafeReader.hpp">
+      <Filter>sdk\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\tier0\platform.hpp">
+      <Filter>sdk\tier0</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\tier0\valve_off.hpp">
+      <Filter>sdk\tier0</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\tier0\valve_on.hpp">
+      <Filter>sdk\tier0</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\tier0\wchartypes.hpp">
+      <Filter>sdk\tier0</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\tier1\utltshash.hpp">
+      <Filter>sdk\tier1</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\tier0\threadtools.hpp">
+      <Filter>sdk\tier0</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\tier0\dbgflag.hpp">
+      <Filter>sdk\tier0</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\tier0\dbg.hpp">
+      <Filter>sdk\tier0</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\tier0\logging.hpp">
+      <Filter>sdk\tier0</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\tier0\icommandline.hpp">
+      <Filter>sdk\tier0</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\tier1\utlstringtoken.hpp">
+      <Filter>sdk\tier1</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\tier1\generichash.hpp">
+      <Filter>sdk\tier1</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\tier0\win32consoleio.hpp">
+      <Filter>sdk\tier0</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\tier0\basetypes.hpp">
+      <Filter>sdk\tier0</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\tier0\commonmacros.hpp">
+      <Filter>sdk\tier0</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\tier1\strtools.hpp">
+      <Filter>sdk\tier1</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\tier1\utlstring.hpp">
+      <Filter>sdk\tier1</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\tier1\utlmemory.hpp">
+      <Filter>sdk\tier1</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\tier0\memdbgoff.hpp">
+      <Filter>sdk\tier0</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\tier0\memalloc.hpp">
+      <Filter>sdk\tier0</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\tier0\memdbgon.hpp">
+      <Filter>sdk\tier0</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\tier1\rawallocator.hpp">
+      <Filter>sdk\tier1</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\tier1\mempool.hpp">
+      <Filter>sdk\tier1</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\tier0\tslist.hpp">
+      <Filter>sdk\tier0</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\tier1\utlrbtree.hpp">
+      <Filter>sdk\tier1</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\tier1\utlleanvector.hpp">
+      <Filter>sdk\tier1</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\tier1\utlblockmemory.hpp">
+      <Filter>sdk\tier1</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\tier1\utlfixedmemory.hpp">
+      <Filter>sdk\tier1</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\tier1\utlmap.hpp">
+      <Filter>sdk\tier1</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\tier1\utlvector.hpp">
+      <Filter>sdk\tier1</Filter>
+    </ClInclude>
+    <ClInclude Include="sdk\tier0\Color.hpp">
+      <Filter>sdk\tier0</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -428,9 +524,6 @@
     <ClCompile Include="sdk\sdk.cpp">
       <Filter>sdk</Filter>
     </ClCompile>
-    <ClCompile Include="sdk\utils\color.cpp">
-      <Filter>sdk\utils</Filter>
-    </ClCompile>
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="minhook\buffer.c">
       <Filter>minhook</Filter>
@@ -465,9 +558,6 @@
     <ClCompile Include="hooks\source2client.cpp">
       <Filter>hooks\source2client</Filter>
     </ClCompile>
-    <ClCompile Include="sdk\utils\cutlstring.cpp">
-      <Filter>sdk\utils</Filter>
-    </ClCompile>
     <ClCompile Include="utils\vmt\vmt.cpp">
       <Filter>utils\vmt</Filter>
     </ClCompile>
@@ -490,7 +580,16 @@
       <Filter>features\misc</Filter>
     </ClCompile>
     <ClCompile Include="hooks\idxgifactory.cpp">
-      <Filter>hooks</Filter>
+      <Filter>hooks\idxgifactory</Filter>
+    </ClCompile>
+    <ClCompile Include="schemadumper\schemadumper.cpp">
+      <Filter>schemadumper</Filter>
+    </ClCompile>
+    <ClCompile Include="sdk\tier1\generichash.cpp">
+      <Filter>sdk\tier1</Filter>
+    </ClCompile>
+    <ClCompile Include="sdk\tier0\Color.cpp">
+      <Filter>sdk\tier0</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

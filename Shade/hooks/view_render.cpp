@@ -14,7 +14,7 @@
 
 // СViewRenderHook
 void CViewRenderHook::Register() {
-	std::unique_ptr<CVMTHook> hook = std::make_unique<CVMTHook>("CViewRenderHook", g_CViewRender);
+	std::unique_ptr<CVMTHook> hook = std::make_unique<CVMTHook>("CViewRenderHook", g_pViewRender);
 
 	hooks::AddVMTHook<OnRenderStartFunc>(hook.get(), 4, hkOnRenderStart, &m_pOnRenderStartOrig);
 

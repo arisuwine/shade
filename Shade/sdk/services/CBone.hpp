@@ -1,7 +1,7 @@
 #pragma once
 #include <Windows.h>
 
-#include "../math/vector_3d.hpp"
+#include "../math/Vector3D.hpp"
 
 class C_CSPlayerPawn;
 

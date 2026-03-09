@@ -35,7 +35,7 @@ void RenderTarget::BeginScene() {
     Menu::Get().Render();
     Render::SetDrawList(ImGui::GetBackgroundDrawList());
 
-    if (g_CNetworkClientService->m_pCNetworkGameClient->IsInGame() && g_Options->esp_enabled)
+    if (g_pNetworkClientService->m_pCNetworkGameClient->IsInGame() && g_Options->esp_enabled)
         ESP::Get().BeginRender();
 
     ImGui::Render();

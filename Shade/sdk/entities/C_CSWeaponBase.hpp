@@ -13,5 +13,5 @@ public:
 
 class C_CSWeaponBase : public C_BasePlayerWeapon {
 public:
-	SCHEMA(CCSWeaponBaseVData*, offsets::client::C_CSWeaponBase::m_pWeaponVData,	m_pWeaponVData	);
+	SCHEMA(CCSWeaponBaseVData*, 0x390,	m_pWeaponVData	);
 };

@@ -1,5 +1,5 @@
 #pragma once
-#include "../sdk/math/vector_3d.hpp"
+#include "../sdk/math/Vector3D.hpp"
 #include "../sdk/offsets.hpp"
 
 class CCollisionProperty {

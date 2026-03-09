@@ -5,5 +5,5 @@ class CGameEntitySystem;
 
 class IGameResourceService {
 public:
-	SCHEMA(CGameEntitySystem*, offsets::client::IGameResourceService::m_pCGameEntitySystem, m_pCGameEntitySystem);
+	SCHEMA(CGameEntitySystem*, 0x58, m_pGameEntitySystem);
 };

@@ -5,17 +5,13 @@
 
 #include "../../utils/vmt/vmt.hpp"
 
-class ConVarRef
-{
+class ConVarRef {
 public:
 	static inline const uint16_t kInvalidAccessIndex = 0xFFFF;
 
-	ConVarRef();
+	SCHEMA(uint16_t,	0x0, m_ConVarAccessIndex	);
+	SCHEMA(int,			0x4, m_ConVarRegisteredIndex);
 
-	SCHEMA(uint16_t,	offsets::tier0::ConVarRef::m_ConVarAccessIndex,		m_ConVarAccessIndex		);
-	SCHEMA(int,			offsets::tier0::ConVarRef::m_ConVarRegisteredIndex,	m_ConVarRegisteredIndex	);
-
-	//inline void InvalidateRef() { m_ConVarAccessIndex = kInvalidAccessIndex; m_ConVarRegisteredIndex = 0; }
 	inline bool		IsValidRef()			 { return m_ConVarAccessIndex != kInvalidAccessIndex; }
 	inline uint16_t GetAccessIndex()		 { return m_ConVarAccessIndex; }
 	inline int		GetRegisteredIndex()	 { return m_ConVarRegisteredIndex; }

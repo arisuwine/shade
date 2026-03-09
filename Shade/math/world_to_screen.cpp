@@ -6,7 +6,7 @@
 #include "../sdk/math/matrix4x4.hpp"
 
 bool math::WorldToScreen(const Vector3D& in, Vector2D& out) {
-    Matrix4x4 matrix_v = g_ViewMatrix->m_Matrix;
+    Matrix4x4 matrix_v = g_pViewMatrix->m_Matrix;
 
     if (in.IsZero())
         return 0;

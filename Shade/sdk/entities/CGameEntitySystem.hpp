@@ -6,7 +6,8 @@
 #include "CConcreteEntityList.hpp"
 #include "CEntityClass.hpp"
 
-#include "../utils/cutlmap.hpp"
+#include "../tier1/utlmap.hpp"
+#include "../tier1/utlstring.hpp"
 
 #include "../utils/debug.hpp"
 
@@ -15,10 +16,12 @@ class CEntityClass;
 
 class CGameEntitySystem {
 public:
-	using EntityMap = CUtlMap<const char*, CEntityClass*, std::uint16_t, CDefCaselessStringLess>;
-
-	SCHEMA(CConcreteEntityList,		offsets::client::CGameEntitySystem::m_entityList,		m_entityList	);
-	SCHEMA(EntityMap,				offsets::client::CGameEntitySystem::m_ClassesByName,	m_ClassesByName	);
+	using EntityMap = CUtlMap<const char*, CEntityClass*, uint16_t, CDefCaselessStringLess>;
+	void* __vft;
+	char pad[8];
+	CConcreteEntityList m_entityList;
+	CUtlString m_sEntSystemName;
+	CUtlMap<const char*, CEntityClass*, uint16_t, CDefCaselessStringLess> m_ClassesByName;
 
 	template <typename T>
 	T* GetEntityByIndex(int idx);
@@ -30,7 +33,7 @@ public:
 			return nullptr;
 
 		class_name += 6;
-		auto class_by_name = m_ClassesByName[class_name];
+		auto& class_by_name = m_ClassesByName[class_name];
 		if (!class_by_name)
 			return nullptr;
 

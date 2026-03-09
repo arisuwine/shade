@@ -84,7 +84,7 @@ namespace vmt {
 template <typename T>
 T vmt::Shadowing::Hook(size_t index, void* hook_func) {
 	if (!hook_func) {
-		lg::Warn("[VMT]", "Hook failed: Hook function pointer is null.\n");
+		lg::Error("[VMT]", "Hook failed: Hook function pointer is null.\n");
 		return nullptr;
 	}
 
@@ -92,7 +92,7 @@ T vmt::Shadowing::Hook(size_t index, void* hook_func) {
 		return nullptr;
 
 	if (index >= m_iVftSize) {
-		lg::Warn("[VMT]", "Hook failed: Index %zu out of bounds (Size: %zu)\n", index, m_iVftSize);
+		lg::Error("[VMT]", "Hook failed: Index %zu out of bounds (Size: %zu)\n", index, m_iVftSize);
 		return nullptr;
 	}
 

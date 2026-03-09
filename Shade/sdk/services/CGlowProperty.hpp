@@ -1,14 +1,14 @@
 #pragma once
 #include "../offsets.hpp"
 
-#include "../math/vector_3d.hpp"
+#include "../math/Vector3D.hpp"
 
 class C_BaseEntity;
 
 class CGlowProperty {
 public:
-	SCHEMA(C_BaseEntity*,	offsets::client::CGlowProperty::m_pParent,				m_pParent);
-	SCHEMA(Vector3D,		offsets::client::CGlowProperty::m_vGlowColor,			m_vGlowColor);
-	SCHEMA(uint32_t,		offsets::client::CGlowProperty::m_glowColorOverride,	m_glowColorOverride);
-	SCHEMA(bool,			offsets::client::CGlowProperty::m_bGlowing,				m_bGlowing);
+	SCHEMA(C_BaseEntity*,	0x8,				m_pParent);
+	SCHEMA(Vector3D,		0x18,			m_vGlowColor);
+	SCHEMA(uint32_t,		0x40,	m_glowColorOverride);
+	SCHEMA(bool,			0x51,				m_bGlowing);
 };

@@ -65,15 +65,26 @@ THE SOFTWARE.
 #include "utils/console.hpp"
 #include "utils/debug.hpp"
 
-//bool g_Unload = FALSE;
+#include "schemadumper/schemadumper.hpp"
+
+#define SCHEMA_DUMP
 
 DWORD WINAPI OnDllAttach(LPVOID lpParam) {
 #ifdef _DEBUG
     utils::AttachConsole();
 #endif
+    globals::Initialize();
 
     try {
-        interfaces::Initialize();
+#ifdef SCHEMA_DUMP
+        char path[MAX_PATH];
+        GetModuleFileNameA(static_cast<HMODULE>(lpParam), path, MAX_PATH);
+        fs::path directory(path);
+
+        SchemaDumper::Dump(directory.parent_path());
+
+        utils::WaitForPress();
+#else
         hooks::Initialize();
 
 		while (!g_Unload) {
@@ -82,6 +93,7 @@ DWORD WINAPI OnDllAttach(LPVOID lpParam) {
 
 			Sleep(100);
         }
+#endif
 
         FreeLibraryAndExitThread(static_cast<HMODULE>(lpParam), 1);
     }
@@ -100,7 +112,9 @@ DWORD WINAPI OnDllAttach(LPVOID lpParam) {
 #include <crtdbg.h>
 
 BOOL WINAPI OnDllDetach() {
+#ifndef SCHEMA_DUMP
     hooks::Shutdown();
+#endif
 
     _CrtDumpMemoryLeaks();
 #ifdef _DEBUG

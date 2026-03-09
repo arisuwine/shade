@@ -1,16 +1,21 @@
 #pragma once
 #include <cstdint>
 
-#include "../data/SchemaMetaInfoHandle_t.hpp"
-#include "../data/SchemaClassInfoData_t.hpp"
+#include "CSchemaSystemTypeScope.hpp"
+#include "CSchemaType.hpp"
+
+#include "../tier1/utlvector.hpp"
 
 #include "../../utils/vmt/vmt.hpp"
 
-class IAppSystem {};
+struct ClassBindingScopeBlock_t {
+public:
+	uint64_t m_Hash;
+	uint64_t m_pUnknown;
+	CSchemaType_DeclaredClass* m_pDeclaredClass;
+};
 
-class ISchemaSystem : public IAppSystem {};
-
-class CSchemaSystem : public ISchemaSystem {
+class ISchemaSystem {
 public:
 	auto FindClassByScopedName(const char* pszScopedName) {
 		SchemaMetaInfoHandle_t<CSchemaClassInfo> result{};
@@ -24,4 +29,14 @@ public:
 
 		return result;
 	}
+
+	CSchemaSystemTypeScope* FindTypeScopeForModule(const char* pszModuleName, const char** ppszBindingName = NULL) {
+		return CALL_VIRTUAL(this, CSchemaSystemTypeScope*, 13, pszModuleName, ppszBindingName);
+	}
+};
+
+class CSchemaSystem : public ISchemaSystem {
+public:
+	char pad[0x190];
+	CUtlVector<CSchemaSystemTypeScope*> m_TypeScopes;
 };

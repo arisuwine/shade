@@ -1,8 +1,8 @@
 #pragma once
 #include <array>
 
-#include "../sdk/math/vector_2d.hpp"
-#include "../sdk/math/vector_3d.hpp"
+#include "../sdk/math/Vector2D.hpp"
+#include "../sdk/math/Vector3D.hpp"
 
 class C_CSPlayerPawn;
 

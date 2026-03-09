@@ -16,7 +16,7 @@
 // CWndProcHook
 void CWndProcHook::Initialize() {
 	DXGI_SWAP_CHAIN_DESC SwapChainDesc;
-	if (FAILED(g_SwapChain->GetDesc(&SwapChainDesc)))
+	if (FAILED(g_pSwapChain->GetDesc(&SwapChainDesc)))
 		throw std::runtime_error("failed to get swapchain desc");
 
 	m_hwnd = SwapChainDesc.OutputWindow;
@@ -26,7 +26,7 @@ void CWndProcHook::Initialize() {
 	ImGui::CreateContext();
 
 	ImGui_ImplWin32_Init(m_hwnd);
-	ImGui_ImplDX11_Init(g_Device, g_DeviceContext);
+	ImGui_ImplDX11_Init(g_pDevice, g_pDeviceContext);
 
 	RenderTarget::Initialize();
 	Menu::Get().Initialize();

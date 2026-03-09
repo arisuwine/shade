@@ -9,7 +9,7 @@ void CIDXGIFactoryHook::Register() {
 	IDXGIAdapter* pAdapter = nullptr;
 	IDXGIFactory* pFactory = nullptr;
 
-	if (FAILED(g_Device->QueryInterface(__uuidof(IDXGIDevice), reinterpret_cast<void**>(&pDXGIDevice))))
+	if (FAILED(g_pDevice->QueryInterface(__uuidof(IDXGIDevice), reinterpret_cast<void**>(&pDXGIDevice))))
 		throw std::runtime_error("failed to get IDXGIDevice");
 
 	if (FAILED(pDXGIDevice->GetParent(__uuidof(IDXGIAdapter), reinterpret_cast<void**>(&pAdapter))))
@@ -33,13 +33,13 @@ void CIDXGIFactoryHook::Register() {
 HRESULT __stdcall CIDXGIFactoryHook::hkCreateSwapChain(IDXGIFactory* pFactory, IUnknown* pDevice, DXGI_SWAP_CHAIN_DESC* pDesc, IDXGISwapChain** ppSwapChain) {
 	HRESULT result = m_pCreateSwapChainOrig(pFactory, pDevice, pDesc, ppSwapChain);
 	if (SUCCEEDED(result) && ppSwapChain && *ppSwapChain) {
-		if (g_TargetView) {
-			g_TargetView->Release();
-			g_TargetView = nullptr;
+		if (g_pTargetView) {
+			g_pTargetView->Release();
+			g_pTargetView = nullptr;
 		}
 
-		if (g_SwapChain != *ppSwapChain) {
-			g_SwapChain = *ppSwapChain;
+		if (g_pSwapChain != *ppSwapChain) {
+			g_pSwapChain = *ppSwapChain;
 
 			if (!m_pSwapChainHook)
 				for (const auto& hook : hooks::g_pHooks)
@@ -48,7 +48,7 @@ HRESULT __stdcall CIDXGIFactoryHook::hkCreateSwapChain(IDXGIFactory* pFactory, I
 						break;
 					}
 
-			m_pSwapChainHook->Rebase(g_SwapChain, true);
+			m_pSwapChainHook->Rebase(g_pSwapChain, true);
 		}
 	}
 	

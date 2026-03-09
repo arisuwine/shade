@@ -8,14 +8,14 @@
 
 #include "../sdk/entities/C_CSPlayerPawn.hpp"
 
-#include "../sdk/data/CUserCmd.hpp"
+#include "../sdk/services/CUserCmd.hpp" 
 
 #include "../menu/options.hpp"
 
 #include "../features/movement.hpp"
 
 void CCSGOInputHook::Register() {
-	std::unique_ptr<CVMTHook> hook = std::make_unique<CVMTHook>("CCSGOInputHook", g_CCSGOInput);
+	std::unique_ptr<CVMTHook> hook = std::make_unique<CVMTHook>("CCSGOInputHook", g_pCSGOInput);
 
 	hooks::AddVMTHook(hook.get(), 22, hkCreateMove, &m_pCreateMoveOrig);
 

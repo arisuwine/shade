@@ -98,13 +98,13 @@ bool vmt::Shadowing::UnHook(size_t index) {
 		return FALSE;
 
 	if (index >= m_iVftSize) {
-		lg::Warn("[VMT]", "Unhook failed: Index out of bounds (Max: %zu)\n", m_iVftSize);
+		lg::Error("[VMT]", "Unhook failed: Index out of bounds (Max: %zu)\n", m_iVftSize);
 		return false;
 	}
 
 
 	if (m_OriginalFuncs.find(index) == m_OriginalFuncs.end()) {
-		lg::Warn("[VMT]", "Unhook failed: No original function found for this index.\n");
+		lg::Error("[VMT]", "Unhook failed: No original function found for this index.\n");
 		return false;
 	}
 	

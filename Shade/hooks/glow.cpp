@@ -10,9 +10,12 @@
 #include "../sdk/services/CGlowProperty.hpp"
 #include "../sdk/services/CGlowObject.hpp"
 
-#include "../sdk/utils/color.hpp"
+#include "../sdk/tier0/color.hpp"
 
 #include "../menu/options.hpp"
+
+
+class CSchemaSystemTypeScope;
 
 void CIsGlowingHook::Register() {
 	uintptr_t pIsGlowing = modules::client.Find(IS_GLOWING);
@@ -25,7 +28,7 @@ void CApplyGlowHook::Register() {
 }
 
 bool __fastcall CIsGlowingHook::hkIsGlowing(CGlowProperty* property) {
-	if (!(g_CNetworkClientService->m_pCNetworkGameClient->IsInGame()))
+	if (!(g_pNetworkClientService->m_pCNetworkGameClient->IsInGame()))
 		return m_pIsGlowingOrig(property);
 
 	C_BaseEntity* entity = property->m_pParent;
@@ -35,19 +38,16 @@ bool __fastcall CIsGlowingHook::hkIsGlowing(CGlowProperty* property) {
 	if (entity->IsWeapon() && !entity->m_hOwnerEntity.IsValid())
 		return true;
 
-	if (entity->Schema_DynamicBinding() != g_CSchemaSystem->FindClassByScopedName("client.dll!C_CSPlayerPawn"))
+	if (entity->Schema_DynamicBinding() != g_pSchemaSystem->FindClassByScopedName("client.dll!C_CSPlayerPawn"))
 		return m_pIsGlowingOrig(property);
 
 	return true;
 }
 
 void __fastcall CApplyGlowHook::hkApplyGlow(CGlowProperty* property, CGlowObject* object) {
-	//lg::Info("[SWAPCHAIN]", "%p\n", g_SwapChain);
-	//lg::Info("[SWAPCHAIN]", "%p\n", g_EngineServiceMgr->GetEngineSwapChain());
-
 	m_pApplyGlowOrig(property, object);
 
-	if (!g_CNetworkClientService->m_pCNetworkGameClient->IsInGame())
+	if (!g_pNetworkClientService->m_pCNetworkGameClient->IsInGame())
 		return;
 
 	if (!g_Options->esp_enabled || !g_Options->esp_glow)

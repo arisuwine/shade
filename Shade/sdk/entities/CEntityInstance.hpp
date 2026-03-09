@@ -1,8 +1,8 @@
 #pragma once
 #include "../offsets.hpp"
 
-#include "../data/SchemaMetaInfoHandle_t.hpp"
-#include "../data/SchemaClassInfoData_t.hpp"
+#include "../structs/SchemaMetaInfoHandle_t.hpp"
+#include "../structs/SchemaClassInfoData_t.hpp"
 
 #include "../../utils/vmt/vmt.hpp"
 

@@ -34,8 +34,8 @@ public:
 		return *reinterpret_cast<T**>(THIS_ADDR);
 	}
 
-	SCHEMA(CEntityClass*,		offsets::client::CEntityIdentity::m_pClass,			m_pClass		);
-	SCHEMA(CEntityHandle,		offsets::client::CEntityIdentity::m_EHandle,		m_EHandle		);
+	//SCHEMA(CEntityClass*,		0x8,			m_pClass		);
+	//SCHEMA(CEntityHandle,		0x10,		m_EHandle		);
 	SCHEMA(const char*,			offsets::client::CEntityIdentity::m_name,			m_name			);
 	SCHEMA(const char*,			offsets::client::CEntityIdentity::m_designerName,	m_designerName	);
 	SCHEMA(CEntityIdentity*,	offsets::client::CEntityIdentity::m_pPrev,			m_pPrev			);

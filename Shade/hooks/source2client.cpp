@@ -7,7 +7,7 @@
 #include "../sdk/sdk.hpp"
 
 void CISource2ClientHook::Register() {
-	std::unique_ptr<CVMTHook> hook = std::make_unique<CVMTHook>("CISource2ClientHook", g_Source2Client);
+	std::unique_ptr<CVMTHook> hook = std::make_unique<CVMTHook>("CISource2ClientHook", g_pSource2Client);
 
 	hooks::AddVMTHook<FrameStageNotifyFunc>(hook.get(), 36, hkFrameStageNotify, &m_pFrameStageNotifyOrig);
 

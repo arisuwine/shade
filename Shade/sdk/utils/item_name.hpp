@@ -1,7 +1,7 @@
 #pragma once
 #include "../utils/hash.hpp"
 
-std::string_view GetItemName(const std::string_view& name) {
+std::string_view GetItemName(std::string_view name) {
 	hash_t name_hash = hash::Get(name);
 
     switch (name_hash) {

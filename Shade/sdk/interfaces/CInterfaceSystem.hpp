@@ -8,7 +8,7 @@
 
 namespace CInterfaceSystem {
 	template<typename T>
-	static T* Get(const std::string_view& module_name, const std::string_view& interface_name){
+	static T* Get(std::string_view module_name, std::string_view interface_name){
 		HMODULE hModule = GetModuleHandleA(module_name.data());
 
 		if (!hModule)

@@ -7,7 +7,7 @@ class CEntityIdentity;
 
 class CEntityClass {
 public:
-	SCHEMA(CEntityIdentity*, offsets::client::CEntityClass::m_pFirstEntity, m_pFirstEntity);
+	SCHEMA(CEntityIdentity*, 0x150, m_pFirstEntity);
 
 	template <typename T>
 	CEntityIterator<T, true> GetAll() {

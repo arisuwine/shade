@@ -1,6 +1,6 @@
 #include "movement.hpp"
 
-#include "../sdk/data/CUserCmd.hpp"
+#include "../sdk/services/CUserCmd.hpp"
 
 #include "../sdk/entities/C_CSPlayerPawn.hpp"
 

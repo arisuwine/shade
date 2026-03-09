@@ -1,0 +1,165 @@
+[General]
+    Game: Counter-Strike 2
+    Dump Date: 2026-03-09 20:12:36
+    Generator: Shade Dumper 1.0
+
+[Modules]
+    engine2.dll
+        - Timestamp: 2026-03-04 23:13:41
+        - Classes Dumped: 55
+        - Enumerators Dumped: 2
+
+    vconcomm.dll
+        - Timestamp: 2026-03-04 23:05:40
+        - Classes Dumped: 1636
+        - Enumerators Dumped: 421
+
+    filesystem_stdio.dll
+        - Timestamp: 2026-03-04 23:05:16
+        - Classes Dumped: 1636
+        - Enumerators Dumped: 421
+
+    inputsystem.dll
+        - Timestamp: 2026-03-04 23:05:14
+        - Classes Dumped: 1636
+        - Enumerators Dumped: 421
+
+    imemanager.dll
+        - Timestamp: 2026-03-04 23:05:14
+        - Classes Dumped: 1636
+        - Enumerators Dumped: 421
+
+    localize.dll
+        - Timestamp: 2026-03-04 23:05:06
+        - Classes Dumped: 1636
+        - Enumerators Dumped: 421
+
+    rendersystemdx11.dll
+        - Timestamp: 2026-03-04 23:05:44
+        - Classes Dumped: 8
+        - Enumerators Dumped: 8
+
+    resourcesystem.dll
+        - Timestamp: 2026-03-04 23:05:15
+        - Classes Dumped: 58
+        - Enumerators Dumped: 2
+
+    schemasystem.dll
+        - Timestamp: 2026-03-04 23:05:27
+        - Classes Dumped: 7
+        - Enumerators Dumped: 2
+
+    materialsystem2.dll
+        - Timestamp: 2026-03-04 23:05:43
+        - Classes Dumped: 14
+        - Enumerators Dumped: 5
+
+    meshsystem.dll
+        - Timestamp: 2026-03-04 23:07:26
+        - Classes Dumped: 0
+        - Enumerators Dumped: 0
+
+    worldrenderer.dll
+        - Timestamp: 2026-03-04 23:13:16
+        - Classes Dumped: 32
+        - Enumerators Dumped: 3
+
+    pulse_system.dll
+        - Timestamp: 2026-03-04 23:06:15
+        - Classes Dumped: 97
+        - Enumerators Dumped: 5
+
+    vscript.dll
+        - Timestamp: 2026-03-04 23:06:08
+        - Classes Dumped: 1636
+        - Enumerators Dumped: 421
+
+    networksystem.dll
+        - Timestamp: 2026-03-04 23:06:31
+        - Classes Dumped: 1
+        - Enumerators Dumped: 1
+
+    animationsystem.dll
+        - Timestamp: 2026-03-04 23:07:06
+        - Classes Dumped: 662
+        - Enumerators Dumped: 139
+
+    vphysics2.dll
+        - Timestamp: 2026-03-04 23:10:14
+        - Classes Dumped: 101
+        - Enumerators Dumped: 3
+
+    soundsystem.dll
+        - Timestamp: 2026-03-04 23:11:21
+        - Classes Dumped: 127
+        - Enumerators Dumped: 19
+
+    steamaudio.dll
+        - Timestamp: 2026-03-04 23:06:34
+        - Classes Dumped: 16
+        - Enumerators Dumped: 0
+
+    scenesystem.dll
+        - Timestamp: 2026-03-04 23:11:40
+        - Classes Dumped: 9
+        - Enumerators Dumped: 4
+
+    particles.dll
+        - Timestamp: 2026-03-04 23:09:13
+        - Classes Dumped: 498
+        - Enumerators Dumped: 75
+
+    panoramauiclient.dll
+        - Timestamp: 2026-03-04 23:13:12
+        - Classes Dumped: 1636
+        - Enumerators Dumped: 421
+
+    panorama.dll
+        - Timestamp: 2026-03-04 23:10:56
+        - Classes Dumped: 0
+        - Enumerators Dumped: 2
+
+    panorama_text_pango.dll
+        - Timestamp: 2026-03-04 23:05:20
+        - Classes Dumped: 1636
+        - Enumerators Dumped: 421
+
+    v8system.dll
+        - Timestamp: 2026-03-04 23:05:04
+        - Classes Dumped: 1636
+        - Enumerators Dumped: 421
+
+    server.dll
+        - Timestamp: 2026-03-05 22:02:26
+        - Classes Dumped: 890
+        - Enumerators Dumped: 165
+
+    client.dll
+        - Timestamp: 2026-03-05 22:02:17
+        - Classes Dumped: 535
+        - Enumerators Dumped: 12
+
+    host.dll
+        - Timestamp: 2026-03-04 23:10:07
+        - Classes Dumped: 2
+        - Enumerators Dumped: 0
+
+    scenefilecache.dll
+        - Timestamp: 2026-03-04 23:10:12
+        - Classes Dumped: 0
+        - Enumerators Dumped: 0
+
+    matchmaking.dll
+        - Timestamp: 2026-03-04 23:05:43
+        - Classes Dumped: 1636
+        - Enumerators Dumped: 421
+
+    navsystem.dll
+        - Timestamp: 2026-03-04 23:07:22
+        - Classes Dumped: 1636
+        - Enumerators Dumped: 421
+
+[Stats]
+    Total Classes Dumped: 21108
+    Total Enumerators Dumped: 5078
+    Execution Time: 5961ms

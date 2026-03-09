@@ -51,7 +51,7 @@ void ESP::BeginRender() {
 	if (!LocalPlayer::Get().IsValid())
 		return;
 
-	for (auto controller : g_CGameEntitySystem->GetAll<CCSPlayerController>()) {
+	for (auto controller : g_pGameEntitySystem->GetAll<CCSPlayerController>()) {
 		if (!controller)
 			break;
 

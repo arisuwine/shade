@@ -2,7 +2,7 @@
 #include <memory>
 #include <string>
 
-#include "../sdk/utils/color.hpp"
+#include "../sdk/tier0/color.hpp"
 
 #define DEFAULT_COLOR Color(255, 255, 255, 255)
 
